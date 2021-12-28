@@ -152,6 +152,7 @@ extern void ix86_expand_sse_movcc (rtx, rtx, rtx, rtx);
 extern void ix86_expand_sse_unpack (rtx, rtx, bool, bool);
 extern bool ix86_expand_int_addcc (rtx[]);
 extern rtx_insn *ix86_expand_call (rtx, rtx, rtx, rtx, rtx, bool);
+extern bool ix86_call_use_plt_p (rtx);
 extern void ix86_split_call_vzeroupper (rtx, rtx);
 extern void x86_initialize_trampoline (rtx, rtx, rtx);
 extern rtx ix86_zero_extend_to_Pmode (rtx);
@@ -217,6 +218,8 @@ extern void ix86_move_vector_high_sse_to_mmx (rtx);
 extern void ix86_split_mmx_pack (rtx[], enum rtx_code);
 extern void ix86_split_mmx_punpck (rtx[], bool);
 extern void ix86_expand_avx_vzeroupper (void);
+extern void ix86_expand_atomic_fetch_op_loop (rtx, rtx, rtx, enum rtx_code,
+					      bool, bool);
 
 #ifdef TREE_CODE
 extern void init_cumulative_args (CUMULATIVE_ARGS *, tree, rtx, tree, int);
@@ -241,6 +244,7 @@ extern unsigned int ix86_get_callcvt (const_tree);
 #endif
 
 extern rtx ix86_tls_module_base (void);
+extern bool ix86_gpr_tls_address_pattern_p (rtx);
 extern bool ix86_tls_address_pattern_p (rtx);
 extern rtx ix86_rewrite_tls_address (rtx);
 

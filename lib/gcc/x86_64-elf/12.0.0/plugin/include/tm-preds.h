@@ -181,6 +181,7 @@ extern bool permvar_truncate_operand (rtx, machine_mode);
 extern bool pshufb_truncv4siv4hi_operand (rtx, machine_mode);
 extern bool pshufb_truncv8hiv8qi_operand (rtx, machine_mode);
 extern bool pmovzx_parallel (rtx, machine_mode);
+extern bool const_vector_duplicate_operand (rtx, machine_mode);
 extern bool avx_vbroadcast_operand (rtx, machine_mode);
 extern bool palignr_operand (rtx, machine_mode);
 extern bool avx2_pblendw_operand (rtx, machine_mode);
@@ -237,6 +238,7 @@ enum constraint_num
   CONSTRAINT_O,
   CONSTRAINT_m,
   CONSTRAINT_o,
+  CONSTRAINT_Bk,
   CONSTRAINT_Bm,
   CONSTRAINT_Bc,
   CONSTRAINT_Bn,
@@ -259,6 +261,7 @@ enum constraint_num
   CONSTRAINT__l,
   CONSTRAINT__g,
   CONSTRAINT_BF,
+  CONSTRAINT_BM,
   CONSTRAINT_i,
   CONSTRAINT_s,
   CONSTRAINT_n,
@@ -308,7 +311,7 @@ insn_extra_register_constraint (enum constraint_num c)
 static inline bool
 insn_extra_memory_constraint (enum constraint_num c)
 {
-  return c >= CONSTRAINT_m && c <= CONSTRAINT_o;
+  return c >= CONSTRAINT_m && c <= CONSTRAINT_Bk;
 }
 
 static inline bool
@@ -340,7 +343,7 @@ insn_extra_constraint_allows_reg_mem (enum constraint_num c,
       *allows_reg = true;
       return;
     }
-  if (c >= CONSTRAINT_V && c <= CONSTRAINT_BF)
+  if (c >= CONSTRAINT_V && c <= CONSTRAINT_BM)
     {
       *allows_mem = true;
       return;

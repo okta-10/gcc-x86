@@ -408,10 +408,6 @@ extern unsigned char ix86_tune_features[X86_TUNE_LAST];
 	ix86_tune_features[X86_TUNE_AVOID_LEA_FOR_ADDR]
 #define TARGET_SOFTWARE_PREFETCHING_BENEFICIAL \
 	ix86_tune_features[X86_TUNE_SOFTWARE_PREFETCHING_BENEFICIAL]
-#define TARGET_AVX256_MOVE_BY_PIECES \
-	ix86_tune_features[X86_TUNE_AVX256_MOVE_BY_PIECES]
-#define TARGET_AVX256_STORE_BY_PIECES \
-	ix86_tune_features[X86_TUNE_AVX256_STORE_BY_PIECES]
 #define TARGET_AVX256_SPLIT_REGS \
 	ix86_tune_features[X86_TUNE_AVX256_SPLIT_REGS]
 #define TARGET_GENERAL_REGS_SSE_SPILL \
@@ -1009,20 +1005,22 @@ extern const char *host_detect_local_cpu (int argc, const char **argv);
 #define VALID_AVX256_REG_MODE(MODE)					\
   ((MODE) == V32QImode || (MODE) == V16HImode || (MODE) == V8SImode	\
    || (MODE) == V4DImode || (MODE) == V2TImode || (MODE) == V8SFmode	\
-   || (MODE) == V4DFmode)
+   || (MODE) == V4DFmode || (MODE) == V16HFmode)
 
-#define VALID_AVX256_REG_OR_OI_VHF_MODE(MODE)		\
-  (VALID_AVX256_REG_MODE (MODE) || (MODE) == OImode || (MODE) == V16HFmode)
+#define VALID_AVX256_REG_OR_OI_MODE(MODE)		\
+  (VALID_AVX256_REG_MODE (MODE) || (MODE) == OImode)
 
 #define VALID_AVX512F_SCALAR_MODE(MODE)					\
   ((MODE) == DImode || (MODE) == DFmode || (MODE) == SImode		\
-   || (MODE) == SFmode							\
-   || (TARGET_AVX512FP16 && ((MODE) == HImode || (MODE) == HFmode)))
+   || (MODE) == SFmode)
+
+#define VALID_AVX512FP16_SCALAR_MODE(MODE)	\
+  ((MODE) == HImode || (MODE) == HFmode)
 
 #define VALID_AVX512F_REG_MODE(MODE)					\
   ((MODE) == V8DImode || (MODE) == V8DFmode || (MODE) == V64QImode	\
    || (MODE) == V16SImode || (MODE) == V16SFmode || (MODE) == V32HImode \
-   || (MODE) == V4TImode)
+   || (MODE) == V4TImode || (MODE) == V32HFmode)
 
 #define VALID_AVX512F_REG_OR_XI_MODE(MODE)				\
   (VALID_AVX512F_REG_MODE (MODE) || (MODE) == XImode)
@@ -1039,12 +1037,9 @@ extern const char *host_detect_local_cpu (int argc, const char **argv);
 
 #define VALID_SSE2_REG_MODE(MODE)					\
   ((MODE) == V16QImode || (MODE) == V8HImode || (MODE) == V2DFmode	\
+   || (MODE) == V8HFmode || (MODE) == V4HFmode || (MODE) == V2HFmode	\
    || (MODE) == V4QImode || (MODE) == V2HImode || (MODE) == V1SImode	\
    || (MODE) == V2DImode || (MODE) == DFmode || (MODE) == HFmode)
-
-#define VALID_SSE2_REG_VHF_MODE(MODE)			\
-  (VALID_SSE2_REG_MODE (MODE) || (MODE) == V8HFmode	\
-   || (MODE) == V4HFmode || (MODE) == V2HFmode)
 
 #define VALID_SSE_REG_MODE(MODE)					\
   ((MODE) == V1TImode || (MODE) == TImode				\
@@ -1076,7 +1071,8 @@ extern const char *host_detect_local_cpu (int argc, const char **argv);
    || (MODE) == CSImode || (MODE) == CDImode				\
    || (MODE) == SDmode || (MODE) == DDmode				\
    || (MODE) == HFmode || (MODE) == HCmode				\
-   || (MODE) == V4QImode || (MODE) == V2HImode || (MODE) == V1SImode	\
+   || (MODE) == V2HImode || (MODE) == V2HFmode				\
+   || (MODE) == V1SImode || (MODE) == V4QImode				\
    || (TARGET_64BIT							\
        && ((MODE) == TImode || (MODE) == CTImode			\
 	   || (MODE) == TFmode || (MODE) == TCmode			\
@@ -1283,6 +1279,8 @@ enum reg_class
   reg_class_subset_p ((CLASS), FLOAT_REGS)
 #define SSE_CLASS_P(CLASS) \
   reg_class_subset_p ((CLASS), ALL_SSE_REGS)
+#define INT_SSE_CLASS_P(CLASS) \
+  reg_class_subset_p ((CLASS), INT_SSE_REGS)
 #define MMX_CLASS_P(CLASS) \
   ((CLASS) == MMX_REGS)
 #define MASK_CLASS_P(CLASS) \
@@ -1409,9 +1407,12 @@ enum reg_class
 
 #define SSE_REG_P(X) (REG_P (X) && SSE_REGNO_P (REGNO (X)))
 #define SSE_REGNO_P(N)						\
-  (IN_RANGE ((N), FIRST_SSE_REG, LAST_SSE_REG)			\
+  (LEGACY_SSE_REGNO_P (N)					\
    || REX_SSE_REGNO_P (N)					\
    || EXT_REX_SSE_REGNO_P (N))
+
+#define LEGACY_SSE_REGNO_P(N) \
+  IN_RANGE ((N), FIRST_SSE_REG, LAST_SSE_REG)
 
 #define REX_SSE_REGNO_P(N) \
   IN_RANGE ((N), FIRST_REX_SSE_REG, LAST_REX_SSE_REG)
@@ -1804,12 +1805,13 @@ typedef struct ix86_args {
    MOVE_MAX_PIECES defaults to MOVE_MAX.  */
 
 #define MOVE_MAX \
-  ((TARGET_AVX512F && !TARGET_PREFER_AVX256) \
+  ((TARGET_AVX512F \
+    && (ix86_move_max == PVW_AVX512 \
+	|| ix86_store_max == PVW_AVX512)) \
    ? 64 \
    : ((TARGET_AVX \
-       && !TARGET_PREFER_AVX128 \
-       && (TARGET_AVX256_MOVE_BY_PIECES \
-	   || TARGET_AVX256_STORE_BY_PIECES)) \
+       && (ix86_move_max >= PVW_AVX256 \
+	   || ix86_store_max >= PVW_AVX256)) \
       ? 32 \
       : ((TARGET_SSE2 \
 	  && TARGET_SSE_UNALIGNED_LOAD_OPTIMAL \
@@ -1822,11 +1824,10 @@ typedef struct ix86_args {
    store_by_pieces of 16/32/64 bytes.  */
 #define STORE_MAX_PIECES \
   (TARGET_INTER_UNIT_MOVES_TO_VEC \
-   ? ((TARGET_AVX512F && !TARGET_PREFER_AVX256) \
+   ? ((TARGET_AVX512F && ix86_store_max == PVW_AVX512) \
       ? 64 \
       : ((TARGET_AVX \
-	  && !TARGET_PREFER_AVX128 \
-	  && TARGET_AVX256_STORE_BY_PIECES) \
+	  && ix86_store_max >= PVW_AVX256) \
 	  ? 32 \
 	  : ((TARGET_SSE2 \
 	      && TARGET_SSE_UNALIGNED_STORE_OPTIMAL) \

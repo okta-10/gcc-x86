@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/workspace/gitpod/build-gcc/output/gcc-x86/libexec/gcc/x86_64-elf/12.0.0'
+libdir='/drone/src/build-gcc/output/gcc-x86/libexec/gcc/x86_64-elf/12.0.0'

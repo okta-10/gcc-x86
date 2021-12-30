@@ -46,7 +46,7 @@
 
 /* Define 0/1 to force the choice for exception handling model. */
 #ifndef USED_FOR_TARGET
-#define CONFIG_SJLJ_EXCEPTIONS 0
+/* #undef CONFIG_SJLJ_EXCEPTIONS */
 #endif
 
 
@@ -141,7 +141,7 @@
 /* Define if your target supports default stack protector and it is enabled.
    */
 #ifndef USED_FOR_TARGET
-#define ENABLE_DEFAULT_SSP 1
+/* #undef ENABLE_DEFAULT_SSP */
 #endif
 
 
@@ -2450,7 +2450,7 @@
 
 /* Define if your target C library provides stack protector support */
 #ifndef USED_FOR_TARGET
-#define TARGET_LIBC_PROVIDES_SSP 1
+/* #undef TARGET_LIBC_PROVIDES_SSP */
 #endif
 
 

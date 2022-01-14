@@ -1,5 +1,5 @@
 /* Compilation switch flag type definitions for GCC.
-   Copyright (C) 1987-2021 Free Software Foundation, Inc.
+   Copyright (C) 1987-2022 Free Software Foundation, Inc.
 
 This file is part of GCC.
 
@@ -424,7 +424,15 @@ enum gfc_convert
   GFC_FLAG_CONVERT_NATIVE = 0,
   GFC_FLAG_CONVERT_SWAP,
   GFC_FLAG_CONVERT_BIG,
-  GFC_FLAG_CONVERT_LITTLE
+  GFC_FLAG_CONVERT_LITTLE,
+  GFC_FLAG_CONVERT_R16_IEEE = 4,
+  GFC_FLAG_CONVERT_R16_IEEE_SWAP,
+  GFC_FLAG_CONVERT_R16_IEEE_BIG,
+  GFC_FLAG_CONVERT_R16_IEEE_LITTLE,
+  GFC_FLAG_CONVERT_R16_IBM = 8,
+  GFC_FLAG_CONVERT_R16_IBM_SWAP,
+  GFC_FLAG_CONVERT_R16_IBM_BIG,
+  GFC_FLAG_CONVERT_R16_IBM_LITTLE,
 };
 
 

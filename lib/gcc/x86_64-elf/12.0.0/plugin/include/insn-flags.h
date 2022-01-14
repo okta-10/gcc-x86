@@ -472,10 +472,13 @@
 #define HAVE_subv2hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
 #define HAVE_mulv2hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
 #define HAVE_divv2hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
+#define HAVE_negv2qi2 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
 #define HAVE_addv4qi3 (TARGET_SSE2)
 #define HAVE_subv4qi3 (TARGET_SSE2)
 #define HAVE_addv2hi3 (TARGET_SSE2)
 #define HAVE_subv2hi3 (TARGET_SSE2)
+#define HAVE_addv2qi3 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
+#define HAVE_subv2qi3 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
 #define HAVE_mulv2hi3 (TARGET_SSE2)
 #define HAVE_smulv2hi3_highpart (TARGET_SSE2)
 #define HAVE_umulv2hi3_highpart (TARGET_SSE2)
@@ -485,6 +488,8 @@
 #define HAVE_sminv2si3 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
 #define HAVE_smaxv4qi3 (TARGET_SSE4_1)
 #define HAVE_sminv4qi3 (TARGET_SSE4_1)
+#define HAVE_smaxv2qi3 (TARGET_SSE4_1)
+#define HAVE_sminv2qi3 (TARGET_SSE4_1)
 #define HAVE_smaxv2hi3 (TARGET_SSE2)
 #define HAVE_sminv2hi3 (TARGET_SSE2)
 #define HAVE_umaxv4hi3 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
@@ -493,12 +498,15 @@
 #define HAVE_uminv2si3 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
 #define HAVE_umaxv4qi3 (TARGET_SSE2)
 #define HAVE_uminv4qi3 (TARGET_SSE2)
+#define HAVE_umaxv2qi3 (TARGET_SSE2)
+#define HAVE_uminv2qi3 (TARGET_SSE2)
 #define HAVE_umaxv2hi3 (TARGET_SSE4_1)
 #define HAVE_uminv2hi3 (TARGET_SSE4_1)
 #define HAVE_ssse3_absv8qi2 ((TARGET_MMX || TARGET_MMX_WITH_SSE) && TARGET_SSSE3)
 #define HAVE_ssse3_absv4hi2 ((TARGET_MMX || TARGET_MMX_WITH_SSE) && TARGET_SSSE3)
 #define HAVE_ssse3_absv2si2 ((TARGET_MMX || TARGET_MMX_WITH_SSE) && TARGET_SSSE3)
 #define HAVE_absv4qi2 (TARGET_SSSE3)
+#define HAVE_absv2qi2 (TARGET_SSSE3)
 #define HAVE_absv2hi2 (TARGET_SSSE3)
 #define HAVE_mmx_ashrv4hi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_ashrv2si3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -513,22 +521,33 @@
 #define HAVE_ashlv2hi3 (TARGET_SSE2)
 #define HAVE_lshrv2hi3 (TARGET_SSE2)
 #define HAVE_ashrv2hi3 (TARGET_SSE2)
+#define HAVE_ashlv2qi3 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
+#define HAVE_lshrv2qi3 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
+#define HAVE_ashrv2qi3 (!TARGET_PARTIAL_REG_STALL || optimize_function_for_size_p (cfun))
 #define HAVE_mmx_gtv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_gtv4hi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_gtv2si3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
-#define HAVE_mmx_pblendvb64 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
-#define HAVE_mmx_pblendvb32 (TARGET_SSE4_1)
+#define HAVE_mmx_pblendvb_v8qi (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
+#define HAVE_mmx_pblendvb_v4qi (TARGET_SSE4_1)
+#define HAVE_mmx_pblendvb_v2qi (TARGET_SSE4_1)
+#define HAVE_mmx_pblendvb_v2hi (TARGET_SSE4_1)
 #define HAVE_mmx_ppermv64 (TARGET_XOP && TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_ppermv32 (TARGET_XOP)
+#define HAVE_one_cmplv4qi2 1
+#define HAVE_one_cmplv2qi2 1
+#define HAVE_one_cmplv2hi2 1
 #define HAVE_mmx_andnotv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_andnotv4hi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_andnotv2si3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
-#define HAVE_andv4qi3 (TARGET_SSE2)
-#define HAVE_iorv4qi3 (TARGET_SSE2)
-#define HAVE_xorv4qi3 (TARGET_SSE2)
-#define HAVE_andv2hi3 (TARGET_SSE2)
-#define HAVE_iorv2hi3 (TARGET_SSE2)
-#define HAVE_xorv2hi3 (TARGET_SSE2)
+#define HAVE_andv4qi3 1
+#define HAVE_iorv4qi3 1
+#define HAVE_xorv4qi3 1
+#define HAVE_andv2qi3 1
+#define HAVE_iorv2qi3 1
+#define HAVE_xorv2qi3 1
+#define HAVE_andv2hi3 1
+#define HAVE_iorv2hi3 1
+#define HAVE_xorv2hi3 1
 #define HAVE_mmx_packsswb (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_packuswb (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_packssdw (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -553,6 +572,7 @@
    && (TARGET_SSE || TARGET_3DNOW_A))
 #define HAVE_mmx_pswapdv2si2 (TARGET_3DNOW_A)
 #define HAVE_uavgv4qi3_ceil (TARGET_SSE2)
+#define HAVE_uavgv2qi3_ceil (TARGET_SSE2)
 #define HAVE_uavgv2hi3_ceil (TARGET_SSE2)
 #define HAVE_mmx_psadbw ((TARGET_MMX || TARGET_MMX_WITH_SSE) \
    && (TARGET_SSE || TARGET_3DNOW_A))
@@ -4954,6 +4974,26 @@
 #define HAVE_atomic_bit_test_and_resethi_1 1
 #define HAVE_atomic_bit_test_and_resetsi_1 1
 #define HAVE_atomic_bit_test_and_resetdi_1 (TARGET_64BIT)
+#define HAVE_atomic_add_fetch_cmp_0qi_1 1
+#define HAVE_atomic_add_fetch_cmp_0hi_1 1
+#define HAVE_atomic_add_fetch_cmp_0si_1 1
+#define HAVE_atomic_add_fetch_cmp_0di_1 (TARGET_64BIT)
+#define HAVE_atomic_sub_fetch_cmp_0qi_1 1
+#define HAVE_atomic_sub_fetch_cmp_0hi_1 1
+#define HAVE_atomic_sub_fetch_cmp_0si_1 1
+#define HAVE_atomic_sub_fetch_cmp_0di_1 (TARGET_64BIT)
+#define HAVE_atomic_and_fetch_cmp_0qi_1 1
+#define HAVE_atomic_or_fetch_cmp_0qi_1 1
+#define HAVE_atomic_xor_fetch_cmp_0qi_1 1
+#define HAVE_atomic_and_fetch_cmp_0hi_1 1
+#define HAVE_atomic_or_fetch_cmp_0hi_1 1
+#define HAVE_atomic_xor_fetch_cmp_0hi_1 1
+#define HAVE_atomic_and_fetch_cmp_0si_1 1
+#define HAVE_atomic_or_fetch_cmp_0si_1 1
+#define HAVE_atomic_xor_fetch_cmp_0si_1 1
+#define HAVE_atomic_and_fetch_cmp_0di_1 (TARGET_64BIT)
+#define HAVE_atomic_or_fetch_cmp_0di_1 (TARGET_64BIT)
+#define HAVE_atomic_xor_fetch_cmp_0di_1 (TARGET_64BIT)
 #define HAVE_cbranchqi4 (TARGET_QIMODE_MATH)
 #define HAVE_cbranchhi4 (TARGET_HIMODE_MATH)
 #define HAVE_cbranchsi4 1
@@ -5931,14 +5971,16 @@
 #define HAVE_movmisalignv1di (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_movmisalignv2sf (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_movmisalignv4hf (TARGET_MMX || TARGET_MMX_WITH_SSE)
-#define HAVE_movv4qi (TARGET_SSE2)
-#define HAVE_movv2hi (TARGET_SSE2)
-#define HAVE_movv1si (TARGET_SSE2)
-#define HAVE_movv2hf (TARGET_SSE2)
-#define HAVE_movmisalignv4qi (TARGET_SSE2)
-#define HAVE_movmisalignv2hi (TARGET_SSE2)
-#define HAVE_movmisalignv1si (TARGET_SSE2)
-#define HAVE_movmisalignv2hf (TARGET_SSE2)
+#define HAVE_movv4qi 1
+#define HAVE_movv2hi 1
+#define HAVE_movv1si 1
+#define HAVE_movv2hf 1
+#define HAVE_movmisalignv4qi 1
+#define HAVE_movmisalignv2hi 1
+#define HAVE_movmisalignv1si 1
+#define HAVE_movmisalignv2hf 1
+#define HAVE_movv2qi 1
+#define HAVE_movmisalignv2qi 1
 #define HAVE_absv2sf2 (TARGET_MMX_WITH_SSE)
 #define HAVE_negv2sf2 (TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_addv2sf3 (TARGET_3DNOW)
@@ -5970,6 +6012,8 @@
 #define HAVE_negv8qi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_negv4hi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_negv2si2 (TARGET_MMX_WITH_SSE)
+#define HAVE_negv4qi2 (TARGET_SSE2)
+#define HAVE_negv2hi2 (TARGET_SSE2)
 #define HAVE_mmx_addv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_subv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_addv4hi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -5984,8 +6028,6 @@
 #define HAVE_subv4hi3 (TARGET_MMX_WITH_SSE)
 #define HAVE_addv2si3 (TARGET_MMX_WITH_SSE)
 #define HAVE_subv2si3 (TARGET_MMX_WITH_SSE)
-#define HAVE_negv4qi2 (TARGET_SSE2)
-#define HAVE_negv2hi2 (TARGET_SSE2)
 #define HAVE_mmx_ssaddv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_usaddv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_sssubv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -6032,11 +6074,13 @@
 #define HAVE_vec_cmpv4hiv4hi (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_cmpv2siv2si (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_cmpv4qiv4qi (TARGET_SSE2)
+#define HAVE_vec_cmpv2qiv2qi (TARGET_SSE2)
 #define HAVE_vec_cmpv2hiv2hi (TARGET_SSE2)
 #define HAVE_vec_cmpuv8qiv8qi (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_cmpuv4hiv4hi (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_cmpuv2siv2si (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_cmpuv4qiv4qi (TARGET_SSE2)
+#define HAVE_vec_cmpuv2qiv2qi (TARGET_SSE2)
 #define HAVE_vec_cmpuv2hiv2hi (TARGET_SSE2)
 #define HAVE_vcondv8qiv8qi (TARGET_MMX_WITH_SSE \
    && (GET_MODE_NUNITS (V8QImode) \
@@ -6075,6 +6119,7 @@
    && (GET_MODE_NUNITS (V2SFmode) \
        == GET_MODE_NUNITS (V2SImode)))
 #define HAVE_vcondv4qiv4qi (TARGET_SSE2)
+#define HAVE_vcondv2qiv2qi (TARGET_SSE2)
 #define HAVE_vcondv2hiv2hi (TARGET_SSE2)
 #define HAVE_vconduv8qiv8qi (TARGET_MMX_WITH_SSE \
    && (GET_MODE_NUNITS (V8QImode) \
@@ -6113,18 +6158,18 @@
    && (GET_MODE_NUNITS (V2SFmode) \
        == GET_MODE_NUNITS (V2SImode)))
 #define HAVE_vconduv4qiv4qi (TARGET_SSE2)
+#define HAVE_vconduv2qiv2qi (TARGET_SSE2)
 #define HAVE_vconduv2hiv2hi (TARGET_SSE2)
 #define HAVE_vcond_mask_v8qiv8qi (TARGET_MMX_WITH_SSE)
 #define HAVE_vcond_mask_v4hiv4hi (TARGET_MMX_WITH_SSE)
 #define HAVE_vcond_mask_v2siv2si (TARGET_MMX_WITH_SSE)
 #define HAVE_vcond_mask_v2sfv2si (TARGET_MMX_WITH_SSE)
 #define HAVE_vcond_mask_v4qiv4qi (TARGET_SSE2)
+#define HAVE_vcond_mask_v2qiv2qi (TARGET_SSE2)
 #define HAVE_vcond_mask_v2hiv2hi (TARGET_SSE2)
 #define HAVE_one_cmplv8qi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_one_cmplv4hi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_one_cmplv2si2 (TARGET_MMX_WITH_SSE)
-#define HAVE_one_cmplv4qi2 (TARGET_SSE2)
-#define HAVE_one_cmplv2hi2 (TARGET_SSE2)
 #define HAVE_mmx_andv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_iorv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_xorv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -8766,7 +8811,10 @@
 #define HAVE_absv4di2 ((TARGET_SSE2) && (TARGET_AVX2))
 #define HAVE_absv2di2 (TARGET_SSE2)
 #define HAVE_avx2_pblendw (TARGET_AVX2)
-#define HAVE_avx2_pblendph (TARGET_AVX2 \
+#define HAVE_avx2_pblendph (TARGET_AVX2)
+#define HAVE_avx2_pblendw_1 (TARGET_AVX2 \
+  && !((INTVAL (operands[3]) & 0xff) && (INTVAL (operands[3]) & 0xff00)))
+#define HAVE_avx2_pblendph_1 (TARGET_AVX2 \
   && !((INTVAL (operands[3]) & 0xff) && (INTVAL (operands[3]) & 0xff00)))
 #define HAVE_extendv16qiv16hi2 (TARGET_AVX2)
 #define HAVE_zero_extendv16qiv16hi2 (TARGET_AVX2)
@@ -9358,6 +9406,26 @@
 #define HAVE_atomic_bit_test_and_resethi 1
 #define HAVE_atomic_bit_test_and_resetsi 1
 #define HAVE_atomic_bit_test_and_resetdi (TARGET_64BIT)
+#define HAVE_atomic_add_fetch_cmp_0qi 1
+#define HAVE_atomic_sub_fetch_cmp_0qi 1
+#define HAVE_atomic_add_fetch_cmp_0hi 1
+#define HAVE_atomic_sub_fetch_cmp_0hi 1
+#define HAVE_atomic_add_fetch_cmp_0si 1
+#define HAVE_atomic_sub_fetch_cmp_0si 1
+#define HAVE_atomic_add_fetch_cmp_0di (TARGET_64BIT)
+#define HAVE_atomic_sub_fetch_cmp_0di (TARGET_64BIT)
+#define HAVE_atomic_and_fetch_cmp_0qi 1
+#define HAVE_atomic_or_fetch_cmp_0qi 1
+#define HAVE_atomic_xor_fetch_cmp_0qi 1
+#define HAVE_atomic_and_fetch_cmp_0hi 1
+#define HAVE_atomic_or_fetch_cmp_0hi 1
+#define HAVE_atomic_xor_fetch_cmp_0hi 1
+#define HAVE_atomic_and_fetch_cmp_0si 1
+#define HAVE_atomic_or_fetch_cmp_0si 1
+#define HAVE_atomic_xor_fetch_cmp_0si 1
+#define HAVE_atomic_and_fetch_cmp_0di (TARGET_64BIT)
+#define HAVE_atomic_or_fetch_cmp_0di (TARGET_64BIT)
+#define HAVE_atomic_xor_fetch_cmp_0di (TARGET_64BIT)
 extern rtx        gen_x86_sahf_1                                  (rtx);
 extern rtx        gen_insvhi_1                                    (rtx, rtx);
 extern rtx        gen_insvsi_1                                    (rtx, rtx);
@@ -9738,10 +9806,13 @@ extern rtx        gen_addv2hf3                                    (rtx, rtx, rtx
 extern rtx        gen_subv2hf3                                    (rtx, rtx, rtx);
 extern rtx        gen_mulv2hf3                                    (rtx, rtx, rtx);
 extern rtx        gen_divv2hf3                                    (rtx, rtx, rtx);
+extern rtx        gen_negv2qi2                                    (rtx, rtx);
 extern rtx        gen_addv4qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_subv4qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_addv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_subv2hi3                                    (rtx, rtx, rtx);
+extern rtx        gen_addv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_subv2qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_mulv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_smulv2hi3_highpart                          (rtx, rtx, rtx);
 extern rtx        gen_umulv2hi3_highpart                          (rtx, rtx, rtx);
@@ -9751,6 +9822,8 @@ extern rtx        gen_smaxv2si3                                   (rtx, rtx, rtx
 extern rtx        gen_sminv2si3                                   (rtx, rtx, rtx);
 extern rtx        gen_smaxv4qi3                                   (rtx, rtx, rtx);
 extern rtx        gen_sminv4qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_smaxv2qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_sminv2qi3                                   (rtx, rtx, rtx);
 extern rtx        gen_smaxv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_sminv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_umaxv4hi3                                   (rtx, rtx, rtx);
@@ -9759,12 +9832,15 @@ extern rtx        gen_umaxv2si3                                   (rtx, rtx, rtx
 extern rtx        gen_uminv2si3                                   (rtx, rtx, rtx);
 extern rtx        gen_umaxv4qi3                                   (rtx, rtx, rtx);
 extern rtx        gen_uminv4qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_umaxv2qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_uminv2qi3                                   (rtx, rtx, rtx);
 extern rtx        gen_umaxv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_uminv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_ssse3_absv8qi2                              (rtx, rtx);
 extern rtx        gen_ssse3_absv4hi2                              (rtx, rtx);
 extern rtx        gen_ssse3_absv2si2                              (rtx, rtx);
 extern rtx        gen_absv4qi2                                    (rtx, rtx);
+extern rtx        gen_absv2qi2                                    (rtx, rtx);
 extern rtx        gen_absv2hi2                                    (rtx, rtx);
 extern rtx        gen_mmx_ashrv4hi3                               (rtx, rtx, rtx);
 extern rtx        gen_mmx_ashrv2si3                               (rtx, rtx, rtx);
@@ -9779,19 +9855,30 @@ extern rtx        gen_mmx_lshrv1si3                               (rtx, rtx, rtx
 extern rtx        gen_ashlv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_lshrv2hi3                                   (rtx, rtx, rtx);
 extern rtx        gen_ashrv2hi3                                   (rtx, rtx, rtx);
+extern rtx        gen_ashlv2qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_lshrv2qi3                                   (rtx, rtx, rtx);
+extern rtx        gen_ashrv2qi3                                   (rtx, rtx, rtx);
 extern rtx        gen_mmx_gtv8qi3                                 (rtx, rtx, rtx);
 extern rtx        gen_mmx_gtv4hi3                                 (rtx, rtx, rtx);
 extern rtx        gen_mmx_gtv2si3                                 (rtx, rtx, rtx);
-extern rtx        gen_mmx_pblendvb64                              (rtx, rtx, rtx, rtx);
-extern rtx        gen_mmx_pblendvb32                              (rtx, rtx, rtx, rtx);
+extern rtx        gen_mmx_pblendvb_v8qi                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_mmx_pblendvb_v4qi                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_mmx_pblendvb_v2qi                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_mmx_pblendvb_v2hi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_mmx_ppermv64                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_mmx_ppermv32                                (rtx, rtx, rtx, rtx);
+extern rtx        gen_one_cmplv4qi2                               (rtx, rtx);
+extern rtx        gen_one_cmplv2qi2                               (rtx, rtx);
+extern rtx        gen_one_cmplv2hi2                               (rtx, rtx);
 extern rtx        gen_mmx_andnotv8qi3                             (rtx, rtx, rtx);
 extern rtx        gen_mmx_andnotv4hi3                             (rtx, rtx, rtx);
 extern rtx        gen_mmx_andnotv2si3                             (rtx, rtx, rtx);
 extern rtx        gen_andv4qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_iorv4qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_xorv4qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_andv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_iorv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_xorv2qi3                                    (rtx, rtx, rtx);
 extern rtx        gen_andv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_iorv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_xorv2hi3                                    (rtx, rtx, rtx);
@@ -9818,6 +9905,7 @@ extern rtx        gen_mmx_pshufbv4qi3                             (rtx, rtx, rtx
 extern rtx        gen_mmx_pshufw_1                                (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_mmx_pswapdv2si2                             (rtx, rtx);
 extern rtx        gen_uavgv4qi3_ceil                              (rtx, rtx, rtx);
+extern rtx        gen_uavgv2qi3_ceil                              (rtx, rtx, rtx);
 extern rtx        gen_uavgv2hi3_ceil                              (rtx, rtx, rtx);
 extern rtx        gen_mmx_psadbw                                  (rtx, rtx, rtx);
 extern rtx        gen_mmx_pmovmskb                                (rtx, rtx);
@@ -14521,6 +14609,26 @@ extern rtx        gen_atomic_bit_test_and_complementdi_1          (rtx, rtx, rtx
 extern rtx        gen_atomic_bit_test_and_resethi_1               (rtx, rtx, rtx);
 extern rtx        gen_atomic_bit_test_and_resetsi_1               (rtx, rtx, rtx);
 extern rtx        gen_atomic_bit_test_and_resetdi_1               (rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0qi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0hi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0si_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0di_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0qi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0hi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0si_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0di_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0qi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0qi_1                   (rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0qi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0hi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0hi_1                   (rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0hi_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0si_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0si_1                   (rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0si_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0di_1                  (rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0di_1                   (rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0di_1                  (rtx, rtx, rtx);
 extern rtx        gen_cbranchqi4                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchhi4                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4                                  (rtx, rtx, rtx, rtx);
@@ -15046,6 +15154,8 @@ extern rtx        gen_movmisalignv4qi                             (rtx, rtx);
 extern rtx        gen_movmisalignv2hi                             (rtx, rtx);
 extern rtx        gen_movmisalignv1si                             (rtx, rtx);
 extern rtx        gen_movmisalignv2hf                             (rtx, rtx);
+extern rtx        gen_movv2qi                                     (rtx, rtx);
+extern rtx        gen_movmisalignv2qi                             (rtx, rtx);
 extern rtx        gen_absv2sf2                                    (rtx, rtx);
 extern rtx        gen_negv2sf2                                    (rtx, rtx);
 extern rtx        gen_mmx_addv2sf3                                (rtx, rtx, rtx);
@@ -15077,6 +15187,8 @@ extern rtx        gen_vec_initv2sfsf                              (rtx, rtx);
 extern rtx        gen_negv8qi2                                    (rtx, rtx);
 extern rtx        gen_negv4hi2                                    (rtx, rtx);
 extern rtx        gen_negv2si2                                    (rtx, rtx);
+extern rtx        gen_negv4qi2                                    (rtx, rtx);
+extern rtx        gen_negv2hi2                                    (rtx, rtx);
 extern rtx        gen_mmx_addv8qi3                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_subv8qi3                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_addv4hi3                                (rtx, rtx, rtx);
@@ -15091,8 +15203,6 @@ extern rtx        gen_addv4hi3                                    (rtx, rtx, rtx
 extern rtx        gen_subv4hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_addv2si3                                    (rtx, rtx, rtx);
 extern rtx        gen_subv2si3                                    (rtx, rtx, rtx);
-extern rtx        gen_negv4qi2                                    (rtx, rtx);
-extern rtx        gen_negv2hi2                                    (rtx, rtx);
 extern rtx        gen_mmx_ssaddv8qi3                              (rtx, rtx, rtx);
 extern rtx        gen_mmx_usaddv8qi3                              (rtx, rtx, rtx);
 extern rtx        gen_mmx_sssubv8qi3                              (rtx, rtx, rtx);
@@ -15134,11 +15244,13 @@ extern rtx        gen_vec_cmpv8qiv8qi                             (rtx, rtx, rtx
 extern rtx        gen_vec_cmpv4hiv4hi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv2siv2si                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv4qiv4qi                             (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_cmpv2qiv2qi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpv2hiv2hi                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv8qiv8qi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv4hiv4hi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv2siv2si                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv4qiv4qi                            (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_cmpuv2qiv2qi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv2hiv2hi                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv8qiv8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv4hiv8qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
@@ -15153,6 +15265,7 @@ extern rtx        gen_vcondv4hiv2si                               (rtx, rtx, rtx
 extern rtx        gen_vcondv2siv2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv2sfv2si                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv4qiv4qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vcondv2qiv2qi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv2hiv2hi                               (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduv8qiv8qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduv4hiv8qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
@@ -15167,18 +15280,18 @@ extern rtx        gen_vconduv4hiv2si                              (rtx, rtx, rtx
 extern rtx        gen_vconduv2siv2si                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduv2sfv2si                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduv4qiv4qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_vconduv2qiv2qi                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vconduv2hiv2hi                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v8qiv8qi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v4hiv4hi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v2siv2si                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v2sfv2si                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v4qiv4qi                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_vcond_mask_v2qiv2qi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v2hiv2hi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_one_cmplv8qi2                               (rtx, rtx);
 extern rtx        gen_one_cmplv4hi2                               (rtx, rtx);
 extern rtx        gen_one_cmplv2si2                               (rtx, rtx);
-extern rtx        gen_one_cmplv4qi2                               (rtx, rtx);
-extern rtx        gen_one_cmplv2hi2                               (rtx, rtx);
 extern rtx        gen_mmx_andv8qi3                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_iorv8qi3                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_xorv8qi3                                (rtx, rtx, rtx);
@@ -17657,6 +17770,8 @@ extern rtx        gen_absv4di2                                    (rtx, rtx);
 extern rtx        gen_absv2di2                                    (rtx, rtx);
 extern rtx        gen_avx2_pblendw                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_avx2_pblendph                               (rtx, rtx, rtx, rtx);
+extern rtx        gen_avx2_pblendw_1                              (rtx, rtx, rtx, rtx);
+extern rtx        gen_avx2_pblendph_1                             (rtx, rtx, rtx, rtx);
 extern rtx        gen_extendv16qiv16hi2                           (rtx, rtx);
 extern rtx        gen_zero_extendv16qiv16hi2                      (rtx, rtx);
 extern rtx        gen_extendv32qiv32hi2                           (rtx, rtx);
@@ -18241,5 +18356,25 @@ extern rtx        gen_atomic_bit_test_and_complementdi            (rtx, rtx, rtx
 extern rtx        gen_atomic_bit_test_and_resethi                 (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_bit_test_and_resetsi                 (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_bit_test_and_resetdi                 (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0qi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0qi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0hi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0hi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0si                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0si                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_add_fetch_cmp_0di                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_sub_fetch_cmp_0di                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0qi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0qi                     (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0qi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0hi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0hi                     (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0hi                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0si                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0si                     (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0si                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_and_fetch_cmp_0di                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_or_fetch_cmp_0di                     (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_atomic_xor_fetch_cmp_0di                    (rtx, rtx, rtx, rtx, rtx);
 
 #endif /* GCC_INSN_FLAGS_H */

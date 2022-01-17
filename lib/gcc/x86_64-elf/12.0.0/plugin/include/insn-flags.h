@@ -1405,6 +1405,12 @@
 #define HAVE_avx512f_andnotv16sf3_mask (TARGET_AVX512F)
 #define HAVE_avx512f_andnotv8df3 (TARGET_AVX512F)
 #define HAVE_avx512f_andnotv8df3_mask (TARGET_AVX512F)
+#define HAVE_andsf3 (SSE_FLOAT_MODE_P (SFmode))
+#define HAVE_iorsf3 (SSE_FLOAT_MODE_P (SFmode))
+#define HAVE_xorsf3 (SSE_FLOAT_MODE_P (SFmode))
+#define HAVE_anddf3 (SSE_FLOAT_MODE_P (DFmode))
+#define HAVE_iordf3 (SSE_FLOAT_MODE_P (DFmode))
+#define HAVE_xordf3 (SSE_FLOAT_MODE_P (DFmode))
 #define HAVE_fma_fmadd_v32hf_maskz_1 ((TARGET_AVX512F && (64 == 64 || TARGET_AVX512VL) && 1) && (TARGET_AVX512FP16))
 #define HAVE_fma_fmadd_v32hf_maskz_1_round ((TARGET_AVX512F) && ((TARGET_AVX512F && (64 == 64 || TARGET_AVX512VL) && (V32HFmode == V16SFmode \
 							      || V32HFmode == V8DFmode \
@@ -10864,6 +10870,12 @@ extern rtx        gen_avx512f_andnotv16sf3                        (rtx, rtx, rtx
 extern rtx        gen_avx512f_andnotv16sf3_mask                   (rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_avx512f_andnotv8df3                         (rtx, rtx, rtx);
 extern rtx        gen_avx512f_andnotv8df3_mask                    (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_andsf3                                      (rtx, rtx, rtx);
+extern rtx        gen_iorsf3                                      (rtx, rtx, rtx);
+extern rtx        gen_xorsf3                                      (rtx, rtx, rtx);
+extern rtx        gen_anddf3                                      (rtx, rtx, rtx);
+extern rtx        gen_iordf3                                      (rtx, rtx, rtx);
+extern rtx        gen_xordf3                                      (rtx, rtx, rtx);
 extern rtx        gen_fma_fmadd_v32hf_maskz_1                     (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_fma_fmadd_v32hf_maskz_1_round               (rtx, rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_fma_fmadd_v16hf_maskz_1                     (rtx, rtx, rtx, rtx, rtx, rtx);

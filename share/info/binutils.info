@@ -42,7 +42,7 @@ Introduction
 ************
 
 This brief manual contains documentation for the GNU binary utilities
-(Mystic binutils) version 2.37.50:
+version {No value for 'VERSION'}:
 
    This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included in
@@ -6020,35 +6020,35 @@ Binutils Index
 
 Tag Table:
 Node: Top1834
-Node: ar3557
-Node: ar cmdline6891
-Node: ar scripts20207
-Node: nm25893
-Node: objcopy41266
-Node: objdump82114
-Node: ranlib117402
-Node: size119001
-Node: strings122970
-Node: strip128827
-Node: c++filt138669
-Ref: c++filt-Footnote-1144530
-Node: addr2line144636
-Node: windmc150314
-Node: windres153973
-Node: dlltool160543
-Node: def file format173540
-Node: readelf176070
-Node: elfedit194359
-Node: Common Options197785
-Node: Selecting the Target System198819
-Node: Target Selection199747
-Node: Architecture Selection201728
-Node: debuginfod202556
-Node: Reporting Bugs203315
-Node: Bug Criteria204077
-Node: Bug Reporting204630
-Node: GNU Free Documentation License211497
-Node: Binutils Index236657
+Node: ar3556
+Node: ar cmdline6890
+Node: ar scripts20206
+Node: nm25892
+Node: objcopy41265
+Node: objdump82113
+Node: ranlib117401
+Node: size119000
+Node: strings122969
+Node: strip128826
+Node: c++filt138668
+Ref: c++filt-Footnote-1144529
+Node: addr2line144635
+Node: windmc150313
+Node: windres153972
+Node: dlltool160542
+Node: def file format173539
+Node: readelf176069
+Node: elfedit194358
+Node: Common Options197784
+Node: Selecting the Target System198818
+Node: Target Selection199746
+Node: Architecture Selection201727
+Node: debuginfod202555
+Node: Reporting Bugs203314
+Node: Bug Criteria204076
+Node: Bug Reporting204629
+Node: GNU Free Documentation License211496
+Node: Binutils Index236656
 
 End Tag Table
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-01-25" "gcc-12.0.1" "GNU"
+.TH GCC 1 "2022-02-09" "gcc-12.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1192,7 +1192,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mabi=\fR\fIABI-string\fR 
 \&\fB\-mfdiv  \-mno\-fdiv 
 \&\-mdiv  \-mno\-div 
-\&\-march=\fR\fIISA-string\fR 
+\&\-misa\-spec=\fR\fIISA-spec-string\fR 
+\&\fB\-march=\fR\fIISA-string\fR 
 \&\fB\-mtune=\fR\fIprocessor-string\fR 
 \&\fB\-mpreferred\-stack\-boundary=\fR\fInum\fR 
 \&\fB\-msmall\-data\-limit=\fR\fIN\-bytes\fR 
@@ -7392,7 +7393,9 @@ characters.
 .Sp
 By default, this warning does not warn about UCNs.  It is, however, possible
 to turn on such checking by using \fB\-Wbidi\-chars=unpaired,ucn\fR or
-\&\fB\-Wbidi\-chars=any,ucn\fR.
+\&\fB\-Wbidi\-chars=any,ucn\fR.  Using \fB\-Wbidi\-chars=ucn\fR is valid,
+and is equivalent to \fB\-Wbidi\-chars=unpaired,ucn\fR, if no previous
+\&\fB\-Wbidi\-chars=any\fR was specified.
 .IP "\fB\-Wbool\-compare\fR" 4
 .IX Item "-Wbool-compare"
 Warn about boolean expression compared with an integer value different from
@@ -11374,7 +11377,8 @@ Initialize automatic variables with either a pattern or with zeroes to increase
 the security and predictability of a program by preventing uninitialized memory
 disclosure and use.
 \&\s-1GCC\s0 still considers an automatic variable that doesn't have an explicit
-initializer as uninitialized, \fB\-Wuninitialized\fR will still report
+initializer as uninitialized, \fB\-Wuninitialized\fR and
+\&\fB\-Wanalyzer\-use\-of\-uninitialized\-value\fR will still report
 warning messages on such automatic variables.
 With this option, \s-1GCC\s0 will also initialize any padding of automatic variables
 that have structure or union types to zeroes.
@@ -21570,7 +21574,7 @@ The options \fB\-metrax4\fR and \fB\-metrax100\fR are synonyms for
 .IX Item "-mno-mul-bug-workaround"
 .PD
 Work around a bug in the \f(CW\*(C`muls\*(C'\fR and \f(CW\*(C`mulu\*(C'\fR instructions for \s-1CPU\s0
-models where it applies.  This option is active by default.
+models where it applies.  This option is disabled by default.
 .IP "\fB\-mpdebug\fR" 4
 .IX Item "-mpdebug"
 Enable CRIS-specific verbose debug-related information in the assembly
@@ -26599,6 +26603,30 @@ is to use them if the specified architecture has these instructions.
 Do or don't use hardware instructions for integer division.  This requires the
 M extension.  The default is to use them if the specified architecture has
 these instructions.
+.IP "\fB\-misa\-spec=\fR\fIISA-spec-string\fR" 4
+.IX Item "-misa-spec=ISA-spec-string"
+Specify the version of the RISC-V Unprivileged (formerly User-Level)
+\&\s-1ISA\s0 specification to produce code conforming to.  The possibilities
+for \fIISA-spec-string\fR are:
+.RS 4
+.ie n .IP "2.2" 4
+.el .IP "\f(CW2.2\fR" 4
+.IX Item "2.2"
+Produce code conforming to version 2.2.
+.ie n .IP "20190608" 4
+.el .IP "\f(CW20190608\fR" 4
+.IX Item "20190608"
+Produce code conforming to version 20190608.
+.ie n .IP "20191213" 4
+.el .IP "\f(CW20191213\fR" 4
+.IX Item "20191213"
+Produce code conforming to version 20191213.
+.RE
+.RS 4
+.Sp
+The default is \fB\-misa\-spec=20191213\fR unless \s-1GCC\s0 has been configured
+with \fB\-\-with\-isa\-spec=\fR specifying a different default version.
+.RE
 .IP "\fB\-march=\fR\fIISA-string\fR" 4
 .IX Item "-march=ISA-string"
 Generate code for given RISC-V \s-1ISA\s0 (e.g. \fBrv64im\fR).  \s-1ISA\s0 strings must be

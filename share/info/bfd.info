@@ -1391,7 +1391,7 @@ Returns the maximum page size in bytes for ELF, 0 otherwise.
 ......................................
 
 *Synopsis*
-     bfd_vma bfd_emul_get_commonpagesize (const char *, bool);
+     bfd_vma bfd_emul_get_commonpagesize (const char *);
    *Description*
 Returns the common page size, in bytes, as determined by emulation.
 
@@ -14679,60 +14679,60 @@ Node: BFD front end13128
 Node: typedef bfd13552
 Node: Error reporting31599
 Node: Miscellaneous36850
-Node: Memory Usage55761
-Node: Initialization56992
-Node: Sections57668
-Node: Section Input58151
-Node: Section Output59345
-Node: typedef asection61832
-Node: section prototypes86680
-Node: Symbols97354
-Node: Reading Symbols98957
-Node: Writing Symbols100065
-Node: Mini Symbols101809
-Node: typedef asymbol102783
-Node: symbol handling functions108990
-Node: Archives114323
-Node: Formats118453
-Node: Relocations121383
-Node: typedef arelent122110
-Node: howto manager137021
-Node: Core Files272538
-Node: Targets274562
-Node: bfd_target276537
-Node: Architectures303298
-Node: Opening and Closing335149
-Node: Internal353317
-Node: File Caching353421
-Node: Linker Functions355318
-Node: Creating a Linker Hash Table356992
-Node: Adding Symbols to the Hash Table358731
-Node: Differing file formats359631
-Node: Adding symbols from an object file361356
-Node: Adding symbols from an archive363506
-Node: Performing the Final Link365852
-Node: Information provided by the linker367093
-Node: Relocating the section contents368247
-Node: Writing the symbol table369999
-Node: Hash Tables377090
-Node: Creating and Freeing a Hash Table378288
-Node: Looking Up or Entering a String379538
-Node: Traversing a Hash Table380791
-Node: Deriving a New Hash Table Type381580
-Node: Define the Derived Structures382646
-Node: Write the Derived Creation Routine383727
-Node: Write Other Derived Routines386352
-Node: BFD back ends387667
-Node: What to Put Where387937
-Node: aout388117
-Node: coff394371
-Node: elf422511
-Node: mmo422912
-Node: File layout423782
-Node: Symbol-table429695
-Node: mmo section mapping433458
-Node: GNU Free Documentation License437112
-Node: BFD Index462176
+Node: Memory Usage55755
+Node: Initialization56986
+Node: Sections57662
+Node: Section Input58145
+Node: Section Output59339
+Node: typedef asection61826
+Node: section prototypes86674
+Node: Symbols97348
+Node: Reading Symbols98951
+Node: Writing Symbols100059
+Node: Mini Symbols101803
+Node: typedef asymbol102777
+Node: symbol handling functions108984
+Node: Archives114317
+Node: Formats118447
+Node: Relocations121377
+Node: typedef arelent122104
+Node: howto manager137015
+Node: Core Files272532
+Node: Targets274556
+Node: bfd_target276531
+Node: Architectures303292
+Node: Opening and Closing335143
+Node: Internal353311
+Node: File Caching353415
+Node: Linker Functions355312
+Node: Creating a Linker Hash Table356986
+Node: Adding Symbols to the Hash Table358725
+Node: Differing file formats359625
+Node: Adding symbols from an object file361350
+Node: Adding symbols from an archive363500
+Node: Performing the Final Link365846
+Node: Information provided by the linker367087
+Node: Relocating the section contents368241
+Node: Writing the symbol table369993
+Node: Hash Tables377084
+Node: Creating and Freeing a Hash Table378282
+Node: Looking Up or Entering a String379532
+Node: Traversing a Hash Table380785
+Node: Deriving a New Hash Table Type381574
+Node: Define the Derived Structures382640
+Node: Write the Derived Creation Routine383721
+Node: Write Other Derived Routines386346
+Node: BFD back ends387661
+Node: What to Put Where387931
+Node: aout388111
+Node: coff394365
+Node: elf422505
+Node: mmo422906
+Node: File layout423776
+Node: Symbol-table429689
+Node: mmo section mapping433452
+Node: GNU Free Documentation License437106
+Node: BFD Index462170
 
 End Tag Table
 

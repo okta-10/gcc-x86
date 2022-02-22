@@ -4560,6 +4560,16 @@ parentheses.  The following types are defined:
      rarely used.  They all have the same effect: the section should be
      marked as not allocatable, so that no memory is allocated for the
      section when the program is run.
+'TYPE = TYPE'
+     Set the section type to the integer TYPE.  When generating an ELF
+     output file, type names 'SHT_PROGBITS', 'SHT_STRTAB', 'SHT_NOTE',
+     'SHT_NOBITS', 'SHT_INIT_ARRAY', 'SHT_FINI_ARRAY', and
+     'SHT_PREINIT_ARRAY' are also allowed for TYPE.  It is the user's
+     responsibility to ensure that any special requirements of the
+     section type are met.
+'READONLY ( TYPE = TYPE )'
+     This form of the syntax combines the READONLY type with the type
+     specified by TYPE.
 
    The linker normally sets the attributes of an output section based on
 the input sections which map into it.  You can override this by using
@@ -8973,7 +8983,7 @@ LD Index
 * load address:                          Output Section LMA. (line    6)
 * LOADADDR(SECTION):                     Builtin Functions.  (line  144)
 * loading, preventing:                   Output Section Type.
-                                                             (line   23)
+                                                             (line   33)
 * local symbols, deleting:               Options.            (line  749)
 * location counter:                      Location Counter.   (line    6)
 * LOG2CEIL(EXP):                         Builtin Functions.  (line  148)
@@ -9015,7 +9025,7 @@ LD Index
 * NOCROSSREFS_TO(TOSECTION FROMSECTIONS): Miscellaneous Commands.
                                                              (line  104)
 * NOLOAD:                                Output Section Type.
-                                                             (line   23)
+                                                             (line   33)
 * not enough room for program headers:   Builtin Functions.  (line  195)
 * NO_ENUM_SIZE_WARNING:                  ARM.                (line  155)
 * NO_WCHAR_SIZE_WARNING:                 ARM.                (line  162)
@@ -9096,7 +9106,7 @@ LD Index
 * PowerPC64 __tls_get_addr optimization: PowerPC64 ELF64.    (line   56)
 * precedence in expressions:             Operators.          (line    6)
 * prevent unnecessary loading:           Output Section Type.
-                                                             (line   23)
+                                                             (line   33)
 * program headers:                       PHDRS.              (line    6)
 * program headers and sections:          Output Section Phdr.
                                                              (line    6)
@@ -9314,58 +9324,58 @@ Node: Output Section Keywords194378
 Node: Output Section Discarding197945
 Node: Output Section Attributes199835
 Node: Output Section Type200954
-Node: Output Section LMA202083
-Node: Forced Output Alignment205154
-Node: Forced Input Alignment205583
-Node: Output Section Constraint205971
-Node: Output Section Region206399
-Node: Output Section Phdr206832
-Node: Output Section Fill207496
-Node: Overlay Description208638
-Node: MEMORY213083
-Node: PHDRS217689
-Node: VERSION223015
-Node: Expressions231106
-Node: Constants232119
-Node: Symbolic Constants232993
-Node: Symbols233544
-Node: Orphan Sections234291
-Node: Location Counter235876
-Node: Operators240310
-Node: Evaluation241232
-Node: Expression Section242596
-Node: Builtin Functions246566
-Node: Implicit Linker Scripts254900
-Node: Plugins255675
-Node: libdep Plugin256135
-Node: Machine Dependent257932
-Node: H8/300259020
-Node: M68HC11/68HC12261093
-Node: ARM262540
-Node: HPPA ELF32274650
-Node: M68K276273
-Node: MIPS277182
-Node: MMIX278298
-Node: MSP430279463
-Node: NDS32281376
-Node: Nios II282340
-Node: PowerPC ELF32283656
-Node: PowerPC64 ELF64286487
-Node: S/390 ELF296245
-Node: SPU ELF296592
-Node: TI COFF299220
-Node: WIN32299746
-Node: Xtensa319893
-Node: BFD323336
-Node: BFD outline324794
-Node: BFD information loss326082
-Node: Canonical format328608
-Node: Reporting Bugs332936
-Node: Bug Criteria333630
-Node: Bug Reporting334329
-Node: MRI341364
-Node: GNU Free Documentation License345835
-Node: LD Index370972
+Node: Output Section LMA202583
+Node: Forced Output Alignment205654
+Node: Forced Input Alignment206083
+Node: Output Section Constraint206471
+Node: Output Section Region206899
+Node: Output Section Phdr207332
+Node: Output Section Fill207996
+Node: Overlay Description209138
+Node: MEMORY213583
+Node: PHDRS218189
+Node: VERSION223515
+Node: Expressions231606
+Node: Constants232619
+Node: Symbolic Constants233493
+Node: Symbols234044
+Node: Orphan Sections234791
+Node: Location Counter236376
+Node: Operators240810
+Node: Evaluation241732
+Node: Expression Section243096
+Node: Builtin Functions247066
+Node: Implicit Linker Scripts255400
+Node: Plugins256175
+Node: libdep Plugin256635
+Node: Machine Dependent258432
+Node: H8/300259520
+Node: M68HC11/68HC12261593
+Node: ARM263040
+Node: HPPA ELF32275150
+Node: M68K276773
+Node: MIPS277682
+Node: MMIX278798
+Node: MSP430279963
+Node: NDS32281876
+Node: Nios II282840
+Node: PowerPC ELF32284156
+Node: PowerPC64 ELF64286987
+Node: S/390 ELF296745
+Node: SPU ELF297092
+Node: TI COFF299720
+Node: WIN32300246
+Node: Xtensa320393
+Node: BFD323836
+Node: BFD outline325294
+Node: BFD information loss326582
+Node: Canonical format329108
+Node: Reporting Bugs333436
+Node: Bug Criteria334130
+Node: Bug Reporting334829
+Node: MRI341864
+Node: GNU Free Documentation License346335
+Node: LD Index371472
 
 End Tag Table
 

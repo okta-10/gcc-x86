@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-02-14" "gcc-12.0.1" "GNU"
+.TH GCC 1 "2022-02-22" "gcc-12.0.1" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -14607,6 +14607,35 @@ Note: By default the check is disabled at run time.  To enable it,
 add \f(CW\*(C`detect_invalid_pointer_pairs=2\*(C'\fR to the environment variable
 \&\fB\s-1ASAN_OPTIONS\s0\fR. Using \f(CW\*(C`detect_invalid_pointer_pairs=1\*(C'\fR detects
 invalid operation only when both pointers are non-null.
+.IP "\fB\-fsanitize=shadow\-call\-stack\fR" 4
+.IX Item "-fsanitize=shadow-call-stack"
+Enable ShadowCallStack, a security enhancement mechanism used to protect
+programs against return address overwrites (e.g. stack buffer overflows.)
+It works by saving a function's return address to a separately allocated
+shadow call stack in the function prologue and restoring the return address
+from the shadow call stack in the function epilogue.  Instrumentation only
+occurs in functions that need to save the return address to the stack.
+.Sp
+Currently it only supports the aarch64 platform.  It is specifically
+designed for linux kernels that enable the \s-1CONFIG_SHADOW_CALL_STACK\s0 option.
+For the user space programs, runtime support is not currently provided
+in libc and libgcc.  Users who want to use this feature in user space need
+to provide their own support for the runtime.  It should be noted that
+this may cause the \s-1ABI\s0 rules to be broken.
+.Sp
+On aarch64, the instrumentation makes use of the platform register \f(CW\*(C`x18\*(C'\fR.
+This generally means that any code that may run on the same thread as code
+compiled with ShadowCallStack must be compiled with the flag
+\&\fB\-ffixed\-x18\fR, otherwise functions compiled without
+\&\fB\-ffixed\-x18\fR might clobber \f(CW\*(C`x18\*(C'\fR and so corrupt the shadow
+stack pointer.
+.Sp
+Also, because there is no userspace runtime support, code compiled with
+ShadowCallStack cannot use exception handling.  Use \fB\-fno\-exceptions\fR
+to turn off exceptions.
+.Sp
+See <\fBhttps://clang.llvm.org/docs/ShadowCallStack.html\fR> for more
+details.
 .IP "\fB\-fsanitize=thread\fR" 4
 .IX Item "-fsanitize=thread"
 Enable ThreadSanitizer, a fast data race detector.

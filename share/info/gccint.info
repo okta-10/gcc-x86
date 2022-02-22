@@ -44176,6 +44176,10 @@ Here are several miscellaneous parameters.
      atomic operations may override the default value and request a
      32-bit type.
 
+ -- Target Hook: bool TARGET_HAVE_SHADOW_CALL_STACK
+     This value is true if the target platform supports
+     '-fsanitize=shadow-call-stack'.  The default value is false.
+
 
 File: gccint.info,  Node: Host Config,  Next: Fragments,  Prev: Target Macros,  Up: Top
 
@@ -57369,6 +57373,7 @@ Concept Index
 * TARGET_HAVE_CTORS_DTORS:               Macros for Initialization.
                                                              (line   63)
 * TARGET_HAVE_NAMED_SECTIONS:            File Framework.     (line  150)
+* TARGET_HAVE_SHADOW_CALL_STACK:         Misc.               (line 1340)
 * TARGET_HAVE_SPECULATION_SAFE_VALUE:    Misc.               (line 1228)
 * TARGET_HAVE_SRODATA_SECTION:           Sections.           (line  311)
 * TARGET_HAVE_SWITCHABLE_BSS_SECTIONS:   File Framework.     (line  155)
@@ -58619,58 +58624,58 @@ Node: D Language and ABI1849570
 Node: Named Address Spaces1852513
 Node: Misc1858440
 Ref: TARGET_SHIFT_TRUNCATION_MASK1866311
-Node: Host Config1927020
-Node: Host Common1928089
-Node: Filesystem1930463
-Node: Host Misc1934578
-Node: Fragments1937027
-Node: Target Fragment1938222
-Node: Host Fragment1949034
-Node: Collect21949274
-Node: Header Dirs1951910
-Node: Type Information1953333
-Node: GTY Options1956864
-Node: Inheritance and GTY1968477
-Ref: Inheritance and GTY-Footnote-11970042
-Node: User GC1970312
-Node: GGC Roots1974063
-Node: Files1974776
-Node: Invoking the garbage collector1977407
-Node: Troubleshooting1979049
-Node: Plugins1980124
-Node: Plugins loading1981253
-Node: Plugin API1982352
-Node: Plugins pass1990219
-Node: Plugins GC1992190
-Node: Plugins description1993907
-Node: Plugins attr1994443
-Node: Plugins recording1996723
-Node: Plugins gate1997573
-Node: Plugins tracking1998164
-Node: Plugins building1998752
-Node: LTO2002255
-Node: LTO Overview2003127
-Node: LTO object file layout2008883
-Node: IPA2013527
-Node: WHOPR2022579
-Node: Internal flags2027139
-Node: Match and Simplify2028550
-Node: GIMPLE API2029520
-Node: The Language2032315
-Node: Static Analyzer2044814
-Node: Analyzer Internals2045079
-Node: Debugging the Analyzer2060966
-Node: User Experience Guidelines2064534
-Node: Guidelines for Diagnostics2065470
-Ref: input_location_example2073645
-Node: Guidelines for Options2083330
-Node: Funding2083507
-Node: GNU Project2086014
-Node: Copying2086665
-Node: GNU Free Documentation License2124179
-Node: Contributors2149302
-Node: Option Index2190279
-Node: Concept Index2191156
+Node: Host Config1927195
+Node: Host Common1928264
+Node: Filesystem1930638
+Node: Host Misc1934753
+Node: Fragments1937202
+Node: Target Fragment1938397
+Node: Host Fragment1949209
+Node: Collect21949449
+Node: Header Dirs1952085
+Node: Type Information1953508
+Node: GTY Options1957039
+Node: Inheritance and GTY1968652
+Ref: Inheritance and GTY-Footnote-11970217
+Node: User GC1970487
+Node: GGC Roots1974238
+Node: Files1974951
+Node: Invoking the garbage collector1977582
+Node: Troubleshooting1979224
+Node: Plugins1980299
+Node: Plugins loading1981428
+Node: Plugin API1982527
+Node: Plugins pass1990394
+Node: Plugins GC1992365
+Node: Plugins description1994082
+Node: Plugins attr1994618
+Node: Plugins recording1996898
+Node: Plugins gate1997748
+Node: Plugins tracking1998339
+Node: Plugins building1998927
+Node: LTO2002430
+Node: LTO Overview2003302
+Node: LTO object file layout2009058
+Node: IPA2013702
+Node: WHOPR2022754
+Node: Internal flags2027314
+Node: Match and Simplify2028725
+Node: GIMPLE API2029695
+Node: The Language2032490
+Node: Static Analyzer2044989
+Node: Analyzer Internals2045254
+Node: Debugging the Analyzer2061141
+Node: User Experience Guidelines2064709
+Node: Guidelines for Diagnostics2065645
+Ref: input_location_example2073820
+Node: Guidelines for Options2083505
+Node: Funding2083682
+Node: GNU Project2086189
+Node: Copying2086840
+Node: GNU Free Documentation License2124354
+Node: Contributors2149477
+Node: Option Index2190454
+Node: Concept Index2191331
 
 End Tag Table
 

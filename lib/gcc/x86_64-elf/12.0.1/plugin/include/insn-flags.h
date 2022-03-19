@@ -722,7 +722,6 @@
 #define HAVE_avx512bw_storev32hf_mask (TARGET_AVX512BW)
 #define HAVE_avx512vl_storev16hf_mask ((TARGET_AVX512BW) && (TARGET_AVX512VL))
 #define HAVE_avx512fp16_storev8hf_mask ((TARGET_AVX512BW) && (TARGET_AVX512VL))
-#define HAVE_sse2_movq128 (TARGET_SSE2)
 #define HAVE_movdi_to_sse (!TARGET_64BIT && TARGET_SSE2 && TARGET_INTER_UNIT_MOVES_TO_VEC)
 #define HAVE_avx_lddqu256 ((TARGET_SSE3) && (TARGET_AVX))
 #define HAVE_sse3_lddqu (TARGET_SSE3)
@@ -6251,6 +6250,7 @@
 #define HAVE_avx512f_loadhf_mask ((TARGET_AVX512F) && (TARGET_AVX512FP16))
 #define HAVE_avx512f_loadsf_mask (TARGET_AVX512F)
 #define HAVE_avx512f_loaddf_mask (TARGET_AVX512F)
+#define HAVE_sse2_movq128 (TARGET_SSE2)
 #define HAVE_movmisalignv64qi ((TARGET_SSE) && (TARGET_AVX512F))
 #define HAVE_movmisalignv32qi ((TARGET_SSE) && (TARGET_AVX))
 #define HAVE_movmisalignv16qi (TARGET_SSE)
@@ -9968,7 +9968,6 @@ extern rtx        gen_avx512vl_storev8hi_mask                     (rtx, rtx, rtx
 extern rtx        gen_avx512bw_storev32hf_mask                    (rtx, rtx, rtx);
 extern rtx        gen_avx512vl_storev16hf_mask                    (rtx, rtx, rtx);
 extern rtx        gen_avx512fp16_storev8hf_mask                   (rtx, rtx, rtx);
-extern rtx        gen_sse2_movq128                                (rtx, rtx);
 extern rtx        gen_movdi_to_sse                                (rtx, rtx);
 extern rtx        gen_avx_lddqu256                                (rtx, rtx);
 extern rtx        gen_sse3_lddqu                                  (rtx, rtx);
@@ -15378,6 +15377,7 @@ extern rtx        gen_avx512vl_loadv8hi_mask                      (rtx, rtx, rtx
 extern rtx        gen_avx512f_loadhf_mask                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_avx512f_loadsf_mask                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_avx512f_loaddf_mask                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_sse2_movq128                                (rtx, rtx);
 extern rtx        gen_movmisalignv64qi                            (rtx, rtx);
 extern rtx        gen_movmisalignv32qi                            (rtx, rtx);
 extern rtx        gen_movmisalignv16qi                            (rtx, rtx);

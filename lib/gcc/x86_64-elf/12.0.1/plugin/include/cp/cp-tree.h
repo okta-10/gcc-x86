@@ -466,6 +466,7 @@ extern GTY(()) tree cp_global_trees[CPTI_MAX];
       IMPLICIT_CONV_EXPR_NONTYPE_ARG (in IMPLICIT_CONV_EXPR)
       BASELINK_FUNCTIONS_MAYBE_INCOMPLETE_P (in BASELINK)
       BIND_EXPR_VEC_DTOR (in BIND_EXPR)
+      ATOMIC_CONSTR_EXPR_FROM_CONCEPT_P (in ATOMIC_CONSTR)
    2: IDENTIFIER_KIND_BIT_2 (in IDENTIFIER_NODE)
       ICS_THIS_FLAG (in _CONV)
       DECL_INITIALIZED_BY_CONSTANT_EXPRESSION_P (in VAR_DECL)
@@ -1678,6 +1679,11 @@ check_constraint_info (tree t)
    Used only in satisfy_atom and in the satisfaction cache.  */
 #define ATOMIC_CONSTR_MAP_INSTANTIATED_P(NODE) \
   TREE_LANG_FLAG_0 (ATOMIC_CONSTR_CHECK (NODE))
+
+/* Whether the expression for this atomic constraint belongs to a
+   concept definition.  */
+#define ATOMIC_CONSTR_EXPR_FROM_CONCEPT_P(NODE) \
+  TREE_LANG_FLAG_1 (ATOMIC_CONSTR_CHECK (NODE))
 
 /* The expression of an atomic constraint. */
 #define ATOMIC_CONSTR_EXPR(NODE) \
@@ -5557,6 +5563,8 @@ enum tsubst_flags {
 				(build_target_expr and friends) */
   tf_norm = 1 << 11,		 /* Build diagnostic information during
 				    constraint normalization.  */
+  tf_tst_ok = 1 << 12,		 /* Allow a typename-specifier to name
+				    a template (C++17 or later).  */
   /* Convenient substitution flags combinations.  */
   tf_warning_or_error = tf_warning | tf_error
 };
@@ -6669,6 +6677,7 @@ extern tree build_vfn_ref			(tree, tree);
 extern tree get_vtable_decl			(tree, int);
 extern bool add_method				(tree, tree, bool);
 extern tree declared_access			(tree);
+extern bool maybe_push_used_methods		(tree);
 extern tree currently_open_class		(tree);
 extern tree currently_open_derived_class	(tree);
 extern tree outermost_open_class		(void);
@@ -8233,6 +8242,7 @@ extern tree fold_builtin_source_location	(location_t);
 
 /* in name-lookup.cc */
 extern tree strip_using_decl                    (tree);
+extern void diagnose_name_conflict		(tree, tree);
 
 /* Tell the binding oracle what kind of binding we are looking for.  */
 
@@ -8315,7 +8325,6 @@ extern tree evaluate_requires_expr		(tree);
 extern tree tsubst_constraint                   (tree, tree, tsubst_flags_t, tree);
 extern tree tsubst_constraint_info              (tree, tree, tsubst_flags_t, tree);
 extern tree tsubst_parameter_mapping		(tree, tree, tsubst_flags_t, tree);
-extern tree get_mapped_args			(tree);
 
 struct processing_constraint_expression_sentinel
 {

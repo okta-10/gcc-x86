@@ -1904,12 +1904,12 @@
 #define HAVE_fma_fcmaddc_v8sf_pair ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
 #define HAVE_fma_fmaddc_v4sf_pair ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
 #define HAVE_fma_fcmaddc_v4sf_pair ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
-#define HAVE_fma_v32hf_fmaddc_bcst (TARGET_AVX512FP16)
-#define HAVE_fma_v16hf_fmaddc_bcst ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
-#define HAVE_fma_v8hf_fmaddc_bcst ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
-#define HAVE_fma_v32hf_fcmaddc_bcst (TARGET_AVX512FP16)
-#define HAVE_fma_v16hf_fcmaddc_bcst ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
-#define HAVE_fma_v8hf_fcmaddc_bcst ((TARGET_AVX512FP16) && (TARGET_AVX512VL))
+#define HAVE_fma_v32hf_fmaddc_bcst (TARGET_AVX512FP16 && ix86_pre_reload_split ())
+#define HAVE_fma_v16hf_fmaddc_bcst ((TARGET_AVX512FP16 && ix86_pre_reload_split ()) && (TARGET_AVX512VL))
+#define HAVE_fma_v8hf_fmaddc_bcst ((TARGET_AVX512FP16 && ix86_pre_reload_split ()) && (TARGET_AVX512VL))
+#define HAVE_fma_v32hf_fcmaddc_bcst (TARGET_AVX512FP16 && ix86_pre_reload_split ())
+#define HAVE_fma_v16hf_fcmaddc_bcst ((TARGET_AVX512FP16 && ix86_pre_reload_split ()) && (TARGET_AVX512VL))
+#define HAVE_fma_v8hf_fcmaddc_bcst ((TARGET_AVX512FP16 && ix86_pre_reload_split ()) && (TARGET_AVX512VL))
 #define HAVE_avx512bw_fmaddc_v32hf_mask (TARGET_AVX512FP16 && 1)
 #define HAVE_avx512bw_fmaddc_v32hf_mask_round ((TARGET_AVX512F) && (TARGET_AVX512FP16 && (V32HFmode == V16SFmode \
 							      || V32HFmode == V8DFmode \

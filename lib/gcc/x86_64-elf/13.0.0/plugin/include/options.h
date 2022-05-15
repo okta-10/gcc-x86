@@ -9808,7 +9808,7 @@ enum opt_code
   /* OPT__no_warnings = 58, */               /* --no-warnings */
   /* OPT__optimize = 59, */                  /* --optimize */
   /* OPT__output = 60, */                    /* --output */
-  OPT__output_pch_ = 61,                     /* --output-pch= */
+  OPT__output_pch = 61,                      /* --output-pch */
   /* OPT__output_ = 62, */                   /* --output= */
   OPT__param_align_loop_iterations_ = 63,    /* --param=align-loop-iterations= */
   OPT__param_align_threshold_ = 64,          /* --param=align-threshold= */

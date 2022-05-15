@@ -6812,7 +6812,8 @@
 #define HAVE_vec_cmpuv8hiv8hi (TARGET_SSE2)
 #define HAVE_vec_cmpuv4siv4si (TARGET_SSE2)
 #define HAVE_vec_cmpuv2div2di (TARGET_SSE4_2)
-#define HAVE_vec_cmpeqv2div2di (TARGET_SSE4_1)
+#define HAVE_vec_cmpeqv2div2di (TARGET_SSE2)
+#define HAVE_vec_cmpeqv1tiv1ti (TARGET_SSE2)
 #define HAVE_vcondv64qiv16sf (TARGET_AVX512F \
    && (GET_MODE_NUNITS (V64QImode) \
        == GET_MODE_NUNITS (V16SFmode)))
@@ -16158,6 +16159,7 @@ extern rtx        gen_vec_cmpuv8hiv8hi                            (rtx, rtx, rtx
 extern rtx        gen_vec_cmpuv4siv4si                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpuv2div2di                            (rtx, rtx, rtx, rtx);
 extern rtx        gen_vec_cmpeqv2div2di                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_vec_cmpeqv1tiv1ti                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv64qiv16sf                             (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv64qiv8df                              (rtx, rtx, rtx, rtx, rtx, rtx);
 extern rtx        gen_vcondv32hiv16sf                             (rtx, rtx, rtx, rtx, rtx, rtx);

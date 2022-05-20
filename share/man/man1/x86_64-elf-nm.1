@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "NM 1"
-.TH NM 1 "2022-05-15" "binutils-2.38.50" "GNU Development Tools"
+.TH NM 1 "2022-05-20" "binutils-2.38.50" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -163,6 +163,7 @@ nm [\fB\-A\fR|\fB\-o\fR|\fB\-\-print\-file\-name\fR]
    [\fB\-u\fR|\fB\-\-undefined\-only\fR]
    [\fB\-U\fR|\fB\-\-defined\-only\fR]
    [\fB\-V\fR|\fB\-\-version\fR]
+   [\fB\-W\fR|\fB\-\-no\-weak\fR]
    [\fB\-X 32_64\fR]
    [\fB\-\-no\-demangle\fR]
    [\fB\-\-no\-recurse\-limit\fR|\fB\-\-recurse\-limit\fR]]
@@ -637,6 +638,13 @@ The \fB\-\-unicode=escape\fR option displays them as escape sequences
 them as escape sequences highlighted in red (if supported by the
 output device).  The colouring is intended to draw attention to the
 presence of unicode sequences where they might not be expected.
+.IP "\fB\-W\fR" 4
+.IX Item "-W"
+.PD 0
+.IP "\fB\-\-no\-weak\fR" 4
+.IX Item "--no-weak"
+.PD
+Do not display weak symbols.
 .IP "\fB\-\-with\-symbol\-versions\fR" 4
 .IX Item "--with-symbol-versions"
 .PD 0

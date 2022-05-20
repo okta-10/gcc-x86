@@ -4963,6 +4963,7 @@
 #define HAVE_cbranchsi4 1
 #define HAVE_cbranchdi4 1
 #define HAVE_cbranchti4 (TARGET_64BIT)
+#define HAVE_cbranchoi4 (TARGET_AVX)
 #define HAVE_cstoreqi4 (TARGET_QIMODE_MATH)
 #define HAVE_cstorehi4 (TARGET_HIMODE_MATH)
 #define HAVE_cstoresi4 1
@@ -14640,6 +14641,7 @@ extern rtx        gen_cbranchhi4                                  (rtx, rtx, rtx
 extern rtx        gen_cbranchsi4                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchdi4                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchti4                                  (rtx, rtx, rtx, rtx);
+extern rtx        gen_cbranchoi4                                  (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoreqi4                                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstorehi4                                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_cstoresi4                                   (rtx, rtx, rtx, rtx);

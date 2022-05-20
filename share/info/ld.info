@@ -2128,8 +2128,8 @@ GNU linker:
      On the other hand the linker will normally warn if the stack is
      made executable because one or more of the input files need an
      execuable stack and neither of the '-z execstack' or '-z
-     noexecstack' comman line options have been specified.  This warning
-     can be disabled via the '--no-warn-execstack' option.
+     noexecstack' command line options have been specified.  This
+     warning can be disabled via the '--no-warn-execstack' option.
 
      Note: ELF format input files specify that they need an executable
      stack by having a .NOTE.GNU-STACK section with the executable bit
@@ -9317,7 +9317,7 @@ LD Index
 * VFP11_DENORM_FIX:                      ARM.                (line   79)
 * visibility:                            Options.            (line 1070)
 * warnings, on combining symbols:        Options.            (line 1962)
-* warnings, on exectuable stack:         Options.            (line 2035)
+* warnings, on executable stack:         Options.            (line 2035)
 * warnings, on section alignment:        Options.            (line 2090)
 * warnings, on undefined symbols:        Options.            (line 2073)
 * warnings, on writeable and exectuable segments: Options.   (line 2077)
@@ -9335,90 +9335,90 @@ Node: Top709
 Node: Overview1543
 Node: Invocation2659
 Node: Options3067
-Node: Environment135983
-Node: Scripts137744
-Node: Basic Script Concepts139468
-Node: Script Format142176
-Node: Simple Example143039
-Node: Simple Commands146133
-Node: Entry Point146638
-Node: File Commands147674
-Node: Format Commands151983
-Node: REGION_ALIAS153939
-Node: Miscellaneous Commands158766
-Node: Assignments164597
-Node: Simple Assignments165108
-Node: HIDDEN166839
-Node: PROVIDE167466
-Node: PROVIDE_HIDDEN168992
-Node: Source Code Reference169236
-Node: SECTIONS173153
-Node: Output Section Description175041
-Node: Output Section Name176282
-Node: Output Section Address177159
-Node: Input Section179392
-Node: Input Section Basics180193
-Node: Input Section Wildcards185211
-Node: Input Section Common190152
-Node: Input Section Keep191634
-Node: Input Section Example192124
-Node: Output Section Data193535
-Node: Output Section Keywords196314
-Node: Output Section Discarding199881
-Node: Output Section Attributes201771
-Node: Output Section Type202890
-Node: Output Section LMA204519
-Node: Forced Output Alignment207590
-Node: Forced Input Alignment208019
-Node: Output Section Constraint208407
-Node: Output Section Region208835
-Node: Output Section Phdr209268
-Node: Output Section Fill209932
-Node: Overlay Description211074
-Node: MEMORY215519
-Node: PHDRS220125
-Node: VERSION225451
-Node: Expressions233542
-Node: Constants234555
-Node: Symbolic Constants235429
-Node: Symbols235980
-Node: Orphan Sections236727
-Node: Location Counter238312
-Node: Operators242746
-Node: Evaluation243668
-Node: Expression Section245032
-Node: Builtin Functions249002
-Node: Implicit Linker Scripts257336
-Node: Plugins258111
-Node: libdep Plugin258571
-Node: Machine Dependent260368
-Node: H8/300261456
-Node: M68HC11/68HC12263529
-Node: ARM264976
-Node: HPPA ELF32277086
-Node: M68K278709
-Node: MIPS279618
-Node: MMIX280734
-Node: MSP430281899
-Node: NDS32283812
-Node: Nios II284776
-Node: PowerPC ELF32286092
-Node: PowerPC64 ELF64288923
-Node: S/390 ELF298681
-Node: SPU ELF299028
-Node: TI COFF301656
-Node: WIN32302182
-Node: Xtensa322329
-Node: BFD325772
-Node: BFD outline327230
-Node: BFD information loss328518
-Node: Canonical format331044
-Node: Reporting Bugs335372
-Node: Bug Criteria336066
-Node: Bug Reporting336765
-Node: MRI343800
-Node: GNU Free Documentation License348271
-Node: LD Index373408
+Node: Environment135984
+Node: Scripts137745
+Node: Basic Script Concepts139469
+Node: Script Format142177
+Node: Simple Example143040
+Node: Simple Commands146134
+Node: Entry Point146639
+Node: File Commands147675
+Node: Format Commands151984
+Node: REGION_ALIAS153940
+Node: Miscellaneous Commands158767
+Node: Assignments164598
+Node: Simple Assignments165109
+Node: HIDDEN166840
+Node: PROVIDE167467
+Node: PROVIDE_HIDDEN168993
+Node: Source Code Reference169237
+Node: SECTIONS173154
+Node: Output Section Description175042
+Node: Output Section Name176283
+Node: Output Section Address177160
+Node: Input Section179393
+Node: Input Section Basics180194
+Node: Input Section Wildcards185212
+Node: Input Section Common190153
+Node: Input Section Keep191635
+Node: Input Section Example192125
+Node: Output Section Data193536
+Node: Output Section Keywords196315
+Node: Output Section Discarding199882
+Node: Output Section Attributes201772
+Node: Output Section Type202891
+Node: Output Section LMA204520
+Node: Forced Output Alignment207591
+Node: Forced Input Alignment208020
+Node: Output Section Constraint208408
+Node: Output Section Region208836
+Node: Output Section Phdr209269
+Node: Output Section Fill209933
+Node: Overlay Description211075
+Node: MEMORY215520
+Node: PHDRS220126
+Node: VERSION225452
+Node: Expressions233543
+Node: Constants234556
+Node: Symbolic Constants235430
+Node: Symbols235981
+Node: Orphan Sections236728
+Node: Location Counter238313
+Node: Operators242747
+Node: Evaluation243669
+Node: Expression Section245033
+Node: Builtin Functions249003
+Node: Implicit Linker Scripts257337
+Node: Plugins258112
+Node: libdep Plugin258572
+Node: Machine Dependent260369
+Node: H8/300261457
+Node: M68HC11/68HC12263530
+Node: ARM264977
+Node: HPPA ELF32277087
+Node: M68K278710
+Node: MIPS279619
+Node: MMIX280735
+Node: MSP430281900
+Node: NDS32283813
+Node: Nios II284777
+Node: PowerPC ELF32286093
+Node: PowerPC64 ELF64288924
+Node: S/390 ELF298682
+Node: SPU ELF299029
+Node: TI COFF301657
+Node: WIN32302183
+Node: Xtensa322330
+Node: BFD325773
+Node: BFD outline327231
+Node: BFD information loss328519
+Node: Canonical format331045
+Node: Reporting Bugs335373
+Node: Bug Criteria336067
+Node: Bug Reporting336766
+Node: MRI343801
+Node: GNU Free Documentation License348272
+Node: LD Index373409
 
 End Tag Table
 

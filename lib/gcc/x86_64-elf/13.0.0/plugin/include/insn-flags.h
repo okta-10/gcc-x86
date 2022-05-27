@@ -6960,7 +6960,8 @@
 #define HAVE_vcond_mask_v16qiv16qi (TARGET_SSE2)
 #define HAVE_vcond_mask_v8hiv8hi (TARGET_SSE2)
 #define HAVE_vcond_mask_v4siv4si (TARGET_SSE2)
-#define HAVE_vcond_mask_v2div2di (TARGET_SSE4_2)
+#define HAVE_vcond_mask_v2div2di (TARGET_SSE2)
+#define HAVE_vcond_mask_v1tiv1ti (TARGET_SSE2)
 #define HAVE_vcond_mask_v8sfv8si (TARGET_AVX)
 #define HAVE_vcond_mask_v4dfv4di (TARGET_AVX)
 #define HAVE_vcond_mask_v4sfv4si (TARGET_SSE)
@@ -16236,6 +16237,7 @@ extern rtx        gen_vcond_mask_v16qiv16qi                       (rtx, rtx, rtx
 extern rtx        gen_vcond_mask_v8hiv8hi                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v4siv4si                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v2div2di                         (rtx, rtx, rtx, rtx);
+extern rtx        gen_vcond_mask_v1tiv1ti                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v8sfv8si                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v4dfv4di                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_vcond_mask_v4sfv4si                         (rtx, rtx, rtx, rtx);

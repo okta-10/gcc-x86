@@ -3536,10 +3536,8 @@ that libbfd needs to know to tie up a back end's data.
           an external reloc number is stored in this field.  */
        unsigned int type;
 
-       /* The encoded size of the item to be relocated.  This is *not* a
-          power-of-two measure.  Use bfd_get_reloc_size to find the size
-          of the item in bytes.  */
-       unsigned int size:3;
+       /* The size of the item to be relocated in bytes.  */
+       unsigned int size:4;
 
        /* The number of bits in the field to be relocated.  This is used
           when doing overflow checking.  */
@@ -3620,28 +3618,26 @@ that libbfd needs to know to tie up a back end's data.
 *Description*
 The HOWTO macro fills in a reloc_howto_type (a typedef for const struct
 reloc_howto_struct).
+     #define HOWTO_RSIZE(sz) ((sz) < 0 ? -(sz) : (sz))
      #define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
                    inplace, src_mask, dst_mask, pcrel_off)                  \
-       { (unsigned) type, size < 0 ? -size : size, bits, right, left, ovf,  \
+       { (unsigned) type, HOWTO_RSIZE (size), bits, right, left, ovf,       \
          size < 0, pcrel, inplace, pcrel_off, src_mask, dst_mask, func, name }
 
    *Description*
 This is used to fill in an empty howto entry in an array.
      #define EMPTY_HOWTO(C) \
-       HOWTO ((C), 0, 0, 0, false, 0, complain_overflow_dont, NULL, \
+       HOWTO ((C), 0, 1, 0, false, 0, complain_overflow_dont, NULL, \
               NULL, false, 0, 0, false)
 
+     static inline unsigned int
+     bfd_get_reloc_size (reloc_howto_type *howto)
+     {
+       return howto->size;
+     }
 
-2.10.1.4 'bfd_get_reloc_size'
-.............................
 
-*Synopsis*
-     unsigned int bfd_get_reloc_size (reloc_howto_type *);
-   *Description*
-For a reloc_howto_type that operates on a fixed number of bytes, this
-returns the number of bytes operated on.
-
-2.10.1.5 'arelent_chain'
+2.10.1.4 'arelent_chain'
 ........................
 
 *Description*
@@ -3654,7 +3650,7 @@ How relocs are tied together in an 'asection':
      arelent_chain;
 
 
-2.10.1.6 'bfd_check_overflow'
+2.10.1.5 'bfd_check_overflow'
 .............................
 
 *Synopsis*
@@ -3670,7 +3666,7 @@ bits and will be shifted right by RIGHTSHIFT bits, on a machine with
 addresses containing ADDRSIZE significant bits.  The result is either of
 'bfd_reloc_ok' or 'bfd_reloc_overflow'.
 
-2.10.1.7 'bfd_reloc_offset_in_range'
+2.10.1.6 'bfd_reloc_offset_in_range'
 ....................................
 
 *Synopsis*
@@ -3683,7 +3679,7 @@ addresses containing ADDRSIZE significant bits.  The result is either of
 Returns TRUE if the reloc described by HOWTO can be applied at OFFSET
 octets in SECTION.
 
-2.10.1.8 'bfd_perform_relocation'
+2.10.1.7 'bfd_perform_relocation'
 .................................
 
 *Synopsis*
@@ -3708,7 +3704,7 @@ reloc types with addends were invented to solve just this problem.  The
 ERROR_MESSAGE argument is set to an error message if this return
 'bfd_reloc_dangerous'.
 
-2.10.1.9 'bfd_install_relocation'
+2.10.1.8 'bfd_install_relocation'
 .................................
 
 *Synopsis*
@@ -7590,9 +7586,9 @@ both!
        /* Entries for byte swapping for data. These are different from the
           other entry points, since they don't take a BFD as the first argument.
           Certain other handlers could do the same.  */
-       bfd_uint64_t   (*bfd_getx64) (const void *);
-       bfd_int64_t    (*bfd_getx_signed_64) (const void *);
-       void           (*bfd_putx64) (bfd_uint64_t, void *);
+       uint64_t       (*bfd_getx64) (const void *);
+       int64_t        (*bfd_getx_signed_64) (const void *);
+       void           (*bfd_putx64) (uint64_t, void *);
        bfd_vma        (*bfd_getx32) (const void *);
        bfd_signed_vma (*bfd_getx_signed_32) (const void *);
        void           (*bfd_putx32) (bfd_vma, void *);
@@ -7601,9 +7597,9 @@ both!
        void           (*bfd_putx16) (bfd_vma, void *);
 
        /* Byte swapping for the headers.  */
-       bfd_uint64_t   (*bfd_h_getx64) (const void *);
-       bfd_int64_t    (*bfd_h_getx_signed_64) (const void *);
-       void           (*bfd_h_putx64) (bfd_uint64_t, void *);
+       uint64_t       (*bfd_h_getx64) (const void *);
+       int64_t        (*bfd_h_getx_signed_64) (const void *);
+       void           (*bfd_h_putx64) (uint64_t, void *);
        bfd_vma        (*bfd_h_getx32) (const void *);
        bfd_signed_vma (*bfd_h_getx_signed_32) (const void *);
        void           (*bfd_h_putx32) (bfd_vma, void *);
@@ -11961,7 +11957,7 @@ BFD Index
 * aout_SIZE_some_aout_object_p:          aout.               (line  123)
 * aout_SIZE_swap_exec_header_in:         aout.               (line   99)
 * aout_SIZE_swap_exec_header_out:        aout.               (line  111)
-* arelent_chain:                         typedef arelent.    (line  315)
+* arelent_chain:                         typedef arelent.    (line  311)
 * BFD:                                   Overview.           (line    6)
 * BFD canonical format:                  Canonical format.   (line   11)
 * bfd_alloc:                             Opening and Closing.
@@ -12004,7 +12000,7 @@ BFD Index
 * bfd_check_compression_header:          Miscellaneous.      (line  355)
 * bfd_check_format:                      Formats.            (line   20)
 * bfd_check_format_matches:              Formats.            (line   51)
-* bfd_check_overflow:                    typedef arelent.    (line  328)
+* bfd_check_overflow:                    typedef arelent.    (line  324)
 * bfd_close:                             Opening and Closing.
                                                              (line  170)
 * bfd_close_all_done:                    Opening and Closing.
@@ -12085,7 +12081,6 @@ BFD Index
 * bfd_get_next_mapent:                   Archives.           (line   57)
 * bfd_get_next_section_by_name:          section prototypes. (line   25)
 * bfd_get_reloc_code_name:               howto manager.      (line 3522)
-* bfd_get_reloc_size:                    typedef arelent.    (line  306)
 * bfd_get_reloc_upper_bound:             Miscellaneous.      (line    8)
 * bfd_get_section_by_name:               section prototypes. (line   16)
 * bfd_get_section_by_name_if:            section prototypes. (line   46)
@@ -12115,7 +12110,7 @@ BFD Index
 * bfd_hide_sym_by_version:               Writing the symbol table.
                                                              (line  123)
 * bfd_init:                              Initialization.     (line   10)
-* bfd_install_relocation:                typedef arelent.    (line  382)
+* bfd_install_relocation:                typedef arelent.    (line  378)
 * bfd_is_local_label:                    symbol handling functions.
                                                              (line   17)
 * bfd_is_local_label_name:               symbol handling functions.
@@ -12159,7 +12154,7 @@ BFD Index
 * bfd_openw:                             Opening and Closing.
                                                              (line  155)
 * bfd_open_file:                         File Caching.       (line   51)
-* bfd_perform_relocation:                typedef arelent.    (line  357)
+* bfd_perform_relocation:                typedef arelent.    (line  353)
 * bfd_perror:                            Error reporting.    (line   88)
 * bfd_printable_arch_mach:               Architectures.      (line  724)
 * bfd_printable_name:                    Architectures.      (line  584)
@@ -13657,7 +13652,7 @@ BFD Index
 * BFD_RELOC_NS32K_IMM_32_PCREL:          howto manager.      (line  585)
 * BFD_RELOC_NS32K_IMM_8:                 howto manager.      (line  580)
 * BFD_RELOC_NS32K_IMM_8_PCREL:           howto manager.      (line  583)
-* bfd_reloc_offset_in_range:             typedef arelent.    (line  344)
+* bfd_reloc_offset_in_range:             typedef arelent.    (line  340)
 * BFD_RELOC_OR1K_COPY:                   howto manager.      (line 2393)
 * BFD_RELOC_OR1K_GLOB_DAT:               howto manager.      (line 2394)
 * BFD_RELOC_OR1K_GOT16:                  howto manager.      (line 2387)
@@ -14658,7 +14653,7 @@ BFD Index
                                                              (line    6)
 * target vector (_bfd_link_hash_table_create): Creating a Linker Hash Table.
                                                              (line    6)
-* The HOWTO Macro:                       typedef arelent.    (line  287)
+* The HOWTO Macro:                       typedef arelent.    (line  285)
 * what is it?:                           Overview.           (line    6)
 
 
@@ -14692,43 +14687,43 @@ Node: Archives113943
 Node: Formats118073
 Node: Relocations121003
 Node: typedef arelent121730
-Node: howto manager136641
-Node: Core Files272184
-Node: Targets274208
-Node: bfd_target276183
-Node: Architectures302944
-Node: Opening and Closing334976
-Node: Internal353144
-Node: File Caching353248
-Node: Linker Functions355145
-Node: Creating a Linker Hash Table356819
-Node: Adding Symbols to the Hash Table358558
-Node: Differing file formats359458
-Node: Adding symbols from an object file361183
-Node: Adding symbols from an archive363333
-Node: Performing the Final Link365679
-Node: Information provided by the linker366920
-Node: Relocating the section contents368074
-Node: Writing the symbol table369826
-Node: Hash Tables376917
-Node: Creating and Freeing a Hash Table378115
-Node: Looking Up or Entering a String379365
-Node: Traversing a Hash Table380618
-Node: Deriving a New Hash Table Type381407
-Node: Define the Derived Structures382473
-Node: Write the Derived Creation Routine383554
-Node: Write Other Derived Routines386179
-Node: BFD back ends387494
-Node: What to Put Where387764
-Node: aout387944
-Node: coff394198
-Node: elf422338
-Node: mmo422739
-Node: File layout423609
-Node: Symbol-table429522
-Node: mmo section mapping433285
-Node: GNU Free Documentation License436939
-Node: BFD Index462003
+Node: howto manager136439
+Node: Core Files271982
+Node: Targets274006
+Node: bfd_target275981
+Node: Architectures302734
+Node: Opening and Closing334766
+Node: Internal352934
+Node: File Caching353038
+Node: Linker Functions354935
+Node: Creating a Linker Hash Table356609
+Node: Adding Symbols to the Hash Table358348
+Node: Differing file formats359248
+Node: Adding symbols from an object file360973
+Node: Adding symbols from an archive363123
+Node: Performing the Final Link365469
+Node: Information provided by the linker366710
+Node: Relocating the section contents367864
+Node: Writing the symbol table369616
+Node: Hash Tables376707
+Node: Creating and Freeing a Hash Table377905
+Node: Looking Up or Entering a String379155
+Node: Traversing a Hash Table380408
+Node: Deriving a New Hash Table Type381197
+Node: Define the Derived Structures382263
+Node: Write the Derived Creation Routine383344
+Node: Write Other Derived Routines385969
+Node: BFD back ends387284
+Node: What to Put Where387554
+Node: aout387734
+Node: coff393988
+Node: elf422128
+Node: mmo422529
+Node: File layout423399
+Node: Symbol-table429312
+Node: mmo section mapping433075
+Node: GNU Free Documentation License436729
+Node: BFD Index461793
 
 End Tag Table
 

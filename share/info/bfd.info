@@ -4121,7 +4121,7 @@ attributes.
  -- : BFD_RELOC_MICROMIPS_HIGHER
  -- : BFD_RELOC_MIPS_SCN_DISP
  -- : BFD_RELOC_MICROMIPS_SCN_DISP
- -- : BFD_RELOC_MIPS_REL16
+ -- : BFD_RELOC_MIPS_16
  -- : BFD_RELOC_MIPS_RELGOT
  -- : BFD_RELOC_MIPS_JALR
  -- : BFD_RELOC_MICROMIPS_JALR
@@ -13337,6 +13337,7 @@ BFD Index
 * BFD_RELOC_MIPS16_TLS_LDM:              howto manager.      (line  342)
 * BFD_RELOC_MIPS16_TLS_TPREL_HI16:       howto manager.      (line  346)
 * BFD_RELOC_MIPS16_TLS_TPREL_LO16:       howto manager.      (line  347)
+* BFD_RELOC_MIPS_16:                     howto manager.      (line  399)
 * BFD_RELOC_MIPS_18_PCREL_S3:            howto manager.      (line  360)
 * BFD_RELOC_MIPS_19_PCREL_S2:            howto manager.      (line  361)
 * BFD_RELOC_MIPS_21_PCREL_S2:            howto manager.      (line  358)
@@ -13361,7 +13362,6 @@ BFD Index
 * BFD_RELOC_MIPS_JMP:                    howto manager.      (line  306)
 * BFD_RELOC_MIPS_JUMP_SLOT:              howto manager.      (line  426)
 * BFD_RELOC_MIPS_LITERAL:                howto manager.      (line  349)
-* BFD_RELOC_MIPS_REL16:                  howto manager.      (line  399)
 * BFD_RELOC_MIPS_RELGOT:                 howto manager.      (line  400)
 * BFD_RELOC_MIPS_SCN_DISP:               howto manager.      (line  397)
 * BFD_RELOC_MIPS_SHIFT5:                 howto manager.      (line  388)
@@ -14688,42 +14688,42 @@ Node: Formats118073
 Node: Relocations121003
 Node: typedef arelent121730
 Node: howto manager136439
-Node: Core Files271982
-Node: Targets274006
-Node: bfd_target275981
-Node: Architectures302734
-Node: Opening and Closing334766
-Node: Internal352934
-Node: File Caching353038
-Node: Linker Functions354935
-Node: Creating a Linker Hash Table356609
-Node: Adding Symbols to the Hash Table358348
-Node: Differing file formats359248
-Node: Adding symbols from an object file360973
-Node: Adding symbols from an archive363123
-Node: Performing the Final Link365469
-Node: Information provided by the linker366710
-Node: Relocating the section contents367864
-Node: Writing the symbol table369616
-Node: Hash Tables376707
-Node: Creating and Freeing a Hash Table377905
-Node: Looking Up or Entering a String379155
-Node: Traversing a Hash Table380408
-Node: Deriving a New Hash Table Type381197
-Node: Define the Derived Structures382263
-Node: Write the Derived Creation Routine383344
-Node: Write Other Derived Routines385969
-Node: BFD back ends387284
-Node: What to Put Where387554
-Node: aout387734
-Node: coff393988
-Node: elf422128
-Node: mmo422529
-Node: File layout423399
-Node: Symbol-table429312
-Node: mmo section mapping433075
-Node: GNU Free Documentation License436729
-Node: BFD Index461793
+Node: Core Files271979
+Node: Targets274003
+Node: bfd_target275978
+Node: Architectures302731
+Node: Opening and Closing334763
+Node: Internal352931
+Node: File Caching353035
+Node: Linker Functions354932
+Node: Creating a Linker Hash Table356606
+Node: Adding Symbols to the Hash Table358345
+Node: Differing file formats359245
+Node: Adding symbols from an object file360970
+Node: Adding symbols from an archive363120
+Node: Performing the Final Link365466
+Node: Information provided by the linker366707
+Node: Relocating the section contents367861
+Node: Writing the symbol table369613
+Node: Hash Tables376704
+Node: Creating and Freeing a Hash Table377902
+Node: Looking Up or Entering a String379152
+Node: Traversing a Hash Table380405
+Node: Deriving a New Hash Table Type381194
+Node: Define the Derived Structures382260
+Node: Write the Derived Creation Routine383341
+Node: Write Other Derived Routines385966
+Node: BFD back ends387281
+Node: What to Put Where387551
+Node: aout387731
+Node: coff393985
+Node: elf422125
+Node: mmo422526
+Node: File layout423396
+Node: Symbol-table429309
+Node: mmo section mapping433072
+Node: GNU Free Documentation License436726
+Node: BFD Index461790
 
 End Tag Table
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-06-11" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-06-24" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -330,6 +330,7 @@ in the following sections.
 \&\fB\-fno\-diagnostics\-show\-option  \-fno\-diagnostics\-show\-caret 
 \&\-fno\-diagnostics\-show\-labels  \-fno\-diagnostics\-show\-line\-numbers 
 \&\-fno\-diagnostics\-show\-cwe  
+\&\-fno\-diagnostics\-show\-rule  
 \&\-fdiagnostics\-minimum\-margin\-width=\fR\fIwidth\fR 
 \&\fB\-fdiagnostics\-parseable\-fixits  \-fdiagnostics\-generate\-patch 
 \&\-fdiagnostics\-show\-template\-tree  \-fno\-elide\-type 
@@ -448,6 +449,7 @@ in the following sections.
 \&\-fno\-analyzer\-state\-merge 
 \&\-fno\-analyzer\-state\-purge 
 \&\-fanalyzer\-transitivity 
+\&\-fno\-analyzer\-undo\-inlining 
 \&\-fanalyzer\-verbose\-edges 
 \&\-fanalyzer\-verbose\-state\-changes 
 \&\-fanalyzer\-verbosity=\fR\fIlevel\fR 
@@ -627,6 +629,7 @@ in the following sections.
 \&\fB\-fprofile\-exclude\-files=\fR\fIregex\fR 
 \&\fB\-fprofile\-reproducible=\fR[\fBmultithreaded\fR|\fBparallel-runs\fR|\fBserial\fR] 
 \&\fB\-fsanitize=\fR\fIstyle\fR  \fB\-fsanitize\-recover  \-fsanitize\-recover=\fR\fIstyle\fR 
+\&\fB\-fsanitize\-trap   \-fsanitize\-trap=\fR\fIstyle\fR  
 \&\fB\-fasan\-shadow\-offset=\fR\fInumber\fR  \fB\-fsanitize\-sections=\fR\fIs1\fR\fB,\fR\fIs2\fR\fB,... 
 \&\-fsanitize\-undefined\-trap\-on\-error  \-fbounds\-check 
 \&\-fcf\-protection=\fR[\fBfull\fR|\fBbranch\fR|\fBreturn\fR|\fBnone\fR|\fBcheck\fR] 
@@ -637,7 +640,7 @@ in the following sections.
 \&\fB\-fno\-stack\-limit  \-fsplit\-stack 
 \&\-fvtable\-verify=\fR[\fBstd\fR|\fBpreinit\fR|\fBnone\fR] 
 \&\fB\-fvtv\-counts  \-fvtv\-debug 
-\&\-finstrument\-functions 
+\&\-finstrument\-functions  \-finstrument\-functions\-once 
 \&\-finstrument\-functions\-exclude\-function\-list=\fR\fIsym\fR\fB,\fR\fIsym\fR\fB,... 
 \&\-finstrument\-functions\-exclude\-file\-list=\fR\fIfile\fR\fB,\fR\fIfile\fR\fB,...\fR 
 \&\-fprofile\-prefix\-map=\fIold\fR=\fInew\fR
@@ -666,7 +669,7 @@ in the following sections.
 .IP "\fILinker Options\fR" 4
 .IX Item "Linker Options"
 \&\fIobject-file-name\fR  \fB\-fuse\-ld=\fR\fIlinker\fR  \fB\-l\fR\fIlibrary\fR 
-\&\fB\-nostartfiles  \-nodefaultlibs  \-nolibc  \-nostdlib 
+\&\fB\-nostartfiles  \-nodefaultlibs  \-nolibc  \-nostdlib  \-nostdlib++ 
 \&\-e\fR \fIentry\fR  \fB\-\-entry=\fR\fIentry\fR 
 \&\fB\-pie  \-pthread  \-r  \-rdynamic 
 \&\-s  \-static  \-static\-pie  \-static\-libgcc  \-static\-libstdc++ 
@@ -1481,7 +1484,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mauto\-litpools  \-mno\-auto\-litpools 
 \&\-mtarget\-align  \-mno\-target\-align 
 \&\-mlongcalls  \-mno\-longcalls 
-\&\-mabi=\fR\fIabi-type\fR
+\&\-mabi=\fR\fIabi-type\fR 
+\&\fB\-mextra\-l32r\-costs=\fR\fIcycles\fR
 .Sp
 \&\fIzSeries Options\fR
 See S/390 and zSeries Options.
@@ -4818,6 +4822,13 @@ Diagnostic messages can optionally have an associated
 diagnostics.  \s-1GCC\s0 plugins may also provide diagnostics with such metadata.
 By default, if this information is present, it will be printed with
 the diagnostic.  This option suppresses the printing of this metadata.
+.IP "\fB\-fno\-diagnostics\-show\-rules\fR" 4
+.IX Item "-fno-diagnostics-show-rules"
+Diagnostic messages can optionally have rules associated with them, such
+as from a coding standard, or a specification.
+\&\s-1GCC\s0 itself does not do this for any of its diagnostics, but plugins may do so.
+By default, if this information is present, it will be printed with
+the diagnostic.  This option suppresses the printing of this metadata.
 .IP "\fB\-fno\-diagnostics\-show\-line\-numbers\fR" 4
 .IX Item "-fno-diagnostics-show-line-numbers"
 By default, when printing source code (via \fB\-fdiagnostics\-show\-caret\fR),
@@ -5015,7 +5026,10 @@ This option provides additional information when printing control-flow paths
 associated with a diagnostic.
 .Sp
 If this is option is provided then the stack depth will be printed for
-each run of events within \fB\-fdiagnostics\-path\-format=separate\-events\fR.
+each run of events within \fB\-fdiagnostics\-path\-format=inline\-events\fR.
+If provided with \fB\-fdiagnostics\-path\-format=separate\-events\fR, then
+the stack depth and function declaration will be appended when printing
+each event.
 .Sp
 This is intended for use by \s-1GCC\s0 developers and plugin developers when
 debugging diagnostics that report interprocedural control flow.
@@ -9457,6 +9471,23 @@ be suppressed, for debugging state-handling issues.
 .IP "\fB\-fanalyzer\-transitivity\fR" 4
 .IX Item "-fanalyzer-transitivity"
 This option enables transitivity of constraints within the analyzer.
+.IP "\fB\-fno\-analyzer\-undo\-inlining\fR" 4
+.IX Item "-fno-analyzer-undo-inlining"
+This option is intended for analyzer developers.
+.Sp
+\&\fB\-fanalyzer\fR runs relatively late compared to other code analysis
+tools, and some optimizations have already been applied to the code.  In
+particular function inlining may have occurred, leading to the
+interprocedural execution paths emitted by the analyzer containing
+function frames that don't correspond to those in the original source
+code.
+.Sp
+By default the analyzer attempts to reconstruct the original function
+frames, and to emit events showing the inlined calls.
+.Sp
+With \fB\-fno\-analyzer\-undo\-inlining\fR this attempt to reconstruct
+the original frame information can be be disabled, which may be of help
+when debugging issues in the analyzer.
 .IP "\fB\-fanalyzer\-verbose\-edges\fR" 4
 .IX Item "-fanalyzer-verbose-edges"
 This option is intended for analyzer developers.  It enables more
@@ -11961,6 +11992,19 @@ use attributes when possible.
 also at \fB\-O0\fR if \fB\-fsection\-anchors\fR is explicitly requested.
 Additionally \fB\-fno\-toplevel\-reorder\fR implies
 \&\fB\-fno\-section\-anchors\fR.
+.IP "\fB\-funreachable\-traps\fR" 4
+.IX Item "-funreachable-traps"
+With this option, the compiler turns calls to
+\&\f(CW\*(C`_\|_builtin_unreachable\*(C'\fR into traps, instead of using them for
+optimization.  This also affects any such calls implicitly generated
+by the compiler.
+.Sp
+This option has the same effect as \fB\-fsanitize=unreachable
+\&\-fsanitize\-trap=unreachable\fR, but does not affect the values of those
+options.  If \fB\-fsanitize=unreachable\fR is enabled, that option
+takes priority over this one.
+.Sp
+This option is enabled by default at \fB\-O0\fR and \fB\-Og\fR.
 .IP "\fB\-fweb\fR" 4
 .IX Item "-fweb"
 Constructs webs as commonly used for register allocation purposes and assign
@@ -15016,13 +15060,35 @@ equivalent to specifying an \fIopts\fR list of:
 .IX Item "-fsanitize-address-use-after-scope"
 Enable sanitization of local variables to detect use-after-scope bugs.
 The option sets \fB\-fstack\-reuse\fR to \fBnone\fR.
+.IP "\fB\-fsanitize\-trap\fR[\fB=\fR\fIopts\fR]" 4
+.IX Item "-fsanitize-trap[=opts]"
+The \fB\-fsanitize\-trap=\fR option instructs the compiler to
+report for sanitizers mentioned in comma-separated list of \fIopts\fR
+undefined behavior using \f(CW\*(C`_\|_builtin_trap\*(C'\fR rather than a \f(CW\*(C`libubsan\*(C'\fR
+library routine.  If this option is enabled for certain sanitizer,
+it takes precedence over the \fB\-fsanitizer\-recover=\fR for that
+sanitizer, \f(CW\*(C`_\|_builtin_trap\*(C'\fR will be emitted and be fatal regardless
+of whether recovery is enabled or disabled using \fB\-fsanitize\-recover=\fR.
+.Sp
+The advantage of this is that the \f(CW\*(C`libubsan\*(C'\fR library is not needed
+and is not linked in, so this is usable even in freestanding environments.
+.Sp
+Currently this feature works with \fB\-fsanitize=undefined\fR (and its suboptions
+except for \fB\-fsanitize=vptr\fR), \fB\-fsanitize=float\-cast\-overflow\fR,
+\&\fB\-fsanitize=float\-divide\-by\-zero\fR and
+\&\fB\-fsanitize=bounds\-strict\fR.  \f(CW\*(C`\-fsanitize\-trap=all\*(C'\fR can be also
+specified, which enables it for \f(CW\*(C`undefined\*(C'\fR suboptions,
+\&\fB\-fsanitize=float\-cast\-overflow\fR,
+\&\fB\-fsanitize=float\-divide\-by\-zero\fR and
+\&\fB\-fsanitize=bounds\-strict\fR.
+If \f(CW\*(C`\-fsanitize\-trap=undefined\*(C'\fR or \f(CW\*(C`\-fsanitize\-trap=all\*(C'\fR is used
+and \f(CW\*(C`\-fsanitize=vptr\*(C'\fR is enabled on the command line, the
+instrumentation is silently ignored as the instrumentation always needs
+\&\f(CW\*(C`libubsan\*(C'\fR support, \fB\-fsanitize\-trap=vptr\fR is not allowed.
 .IP "\fB\-fsanitize\-undefined\-trap\-on\-error\fR" 4
 .IX Item "-fsanitize-undefined-trap-on-error"
-The \fB\-fsanitize\-undefined\-trap\-on\-error\fR option instructs the compiler to
-report undefined behavior using \f(CW\*(C`_\|_builtin_trap\*(C'\fR rather than
-a \f(CW\*(C`libubsan\*(C'\fR library routine.  The advantage of this is that the
-\&\f(CW\*(C`libubsan\*(C'\fR library is not needed and is not linked in, so this
-is usable even in freestanding environments.
+The \fB\-fsanitize\-undefined\-trap\-on\-error\fR option is deprecated
+equivalent of \fB\-fsanitize\-trap=all\fR.
 .IP "\fB\-fsanitize\-coverage=trace\-pc\fR" 4
 .IX Item "-fsanitize-coverage=trace-pc"
 Enable coverage-guided fuzzing code instrumentation.
@@ -15303,6 +15369,21 @@ example, for the profiling functions listed above, high-priority
 interrupt routines, and any functions from which the profiling functions
 cannot safely be called (perhaps signal handlers, if the profiling
 routines generate output or allocate memory).
+.IP "\fB\-finstrument\-functions\-once\fR" 4
+.IX Item "-finstrument-functions-once"
+This is similar to \fB\-finstrument\-functions\fR, but the profiling
+functions are called only once per instrumented function, i.e. the first
+profiling function is called after the first entry into the instrumented
+function and the second profiling function is called before the exit
+corresponding to this first entry.
+.Sp
+The definition of \f(CW\*(C`once\*(C'\fR for the purpose of this option is a little
+vague because the implementation is not protected against data races.
+As a result, the implementation only guarantees that the profiling
+functions are called at \fIleast\fR once per process and at \fImost\fR
+once per thread, but the calls are always paired, that is to say, if a
+thread calls the first function, then it will call the second function,
+unless it never reaches the exit of the instrumented function.
 .IP "\fB\-finstrument\-functions\-exclude\-file\-list=\fR\fIfile\fR\fB,\fR\fIfile\fR\fB,...\fR" 4
 .IX Item "-finstrument-functions-exclude-file-list=file,file,..."
 Set the list of functions that are excluded from instrumentation (see
@@ -16070,6 +16151,9 @@ This ensures that you have no unresolved references to internal \s-1GCC\s0
 library subroutines.
 (An example of such an internal subroutine is \f(CW\*(C`_\|_main\*(C'\fR, used to ensure \*(C+
 constructors are called.)
+.IP "\fB\-nostdlib++\fR" 4
+.IX Item "-nostdlib++"
+Do not implicitly link with standard \*(C+ libraries.
 .IP "\fB\-e\fR \fIentry\fR" 4
 .IX Item "-e entry"
 .PD 0
@@ -27086,7 +27170,7 @@ Permissible values for this option are: \fBsifive\-e20\fR, \fBsifive\-e21\fR,
 Optimize the output for the given processor, specified by microarchitecture or
 particular \s-1CPU\s0 name.  Permissible values for this option are: \fBrocket\fR,
 \&\fBsifive\-3\-series\fR, \fBsifive\-5\-series\fR, \fBsifive\-7\-series\fR,
-\&\fBsize\fR, and all valid options for \fB\-mcpu=\fR.
+\&\fBthead\-c906\fR, \fBsize\fR, and all valid options for \fB\-mcpu=\fR.
 .Sp
 When \fB\-mtune=\fR is not specified, use the setting from \fB\-mcpu\fR,
 the default is \fBrocket\fR if both are not specified.
@@ -32308,6 +32392,13 @@ by 8 registers on entry so that its arguments are found in registers
 pointer.  Register window is rotated 8 registers back upon return.
 When this version of the \s-1ABI\s0 is enabled the C preprocessor symbol
 \&\f(CW\*(C`_\|_XTENSA_WINDOWED_ABI_\|_\*(C'\fR is defined.
+.IP "\fB\-mextra\-l32r\-costs=\fR\fIn\fR" 4
+.IX Item "-mextra-l32r-costs=n"
+Specify an extra cost of instruction \s-1RAM/ROM\s0 access for \f(CW\*(C`L32R\*(C'\fR
+instructions, in clock cycles.  This affects, when optimizing for speed,
+whether loading a constant from literal pool using \f(CW\*(C`L32R\*(C'\fR or
+synthesizing the constant from a small one with a couple of arithmetic
+instructions.  The default value is 0.
 .PP
 \fIzSeries Options\fR
 .IX Subsection "zSeries Options"

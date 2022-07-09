@@ -136,6 +136,7 @@ extern bool bcst_vector_operand (rtx, machine_mode);
 extern bool nonimmediate_or_const_vector_operand (rtx, machine_mode);
 extern bool nonimmediate_or_const_vec_dup_operand (rtx, machine_mode);
 extern bool reg_or_const_vector_operand (rtx, machine_mode);
+extern bool x86_64_const_vector_operand (rtx, machine_mode);
 extern bool nonimmediate_or_sse_const_operand (rtx, machine_mode);
 extern bool reg_or_0_operand (rtx, machine_mode);
 extern bool nonimm_or_0_operand (rtx, machine_mode);

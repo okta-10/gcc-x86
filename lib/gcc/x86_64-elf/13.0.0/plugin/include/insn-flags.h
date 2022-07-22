@@ -549,15 +549,6 @@
 #define HAVE_mmx_andnotv8qi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_andnotv4hi3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_andnotv2si3 (TARGET_MMX || TARGET_MMX_WITH_SSE)
-#define HAVE_andv4qi3 1
-#define HAVE_iorv4qi3 1
-#define HAVE_xorv4qi3 1
-#define HAVE_andv2qi3 1
-#define HAVE_iorv2qi3 1
-#define HAVE_xorv2qi3 1
-#define HAVE_andv2hi3 1
-#define HAVE_iorv2hi3 1
-#define HAVE_xorv2hi3 1
 #define HAVE_mmx_packsswb (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_packuswb (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_mmx_packssdw (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -6177,6 +6168,15 @@
 #define HAVE_andv2si3 (TARGET_MMX_WITH_SSE)
 #define HAVE_iorv2si3 (TARGET_MMX_WITH_SSE)
 #define HAVE_xorv2si3 (TARGET_MMX_WITH_SSE)
+#define HAVE_andv4qi3 1
+#define HAVE_iorv4qi3 1
+#define HAVE_xorv4qi3 1
+#define HAVE_andv2qi3 1
+#define HAVE_iorv2qi3 1
+#define HAVE_xorv2qi3 1
+#define HAVE_andv2hi3 1
+#define HAVE_iorv2hi3 1
+#define HAVE_xorv2hi3 1
 #define HAVE_vec_pack_trunc_v4hi (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_pack_trunc_v2si (TARGET_MMX_WITH_SSE)
 #define HAVE_vec_pack_trunc_v2hi (TARGET_SSE2)
@@ -9919,15 +9919,6 @@ extern rtx        gen_one_cmplv2hi2                               (rtx, rtx);
 extern rtx        gen_mmx_andnotv8qi3                             (rtx, rtx, rtx);
 extern rtx        gen_mmx_andnotv4hi3                             (rtx, rtx, rtx);
 extern rtx        gen_mmx_andnotv2si3                             (rtx, rtx, rtx);
-extern rtx        gen_andv4qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_iorv4qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_xorv4qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_andv2qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_iorv2qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_xorv2qi3                                    (rtx, rtx, rtx);
-extern rtx        gen_andv2hi3                                    (rtx, rtx, rtx);
-extern rtx        gen_iorv2hi3                                    (rtx, rtx, rtx);
-extern rtx        gen_xorv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_mmx_packsswb                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_packuswb                                (rtx, rtx, rtx);
 extern rtx        gen_mmx_packssdw                                (rtx, rtx, rtx);
@@ -15366,6 +15357,15 @@ extern rtx        gen_xorv4hi3                                    (rtx, rtx, rtx
 extern rtx        gen_andv2si3                                    (rtx, rtx, rtx);
 extern rtx        gen_iorv2si3                                    (rtx, rtx, rtx);
 extern rtx        gen_xorv2si3                                    (rtx, rtx, rtx);
+extern rtx        gen_andv4qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_iorv4qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_xorv4qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_andv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_iorv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_xorv2qi3                                    (rtx, rtx, rtx);
+extern rtx        gen_andv2hi3                                    (rtx, rtx, rtx);
+extern rtx        gen_iorv2hi3                                    (rtx, rtx, rtx);
+extern rtx        gen_xorv2hi3                                    (rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_v4hi                         (rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_v2si                         (rtx, rtx, rtx);
 extern rtx        gen_vec_pack_trunc_v2hi                         (rtx, rtx, rtx);

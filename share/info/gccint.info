@@ -21526,7 +21526,7 @@ they should not be accessed directly.
      dominance relation, and breath-first search order, respectively.
    * 'single_exit': Returns the single exit edge of the loop, or 'NULL'
      if the loop has more than one exit.  You can only use this function
-     if LOOPS_HAVE_MARKED_SINGLE_EXITS property is used.
+     if 'LOOPS_HAVE_RECORDED_EXITS' is used.
    * 'get_loop_exit_edges': Enumerates the exit edges of a loop.
    * 'just_once_each_iteration_p': Returns true if the basic block is
      executed exactly once during each iteration of a loop (that is, it
@@ -41862,18 +41862,17 @@ Here are macros for DWARF output.
      Define this macro if GCC should produce dwarf version 2 format
      debugging output in response to the '-g' option.
 
-      -- Target Hook: int TARGET_DWARF_CALLING_CONVENTION (const_tree
-               FUNCTION)
-          Define this to enable the dwarf attribute
-          'DW_AT_calling_convention' to be emitted for each function.
-          Instead of an integer return the enum value for the 'DW_CC_'
-          tag.
-
      To support optional call frame debugging information, you must also
      define 'INCOMING_RETURN_ADDR_RTX' and either set
      'RTX_FRAME_RELATED_P' on the prologue insns if you use RTL for the
      prologue, or call 'dwarf2out_def_cfa' and 'dwarf2out_reg_save' as
      appropriate from 'TARGET_ASM_FUNCTION_PROLOGUE' if you don't.
+
+ -- Target Hook: int TARGET_DWARF_CALLING_CONVENTION (const_tree
+          FUNCTION)
+     Define this to enable the dwarf attribute
+     'DW_AT_calling_convention' to be emitted for each function.
+     Instead of an integer return the enum value for the 'DW_CC_' tag.
 
  -- Macro: DWARF2_FRAME_INFO
      Define this macro to a nonzero value if GCC should always output
@@ -53926,12 +53925,12 @@ Concept Index
 * ASM_OUTPUT_DEBUG_LABEL:                Label Output.       (line  398)
 * ASM_OUTPUT_DEF:                        Label Output.       (line  447)
 * ASM_OUTPUT_DEF_FROM_DECLS:             Label Output.       (line  454)
-* ASM_OUTPUT_DWARF_DATAREL:              DWARF.              (line  110)
-* ASM_OUTPUT_DWARF_DELTA:                DWARF.              (line   89)
-* ASM_OUTPUT_DWARF_OFFSET:               DWARF.              (line   98)
-* ASM_OUTPUT_DWARF_PCREL:                DWARF.              (line  105)
-* ASM_OUTPUT_DWARF_TABLE_REF:            DWARF.              (line  115)
-* ASM_OUTPUT_DWARF_VMS_DELTA:            DWARF.              (line   93)
+* ASM_OUTPUT_DWARF_DATAREL:              DWARF.              (line  109)
+* ASM_OUTPUT_DWARF_DELTA:                DWARF.              (line   88)
+* ASM_OUTPUT_DWARF_OFFSET:               DWARF.              (line   97)
+* ASM_OUTPUT_DWARF_PCREL:                DWARF.              (line  104)
+* ASM_OUTPUT_DWARF_TABLE_REF:            DWARF.              (line  114)
+* ASM_OUTPUT_DWARF_VMS_DELTA:            DWARF.              (line   92)
 * ASM_OUTPUT_EXTERNAL:                   Label Output.       (line  327)
 * ASM_OUTPUT_FDESC:                      Data Output.        (line   69)
 * ASM_OUTPUT_FUNCTION_LABEL:             Label Output.       (line   16)
@@ -54717,10 +54716,10 @@ Concept Index
 * dump_generic_expr:                     Dump types.         (line   31)
 * dump_gimple_stmt:                      Dump types.         (line   33)
 * dump_printf:                           Dump types.         (line    6)
-* DWARF2_ASM_LINE_DEBUG_INFO:            DWARF.              (line   45)
-* DWARF2_ASM_VIEW_DEBUG_INFO:            DWARF.              (line   51)
+* DWARF2_ASM_LINE_DEBUG_INFO:            DWARF.              (line   44)
+* DWARF2_ASM_VIEW_DEBUG_INFO:            DWARF.              (line   50)
 * DWARF2_DEBUGGING_INFO:                 DWARF.              (line    8)
-* DWARF2_FRAME_INFO:                     DWARF.              (line   25)
+* DWARF2_FRAME_INFO:                     DWARF.              (line   24)
 * DWARF2_FRAME_REG_OUT:                  Frame Registers.    (line  149)
 * DWARF2_UNWIND_INFO:                    Exception Region Output.
                                                              (line   39)
@@ -57112,7 +57111,7 @@ Concept Index
 * TARGET_ASM_OPEN_PAREN:                 Data Output.        (line  138)
 * TARGET_ASM_OUTPUT_ADDR_CONST_EXTRA:    Data Output.        (line   48)
 * TARGET_ASM_OUTPUT_ANCHOR:              Anchored Addresses. (line   42)
-* TARGET_ASM_OUTPUT_DWARF_DTPREL:        DWARF.              (line  121)
+* TARGET_ASM_OUTPUT_DWARF_DTPREL:        DWARF.              (line  120)
 * TARGET_ASM_OUTPUT_IDENT:               File Framework.     (line   99)
 * TARGET_ASM_OUTPUT_MI_THUNK:            Function Entry.     (line  167)
 * TARGET_ASM_OUTPUT_SOURCE_FILENAME:     File Framework.     (line   91)
@@ -57205,15 +57204,15 @@ Concept Index
 * TARGET_CXX_USE_ATEXIT_FOR_CXA_ATEXIT:  C++ ABI.            (line   79)
 * TARGET_C_EXCESS_PRECISION:             Storage Layout.     (line  109)
 * TARGET_C_PREINCLUDE:                   Misc.               (line  397)
-* TARGET_DEBUG_UNWIND_INFO:              DWARF.              (line   32)
+* TARGET_DEBUG_UNWIND_INFO:              DWARF.              (line   31)
 * TARGET_DECIMAL_FLOAT_SUPPORTED_P:      Storage Layout.     (line  546)
 * TARGET_DECLSPEC:                       Target Attributes.  (line   72)
 * TARGET_DEFAULT_PACK_STRUCT:            Misc.               (line  481)
 * TARGET_DEFAULT_SHORT_ENUMS:            Type Layout.        (line  123)
 * TARGET_DEFAULT_TARGET_FLAGS:           Run-time Target.    (line   55)
 * TARGET_DEFERRED_OUTPUT_DEFS:           Label Output.       (line  465)
-* TARGET_DELAY_SCHED2:                   DWARF.              (line   77)
-* TARGET_DELAY_VARTRACK:                 DWARF.              (line   81)
+* TARGET_DELAY_SCHED2:                   DWARF.              (line   76)
+* TARGET_DELAY_VARTRACK:                 DWARF.              (line   80)
 * TARGET_DELEGITIMIZE_ADDRESS:           Addressing Modes.   (line  229)
 * TARGET_DIFFERENT_ADDR_DISPLACEMENT_P:  Register Classes.   (line  607)
 * TARGET_DLLIMPORT_DECL_ATTRIBUTES:      Target Attributes.  (line   55)
@@ -57221,7 +57220,7 @@ Concept Index
 * TARGET_DOLOOP_COST_FOR_GENERIC:        Misc.               (line  740)
 * TARGET_DTORS_FROM_CXA_ATEXIT:          Macros for Initialization.
                                                              (line   68)
-* TARGET_DWARF_CALLING_CONVENTION:       DWARF.              (line   12)
+* TARGET_DWARF_CALLING_CONVENTION:       DWARF.              (line   18)
 * TARGET_DWARF_FRAME_REG_MODE:           Exception Region Output.
                                                              (line  113)
 * TARGET_DWARF_HANDLE_FRAME_UNSPEC:      Frame Layout.       (line  165)
@@ -57420,7 +57419,7 @@ Concept Index
 * TARGET_NEED_IPA_FN_TARGET_INFO:        Target Attributes.  (line  198)
 * TARGET_NEW_ADDRESS_PROFITABLE_P:       Costs.              (line  422)
 * TARGET_NOCE_CONVERSION_PROFITABLE_P:   Costs.              (line  416)
-* TARGET_NO_REGISTER_ALLOCATION:         DWARF.              (line   85)
+* TARGET_NO_REGISTER_ALLOCATION:         DWARF.              (line   84)
 * TARGET_NO_SPECULATION_IN_DELAY_SLOTS_P: Costs.             (line  429)
 * TARGET_N_FORMAT_TYPES:                 Misc.               (line  991)
 * TARGET_OBJC_CONSTRUCT_STRING_OBJECT:   Run-time Target.    (line   88)
@@ -57474,7 +57473,7 @@ Concept Index
 * TARGET_REGISTER_PRIORITY:              Register Classes.   (line  584)
 * TARGET_REGISTER_USAGE_LEVELING_P:      Register Classes.   (line  596)
 * TARGET_RELAYOUT_FUNCTION:              Target Attributes.  (line  212)
-* TARGET_RESET_LOCATION_VIEW:            DWARF.              (line   57)
+* TARGET_RESET_LOCATION_VIEW:            DWARF.              (line   56)
 * TARGET_RESOLVE_OVERLOADED_BUILTIN:     Misc.               (line  663)
 * TARGET_RETURN_IN_MEMORY:               Aggregate Return.   (line   15)
 * TARGET_RETURN_IN_MSB:                  Scalar Return.      (line  124)
@@ -57636,7 +57635,7 @@ Concept Index
 * TARGET_VTABLE_DATA_ENTRY_DISTANCE:     Type Layout.        (line  303)
 * TARGET_VTABLE_ENTRY_ALIGN:             Type Layout.        (line  297)
 * TARGET_VTABLE_USES_DESCRIPTORS:        Type Layout.        (line  286)
-* TARGET_WANT_DEBUG_PUB_SECTIONS:        DWARF.              (line   72)
+* TARGET_WANT_DEBUG_PUB_SECTIONS:        DWARF.              (line   71)
 * TARGET_WARN_FUNC_RETURN:               Tail Calls.         (line   35)
 * TARGET_WARN_PARAMETER_PASSING_ABI:     Aggregate Return.   (line   90)
 * TARGET_WEAK_NOT_IN_ARCHIVE_TOC:        Label Output.       (line  308)
@@ -58446,201 +58445,201 @@ Node: Liveness information906950
 Node: Loop Analysis and Representation909077
 Node: Loop representation910113
 Node: Loop querying917557
-Node: Loop manipulation920378
-Node: LCSSA922724
-Node: Scalar evolutions924793
-Node: loop-iv928037
-Node: Number of iterations929959
-Node: Dependency analysis934040
-Node: Machine Desc940392
-Node: Overview942955
-Node: Patterns944995
-Node: Example949962
-Node: RTL Template951423
-Node: Output Template962079
-Node: Output Statement966260
-Node: Predicates970599
-Node: Machine-Independent Predicates973517
-Node: Defining Predicates978462
-Node: Constraints984425
-Node: Simple Constraints985894
-Node: Multi-Alternative998734
-Node: Class Preferences1001943
-Node: Modifiers1002835
-Node: Machine Constraints1007569
-Node: Disable Insn Alternatives1067761
-Node: Define Constraints1071253
-Node: C Constraint Interface1079842
-Node: Standard Names1082969
-Ref: shift patterns1124592
-Ref: prologue instruction pattern1186262
-Ref: window_save instruction pattern1186755
-Ref: epilogue instruction pattern1187032
-Node: Pattern Ordering1210257
-Node: Dependent Patterns1211493
-Node: Jump Patterns1213113
-Node: Looping Patterns1214790
-Node: Insn Canonicalizations1220429
-Node: Expander Definitions1225626
-Node: Insn Splitting1233839
-Node: Including Patterns1248869
-Node: Peephole Definitions1250653
-Node: define_peephole1251906
-Node: define_peephole21258236
-Node: Insn Attributes1262325
-Node: Defining Attributes1263422
-Ref: define_enum_attr1266914
-Node: Expressions1267950
-Node: Tagging Insns1274700
-Node: Attr Example1279053
-Node: Insn Lengths1281426
-Node: Constant Attributes1284838
-Node: Mnemonic Attribute1286014
-Node: Delay Slots1287533
-Node: Processor pipeline description1290756
-Ref: Processor pipeline description-Footnote-11309568
-Node: Conditional Execution1309892
-Node: Define Subst1313375
-Node: Define Subst Example1315410
-Node: Define Subst Pattern Matching1318405
-Node: Define Subst Output Template1319631
-Node: Constant Definitions1321954
-Ref: define_enum1325813
-Node: Iterators1326301
-Node: Mode Iterators1326946
-Node: Defining Mode Iterators1327924
-Node: Substitutions1329418
-Node: Examples1331660
-Node: Code Iterators1333120
-Node: Int Iterators1336250
-Node: Subst Iterators1338714
-Node: Parameterized Names1340434
-Node: Target Macros1344452
-Node: Target Structure1347515
-Node: Driver1350007
-Node: Run-time Target1368980
-Node: Per-Function Data1378506
-Node: Storage Layout1381270
-Node: Type Layout1409167
-Node: Registers1422509
-Node: Register Basics1423483
-Node: Allocation Order1431045
-Node: Values in Registers1433529
-Node: Leaf Functions1441005
-Node: Stack Registers1443864
-Node: Register Classes1445137
-Node: Stack and Calling1479914
-Node: Frame Layout1480520
-Node: Exception Handling1492356
-Node: Stack Checking1498566
-Node: Frame Registers1504192
-Node: Elimination1512743
-Node: Stack Arguments1516599
-Node: Register Arguments1524052
-Node: Scalar Return1548612
-Node: Aggregate Return1555068
-Node: Caller Saves1559622
-Node: Function Entry1560364
-Node: Profiling1571916
-Node: Tail Calls1574026
-Node: Shrink-wrapping separate components1575936
-Node: Stack Smashing Protection1578977
-Node: Miscellaneous Register Hooks1581466
-Node: Varargs1582331
-Node: Trampolines1590217
-Node: Library Calls1599910
-Node: Addressing Modes1604997
-Node: Anchored Addresses1635788
-Node: Condition Code1638431
-Node: MODE_CC Condition Codes1640276
-Node: Costs1647039
-Node: Scheduling1669359
-Node: Sections1693281
-Node: PIC1709651
-Node: Assembler Format1711710
-Node: File Framework1712848
-Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1720447
-Node: Data Output1722122
-Node: Uninitialized Data1730410
-Node: Label Output1735425
-Node: Initialization1760038
-Node: Macros for Initialization1765999
-Node: Instruction Output1773150
-Node: Dispatch Tables1783780
-Node: Exception Region Output1789531
-Node: Alignment Output1796613
-Node: Debugging Info1800300
-Node: All Debuggers1801058
-Node: DBX Options1803830
-Node: DBX Hooks1809268
-Node: File Names and DBX1810577
-Node: DWARF1812681
-Node: VMS Debug1818496
-Node: CTF Debug1819093
-Node: BTF Debug1819454
-Node: Floating Point1819797
-Node: Mode Switching1822552
-Node: Target Attributes1826989
-Node: Emulated TLS1838392
-Node: MIPS Coprocessors1841782
-Node: PCH Target1842941
-Node: C++ ABI1844783
-Node: D Language and ABI1849575
-Node: Named Address Spaces1852518
-Node: Misc1858445
-Ref: TARGET_SHIFT_TRUNCATION_MASK1866316
-Node: Host Config1927592
-Node: Host Common1928661
-Node: Filesystem1931035
-Node: Host Misc1935150
-Node: Fragments1937599
-Node: Target Fragment1938794
-Node: Host Fragment1949606
-Node: Collect21949846
-Node: Header Dirs1952482
-Node: Type Information1953905
-Node: GTY Options1957436
-Node: Inheritance and GTY1969049
-Ref: Inheritance and GTY-Footnote-11970614
-Node: User GC1970884
-Node: GGC Roots1974635
-Node: Files1975348
-Node: Invoking the garbage collector1977979
-Node: Troubleshooting1979621
-Node: Plugins1980696
-Node: Plugins loading1981825
-Node: Plugin API1982924
-Node: Plugins pass1990791
-Node: Plugins GC1992762
-Node: Plugins description1994479
-Node: Plugins attr1995015
-Node: Plugins recording1997295
-Node: Plugins gate1998145
-Node: Plugins tracking1998736
-Node: Plugins building1999324
-Node: LTO2002827
-Node: LTO Overview2003699
-Node: LTO object file layout2009455
-Node: IPA2014099
-Node: WHOPR2023151
-Node: Internal flags2027711
-Node: Match and Simplify2029122
-Node: GIMPLE API2030092
-Node: The Language2032894
-Node: Static Analyzer2045521
-Node: Analyzer Internals2045786
-Node: Debugging the Analyzer2061673
-Node: User Experience Guidelines2065241
-Node: Guidelines for Diagnostics2066177
-Ref: input_location_example2074352
-Node: Guidelines for Options2084037
-Node: Funding2084214
-Node: GNU Project2086721
-Node: Copying2087372
-Node: GNU Free Documentation License2124886
-Node: Contributors2150009
-Node: Option Index2190986
-Node: Concept Index2191863
+Node: Loop manipulation920366
+Node: LCSSA922712
+Node: Scalar evolutions924781
+Node: loop-iv928025
+Node: Number of iterations929947
+Node: Dependency analysis934028
+Node: Machine Desc940380
+Node: Overview942943
+Node: Patterns944983
+Node: Example949950
+Node: RTL Template951411
+Node: Output Template962067
+Node: Output Statement966248
+Node: Predicates970587
+Node: Machine-Independent Predicates973505
+Node: Defining Predicates978450
+Node: Constraints984413
+Node: Simple Constraints985882
+Node: Multi-Alternative998722
+Node: Class Preferences1001931
+Node: Modifiers1002823
+Node: Machine Constraints1007557
+Node: Disable Insn Alternatives1067749
+Node: Define Constraints1071241
+Node: C Constraint Interface1079830
+Node: Standard Names1082957
+Ref: shift patterns1124580
+Ref: prologue instruction pattern1186250
+Ref: window_save instruction pattern1186743
+Ref: epilogue instruction pattern1187020
+Node: Pattern Ordering1210245
+Node: Dependent Patterns1211481
+Node: Jump Patterns1213101
+Node: Looping Patterns1214778
+Node: Insn Canonicalizations1220417
+Node: Expander Definitions1225614
+Node: Insn Splitting1233827
+Node: Including Patterns1248857
+Node: Peephole Definitions1250641
+Node: define_peephole1251894
+Node: define_peephole21258224
+Node: Insn Attributes1262313
+Node: Defining Attributes1263410
+Ref: define_enum_attr1266902
+Node: Expressions1267938
+Node: Tagging Insns1274688
+Node: Attr Example1279041
+Node: Insn Lengths1281414
+Node: Constant Attributes1284826
+Node: Mnemonic Attribute1286002
+Node: Delay Slots1287521
+Node: Processor pipeline description1290744
+Ref: Processor pipeline description-Footnote-11309556
+Node: Conditional Execution1309880
+Node: Define Subst1313363
+Node: Define Subst Example1315398
+Node: Define Subst Pattern Matching1318393
+Node: Define Subst Output Template1319619
+Node: Constant Definitions1321942
+Ref: define_enum1325801
+Node: Iterators1326289
+Node: Mode Iterators1326934
+Node: Defining Mode Iterators1327912
+Node: Substitutions1329406
+Node: Examples1331648
+Node: Code Iterators1333108
+Node: Int Iterators1336238
+Node: Subst Iterators1338702
+Node: Parameterized Names1340422
+Node: Target Macros1344440
+Node: Target Structure1347503
+Node: Driver1349995
+Node: Run-time Target1368968
+Node: Per-Function Data1378494
+Node: Storage Layout1381258
+Node: Type Layout1409155
+Node: Registers1422497
+Node: Register Basics1423471
+Node: Allocation Order1431033
+Node: Values in Registers1433517
+Node: Leaf Functions1440993
+Node: Stack Registers1443852
+Node: Register Classes1445125
+Node: Stack and Calling1479902
+Node: Frame Layout1480508
+Node: Exception Handling1492344
+Node: Stack Checking1498554
+Node: Frame Registers1504180
+Node: Elimination1512731
+Node: Stack Arguments1516587
+Node: Register Arguments1524040
+Node: Scalar Return1548600
+Node: Aggregate Return1555056
+Node: Caller Saves1559610
+Node: Function Entry1560352
+Node: Profiling1571904
+Node: Tail Calls1574014
+Node: Shrink-wrapping separate components1575924
+Node: Stack Smashing Protection1578965
+Node: Miscellaneous Register Hooks1581454
+Node: Varargs1582319
+Node: Trampolines1590205
+Node: Library Calls1599898
+Node: Addressing Modes1604985
+Node: Anchored Addresses1635776
+Node: Condition Code1638419
+Node: MODE_CC Condition Codes1640264
+Node: Costs1647027
+Node: Scheduling1669347
+Node: Sections1693269
+Node: PIC1709639
+Node: Assembler Format1711698
+Node: File Framework1712836
+Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1720435
+Node: Data Output1722110
+Node: Uninitialized Data1730398
+Node: Label Output1735413
+Node: Initialization1760026
+Node: Macros for Initialization1765987
+Node: Instruction Output1773138
+Node: Dispatch Tables1783768
+Node: Exception Region Output1789519
+Node: Alignment Output1796601
+Node: Debugging Info1800288
+Node: All Debuggers1801046
+Node: DBX Options1803818
+Node: DBX Hooks1809256
+Node: File Names and DBX1810565
+Node: DWARF1812669
+Node: VMS Debug1818449
+Node: CTF Debug1819046
+Node: BTF Debug1819407
+Node: Floating Point1819750
+Node: Mode Switching1822505
+Node: Target Attributes1826942
+Node: Emulated TLS1838345
+Node: MIPS Coprocessors1841735
+Node: PCH Target1842894
+Node: C++ ABI1844736
+Node: D Language and ABI1849528
+Node: Named Address Spaces1852471
+Node: Misc1858398
+Ref: TARGET_SHIFT_TRUNCATION_MASK1866269
+Node: Host Config1927545
+Node: Host Common1928614
+Node: Filesystem1930988
+Node: Host Misc1935103
+Node: Fragments1937552
+Node: Target Fragment1938747
+Node: Host Fragment1949559
+Node: Collect21949799
+Node: Header Dirs1952435
+Node: Type Information1953858
+Node: GTY Options1957389
+Node: Inheritance and GTY1969002
+Ref: Inheritance and GTY-Footnote-11970567
+Node: User GC1970837
+Node: GGC Roots1974588
+Node: Files1975301
+Node: Invoking the garbage collector1977932
+Node: Troubleshooting1979574
+Node: Plugins1980649
+Node: Plugins loading1981778
+Node: Plugin API1982877
+Node: Plugins pass1990744
+Node: Plugins GC1992715
+Node: Plugins description1994432
+Node: Plugins attr1994968
+Node: Plugins recording1997248
+Node: Plugins gate1998098
+Node: Plugins tracking1998689
+Node: Plugins building1999277
+Node: LTO2002780
+Node: LTO Overview2003652
+Node: LTO object file layout2009408
+Node: IPA2014052
+Node: WHOPR2023104
+Node: Internal flags2027664
+Node: Match and Simplify2029075
+Node: GIMPLE API2030045
+Node: The Language2032847
+Node: Static Analyzer2045474
+Node: Analyzer Internals2045739
+Node: Debugging the Analyzer2061626
+Node: User Experience Guidelines2065194
+Node: Guidelines for Diagnostics2066130
+Ref: input_location_example2074305
+Node: Guidelines for Options2083990
+Node: Funding2084167
+Node: GNU Project2086674
+Node: Copying2087325
+Node: GNU Free Documentation License2124839
+Node: Contributors2149962
+Node: Option Index2190939
+Node: Concept Index2191816
 
 End Tag Table
 

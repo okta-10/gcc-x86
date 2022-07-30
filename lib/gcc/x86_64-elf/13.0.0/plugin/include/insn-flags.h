@@ -10,6 +10,7 @@
 #define HAVE_insvhi_1 1
 #define HAVE_insvsi_1 1
 #define HAVE_insvdi_1 (TARGET_64BIT)
+#define HAVE_zero_extendditi2 (TARGET_64BIT)
 #define HAVE_zero_extendqidi2 (TARGET_64BIT)
 #define HAVE_zero_extendhidi2 (TARGET_64BIT)
 #define HAVE_zero_extendqisi2_and (TARGET_ZERO_EXTEND_WITH_AND && optimize_function_for_speed_p (cfun))
@@ -9468,6 +9469,7 @@ extern rtx        gen_swapdi                                      (rtx, rtx);
 extern rtx        gen_insvhi_1                                    (rtx, rtx);
 extern rtx        gen_insvsi_1                                    (rtx, rtx);
 extern rtx        gen_insvdi_1                                    (rtx, rtx);
+extern rtx        gen_zero_extendditi2                            (rtx, rtx);
 extern rtx        gen_zero_extendqidi2                            (rtx, rtx);
 extern rtx        gen_zero_extendhidi2                            (rtx, rtx);
 extern rtx        gen_zero_extendqisi2_and                        (rtx, rtx);

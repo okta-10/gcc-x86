@@ -177,6 +177,10 @@ extern void gt_ggc_mx_die_struct (void *);
   if ((intptr_t)(X) != 0) gt_ggc_mx_vec_constructor_elt_va_gc_ (X);\
   } while (0)
 extern void gt_ggc_mx_vec_constructor_elt_va_gc_ (void *);
+#define gt_ggc_m_19frange_storage_slot(X) do { \
+  if ((intptr_t)(X) != 0) gt_ggc_mx_frange_storage_slot (X);\
+  } while (0)
+extern void gt_ggc_mx_frange_storage_slot (void *);
 #define gt_ggc_m_15vec_tree_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_ggc_mx_vec_tree_va_gc_ (X);\
   } while (0)
@@ -1634,6 +1638,10 @@ extern void gt_pch_nx_die_struct (void *);
   if ((intptr_t)(X) != 0) gt_pch_nx_vec_constructor_elt_va_gc_ (X);\
   } while (0)
 extern void gt_pch_nx_vec_constructor_elt_va_gc_ (void *);
+#define gt_pch_n_19frange_storage_slot(X) do { \
+  if ((intptr_t)(X) != 0) gt_pch_nx_frange_storage_slot (X);\
+  } while (0)
+extern void gt_pch_nx_frange_storage_slot (void *);
 #define gt_pch_n_15vec_tree_va_gc_(X) do { \
   if ((intptr_t)(X) != 0) gt_pch_nx_vec_tree_va_gc_ (X);\
   } while (0)
@@ -3100,6 +3108,8 @@ extern void gt_pch_p_19irange_storage_slot
 extern void gt_pch_p_10die_struct
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_26vec_constructor_elt_va_gc_
+    (void *, void *, gt_pointer_operator, void *);
+extern void gt_pch_p_19frange_storage_slot
     (void *, void *, gt_pointer_operator, void *);
 extern void gt_pch_p_15vec_tree_va_gc_
     (void *, void *, gt_pointer_operator, void *);

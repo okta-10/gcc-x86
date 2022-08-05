@@ -176,6 +176,8 @@
 #define HAVE_ix86_rotrti3_doubleword (TARGET_64BIT)
 #define HAVE_rotl32di2_doubleword (!TARGET_64BIT)
 #define HAVE_rotr32di2_doubleword (!TARGET_64BIT)
+#define HAVE_rotl64ti2_doubleword (TARGET_64BIT)
+#define HAVE_rotr64ti2_doubleword (TARGET_64BIT)
 #define HAVE_setcc_sf_sse (SSE_FLOAT_MODE_P (SFmode))
 #define HAVE_setcc_df_sse (SSE_FLOAT_MODE_P (DFmode))
 #define HAVE_setcc_hf_mask (TARGET_AVX512FP16)
@@ -9575,6 +9577,8 @@ extern rtx        gen_ix86_rotrdi3_doubleword                     (rtx, rtx, rtx
 extern rtx        gen_ix86_rotrti3_doubleword                     (rtx, rtx, rtx);
 extern rtx        gen_rotl32di2_doubleword                        (rtx, rtx);
 extern rtx        gen_rotr32di2_doubleword                        (rtx, rtx);
+extern rtx        gen_rotl64ti2_doubleword                        (rtx, rtx);
+extern rtx        gen_rotr64ti2_doubleword                        (rtx, rtx);
 extern rtx        gen_setcc_sf_sse                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_setcc_df_sse                                (rtx, rtx, rtx, rtx);
 extern rtx        gen_setcc_hf_mask                               (rtx, rtx, rtx, rtx);

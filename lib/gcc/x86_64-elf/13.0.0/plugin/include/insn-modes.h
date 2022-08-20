@@ -27,77 +27,77 @@ enum machine_mode
 #else
 #define CCmode ((void) 0, E_CCmode)
 #endif
-  E_CCGCmode,              /* config/i386/i386-modes.def:66 */
+  E_CCGCmode,              /* config/i386/i386-modes.def:68 */
 #define HAVE_CCGCmode
 #ifdef USE_ENUM_MODES
 #define CCGCmode E_CCGCmode
 #else
 #define CCGCmode ((void) 0, E_CCGCmode)
 #endif
-  E_CCGOCmode,             /* config/i386/i386-modes.def:67 */
+  E_CCGOCmode,             /* config/i386/i386-modes.def:69 */
 #define HAVE_CCGOCmode
 #ifdef USE_ENUM_MODES
 #define CCGOCmode E_CCGOCmode
 #else
 #define CCGOCmode ((void) 0, E_CCGOCmode)
 #endif
-  E_CCNOmode,              /* config/i386/i386-modes.def:68 */
+  E_CCNOmode,              /* config/i386/i386-modes.def:70 */
 #define HAVE_CCNOmode
 #ifdef USE_ENUM_MODES
 #define CCNOmode E_CCNOmode
 #else
 #define CCNOmode ((void) 0, E_CCNOmode)
 #endif
-  E_CCGZmode,              /* config/i386/i386-modes.def:69 */
+  E_CCGZmode,              /* config/i386/i386-modes.def:71 */
 #define HAVE_CCGZmode
 #ifdef USE_ENUM_MODES
 #define CCGZmode E_CCGZmode
 #else
 #define CCGZmode ((void) 0, E_CCGZmode)
 #endif
-  E_CCAmode,               /* config/i386/i386-modes.def:70 */
+  E_CCAmode,               /* config/i386/i386-modes.def:72 */
 #define HAVE_CCAmode
 #ifdef USE_ENUM_MODES
 #define CCAmode E_CCAmode
 #else
 #define CCAmode ((void) 0, E_CCAmode)
 #endif
-  E_CCCmode,               /* config/i386/i386-modes.def:71 */
+  E_CCCmode,               /* config/i386/i386-modes.def:73 */
 #define HAVE_CCCmode
 #ifdef USE_ENUM_MODES
 #define CCCmode E_CCCmode
 #else
 #define CCCmode ((void) 0, E_CCCmode)
 #endif
-  E_CCOmode,               /* config/i386/i386-modes.def:72 */
+  E_CCOmode,               /* config/i386/i386-modes.def:74 */
 #define HAVE_CCOmode
 #ifdef USE_ENUM_MODES
 #define CCOmode E_CCOmode
 #else
 #define CCOmode ((void) 0, E_CCOmode)
 #endif
-  E_CCPmode,               /* config/i386/i386-modes.def:73 */
+  E_CCPmode,               /* config/i386/i386-modes.def:75 */
 #define HAVE_CCPmode
 #ifdef USE_ENUM_MODES
 #define CCPmode E_CCPmode
 #else
 #define CCPmode ((void) 0, E_CCPmode)
 #endif
-  E_CCSmode,               /* config/i386/i386-modes.def:74 */
+  E_CCSmode,               /* config/i386/i386-modes.def:76 */
 #define HAVE_CCSmode
 #ifdef USE_ENUM_MODES
 #define CCSmode E_CCSmode
 #else
 #define CCSmode ((void) 0, E_CCSmode)
 #endif
-  E_CCZmode,               /* config/i386/i386-modes.def:75 */
+  E_CCZmode,               /* config/i386/i386-modes.def:77 */
 #define HAVE_CCZmode
 #ifdef USE_ENUM_MODES
 #define CCZmode E_CCZmode
 #else
 #define CCZmode ((void) 0, E_CCZmode)
 #endif
-  E_CCFPmode,              /* config/i386/i386-modes.def:77 */
+  E_CCFPmode,              /* config/i386/i386-modes.def:79 */
 #define HAVE_CCFPmode
 #ifdef USE_ENUM_MODES
 #define CCFPmode E_CCFPmode
@@ -146,35 +146,35 @@ enum machine_mode
 #else
 #define TImode (scalar_int_mode ((scalar_int_mode::from_int) E_TImode))
 #endif
-  E_OImode,                /* config/i386/i386-modes.def:104 */
+  E_OImode,                /* config/i386/i386-modes.def:106 */
 #define HAVE_OImode
 #ifdef USE_ENUM_MODES
 #define OImode E_OImode
 #else
 #define OImode (scalar_int_mode ((scalar_int_mode::from_int) E_OImode))
 #endif
-  E_XImode,                /* config/i386/i386-modes.def:105 */
+  E_XImode,                /* config/i386/i386-modes.def:107 */
 #define HAVE_XImode
 #ifdef USE_ENUM_MODES
 #define XImode E_XImode
 #else
 #define XImode (scalar_int_mode ((scalar_int_mode::from_int) E_XImode))
 #endif
-  E_P2QImode,              /* config/i386/i386-modes.def:110 */
+  E_P2QImode,              /* config/i386/i386-modes.def:112 */
 #define HAVE_P2QImode
 #ifdef USE_ENUM_MODES
 #define P2QImode E_P2QImode
 #else
 #define P2QImode (scalar_int_mode ((scalar_int_mode::from_int) E_P2QImode))
 #endif
-  E_P2HImode,              /* config/i386/i386-modes.def:111 */
+  E_P2HImode,              /* config/i386/i386-modes.def:113 */
 #define HAVE_P2HImode
 #ifdef USE_ENUM_MODES
 #define P2HImode E_P2HImode
 #else
 #define P2HImode (scalar_int_mode ((scalar_int_mode::from_int) E_P2HImode))
 #endif
-  E_POImode,               /* config/i386/i386-modes.def:116 */
+  E_POImode,               /* config/i386/i386-modes.def:118 */
 #define HAVE_POImode
 #ifdef USE_ENUM_MODES
 #define POImode E_POImode
@@ -314,6 +314,13 @@ enum machine_mode
 #else
 #define HFmode (scalar_float_mode ((scalar_float_mode::from_int) E_HFmode))
 #endif
+  E_BFmode,                /* config/i386/i386-modes.def:27 */
+#define HAVE_BFmode
+#ifdef USE_ENUM_MODES
+#define BFmode E_BFmode
+#else
+#define BFmode (scalar_float_mode ((scalar_float_mode::from_int) E_BFmode))
+#endif
   E_SFmode,                /* machmode.def:231 */
 #define HAVE_SFmode
 #ifdef USE_ENUM_MODES
@@ -433,6 +440,13 @@ enum machine_mode
 #else
 #define CXImode (complex_mode ((complex_mode::from_int) E_CXImode))
 #endif
+  E_BCmode,                /* machmode.def:269 */
+#define HAVE_BCmode
+#ifdef USE_ENUM_MODES
+#define BCmode E_BCmode
+#else
+#define BCmode (complex_mode ((complex_mode::from_int) E_BCmode))
+#endif
   E_HCmode,                /* machmode.def:269 */
 #define HAVE_HCmode
 #ifdef USE_ENUM_MODES
@@ -468,385 +482,427 @@ enum machine_mode
 #else
 #define TCmode (complex_mode ((complex_mode::from_int) E_TCmode))
 #endif
-  E_V2QImode,              /* config/i386/i386-modes.def:98 */
+  E_V2QImode,              /* config/i386/i386-modes.def:100 */
 #define HAVE_V2QImode
 #ifdef USE_ENUM_MODES
 #define V2QImode E_V2QImode
 #else
 #define V2QImode ((void) 0, E_V2QImode)
 #endif
-  E_V4QImode,              /* config/i386/i386-modes.def:81 */
+  E_V4QImode,              /* config/i386/i386-modes.def:83 */
 #define HAVE_V4QImode
 #ifdef USE_ENUM_MODES
 #define V4QImode E_V4QImode
 #else
 #define V4QImode ((void) 0, E_V4QImode)
 #endif
-  E_V2HImode,              /* config/i386/i386-modes.def:81 */
+  E_V2HImode,              /* config/i386/i386-modes.def:83 */
 #define HAVE_V2HImode
 #ifdef USE_ENUM_MODES
 #define V2HImode E_V2HImode
 #else
 #define V2HImode ((void) 0, E_V2HImode)
 #endif
-  E_V1SImode,              /* config/i386/i386-modes.def:97 */
+  E_V1SImode,              /* config/i386/i386-modes.def:99 */
 #define HAVE_V1SImode
 #ifdef USE_ENUM_MODES
 #define V1SImode E_V1SImode
 #else
 #define V1SImode ((void) 0, E_V1SImode)
 #endif
-  E_V8QImode,              /* config/i386/i386-modes.def:82 */
+  E_V8QImode,              /* config/i386/i386-modes.def:84 */
 #define HAVE_V8QImode
 #ifdef USE_ENUM_MODES
 #define V8QImode E_V8QImode
 #else
 #define V8QImode ((void) 0, E_V8QImode)
 #endif
-  E_V4HImode,              /* config/i386/i386-modes.def:82 */
+  E_V4HImode,              /* config/i386/i386-modes.def:84 */
 #define HAVE_V4HImode
 #ifdef USE_ENUM_MODES
 #define V4HImode E_V4HImode
 #else
 #define V4HImode ((void) 0, E_V4HImode)
 #endif
-  E_V2SImode,              /* config/i386/i386-modes.def:82 */
+  E_V2SImode,              /* config/i386/i386-modes.def:84 */
 #define HAVE_V2SImode
 #ifdef USE_ENUM_MODES
 #define V2SImode E_V2SImode
 #else
 #define V2SImode ((void) 0, E_V2SImode)
 #endif
-  E_V1DImode,              /* config/i386/i386-modes.def:96 */
+  E_V1DImode,              /* config/i386/i386-modes.def:98 */
 #define HAVE_V1DImode
 #ifdef USE_ENUM_MODES
 #define V1DImode E_V1DImode
 #else
 #define V1DImode ((void) 0, E_V1DImode)
 #endif
-  E_V12QImode,             /* config/i386/i386-modes.def:99 */
+  E_V12QImode,             /* config/i386/i386-modes.def:101 */
 #define HAVE_V12QImode
 #ifdef USE_ENUM_MODES
 #define V12QImode E_V12QImode
 #else
 #define V12QImode ((void) 0, E_V12QImode)
 #endif
-  E_V6HImode,              /* config/i386/i386-modes.def:101 */
+  E_V6HImode,              /* config/i386/i386-modes.def:103 */
 #define HAVE_V6HImode
 #ifdef USE_ENUM_MODES
 #define V6HImode E_V6HImode
 #else
 #define V6HImode ((void) 0, E_V6HImode)
 #endif
-  E_V14QImode,             /* config/i386/i386-modes.def:100 */
+  E_V14QImode,             /* config/i386/i386-modes.def:102 */
 #define HAVE_V14QImode
 #ifdef USE_ENUM_MODES
 #define V14QImode E_V14QImode
 #else
 #define V14QImode ((void) 0, E_V14QImode)
 #endif
-  E_V16QImode,             /* config/i386/i386-modes.def:83 */
+  E_V16QImode,             /* config/i386/i386-modes.def:85 */
 #define HAVE_V16QImode
 #ifdef USE_ENUM_MODES
 #define V16QImode E_V16QImode
 #else
 #define V16QImode ((void) 0, E_V16QImode)
 #endif
-  E_V8HImode,              /* config/i386/i386-modes.def:83 */
+  E_V8HImode,              /* config/i386/i386-modes.def:85 */
 #define HAVE_V8HImode
 #ifdef USE_ENUM_MODES
 #define V8HImode E_V8HImode
 #else
 #define V8HImode ((void) 0, E_V8HImode)
 #endif
-  E_V4SImode,              /* config/i386/i386-modes.def:83 */
+  E_V4SImode,              /* config/i386/i386-modes.def:85 */
 #define HAVE_V4SImode
 #ifdef USE_ENUM_MODES
 #define V4SImode E_V4SImode
 #else
 #define V4SImode ((void) 0, E_V4SImode)
 #endif
-  E_V2DImode,              /* config/i386/i386-modes.def:83 */
+  E_V2DImode,              /* config/i386/i386-modes.def:85 */
 #define HAVE_V2DImode
 #ifdef USE_ENUM_MODES
 #define V2DImode E_V2DImode
 #else
 #define V2DImode ((void) 0, E_V2DImode)
 #endif
-  E_V1TImode,              /* config/i386/i386-modes.def:95 */
+  E_V1TImode,              /* config/i386/i386-modes.def:97 */
 #define HAVE_V1TImode
 #ifdef USE_ENUM_MODES
 #define V1TImode E_V1TImode
 #else
 #define V1TImode ((void) 0, E_V1TImode)
 #endif
-  E_V32QImode,             /* config/i386/i386-modes.def:84 */
+  E_V32QImode,             /* config/i386/i386-modes.def:86 */
 #define HAVE_V32QImode
 #ifdef USE_ENUM_MODES
 #define V32QImode E_V32QImode
 #else
 #define V32QImode ((void) 0, E_V32QImode)
 #endif
-  E_V16HImode,             /* config/i386/i386-modes.def:84 */
+  E_V16HImode,             /* config/i386/i386-modes.def:86 */
 #define HAVE_V16HImode
 #ifdef USE_ENUM_MODES
 #define V16HImode E_V16HImode
 #else
 #define V16HImode ((void) 0, E_V16HImode)
 #endif
-  E_V8SImode,              /* config/i386/i386-modes.def:84 */
+  E_V8SImode,              /* config/i386/i386-modes.def:86 */
 #define HAVE_V8SImode
 #ifdef USE_ENUM_MODES
 #define V8SImode E_V8SImode
 #else
 #define V8SImode ((void) 0, E_V8SImode)
 #endif
-  E_V4DImode,              /* config/i386/i386-modes.def:84 */
+  E_V4DImode,              /* config/i386/i386-modes.def:86 */
 #define HAVE_V4DImode
 #ifdef USE_ENUM_MODES
 #define V4DImode E_V4DImode
 #else
 #define V4DImode ((void) 0, E_V4DImode)
 #endif
-  E_V2TImode,              /* config/i386/i386-modes.def:84 */
+  E_V2TImode,              /* config/i386/i386-modes.def:86 */
 #define HAVE_V2TImode
 #ifdef USE_ENUM_MODES
 #define V2TImode E_V2TImode
 #else
 #define V2TImode ((void) 0, E_V2TImode)
 #endif
-  E_V64QImode,             /* config/i386/i386-modes.def:85 */
+  E_V64QImode,             /* config/i386/i386-modes.def:87 */
 #define HAVE_V64QImode
 #ifdef USE_ENUM_MODES
 #define V64QImode E_V64QImode
 #else
 #define V64QImode ((void) 0, E_V64QImode)
 #endif
-  E_V32HImode,             /* config/i386/i386-modes.def:85 */
+  E_V32HImode,             /* config/i386/i386-modes.def:87 */
 #define HAVE_V32HImode
 #ifdef USE_ENUM_MODES
 #define V32HImode E_V32HImode
 #else
 #define V32HImode ((void) 0, E_V32HImode)
 #endif
-  E_V16SImode,             /* config/i386/i386-modes.def:85 */
+  E_V16SImode,             /* config/i386/i386-modes.def:87 */
 #define HAVE_V16SImode
 #ifdef USE_ENUM_MODES
 #define V16SImode E_V16SImode
 #else
 #define V16SImode ((void) 0, E_V16SImode)
 #endif
-  E_V8DImode,              /* config/i386/i386-modes.def:85 */
+  E_V8DImode,              /* config/i386/i386-modes.def:87 */
 #define HAVE_V8DImode
 #ifdef USE_ENUM_MODES
 #define V8DImode E_V8DImode
 #else
 #define V8DImode ((void) 0, E_V8DImode)
 #endif
-  E_V4TImode,              /* config/i386/i386-modes.def:85 */
+  E_V4TImode,              /* config/i386/i386-modes.def:87 */
 #define HAVE_V4TImode
 #ifdef USE_ENUM_MODES
 #define V4TImode E_V4TImode
 #else
 #define V4TImode ((void) 0, E_V4TImode)
 #endif
-  E_V128QImode,            /* config/i386/i386-modes.def:86 */
+  E_V128QImode,            /* config/i386/i386-modes.def:88 */
 #define HAVE_V128QImode
 #ifdef USE_ENUM_MODES
 #define V128QImode E_V128QImode
 #else
 #define V128QImode ((void) 0, E_V128QImode)
 #endif
-  E_V64HImode,             /* config/i386/i386-modes.def:86 */
+  E_V64HImode,             /* config/i386/i386-modes.def:88 */
 #define HAVE_V64HImode
 #ifdef USE_ENUM_MODES
 #define V64HImode E_V64HImode
 #else
 #define V64HImode ((void) 0, E_V64HImode)
 #endif
-  E_V32SImode,             /* config/i386/i386-modes.def:86 */
+  E_V32SImode,             /* config/i386/i386-modes.def:88 */
 #define HAVE_V32SImode
 #ifdef USE_ENUM_MODES
 #define V32SImode E_V32SImode
 #else
 #define V32SImode ((void) 0, E_V32SImode)
 #endif
-  E_V16DImode,             /* config/i386/i386-modes.def:86 */
+  E_V16DImode,             /* config/i386/i386-modes.def:88 */
 #define HAVE_V16DImode
 #ifdef USE_ENUM_MODES
 #define V16DImode E_V16DImode
 #else
 #define V16DImode ((void) 0, E_V16DImode)
 #endif
-  E_V8TImode,              /* config/i386/i386-modes.def:86 */
+  E_V8TImode,              /* config/i386/i386-modes.def:88 */
 #define HAVE_V8TImode
 #ifdef USE_ENUM_MODES
 #define V8TImode E_V8TImode
 #else
 #define V8TImode ((void) 0, E_V8TImode)
 #endif
-  E_V64SImode,             /* config/i386/i386-modes.def:102 */
+  E_V64SImode,             /* config/i386/i386-modes.def:104 */
 #define HAVE_V64SImode
 #ifdef USE_ENUM_MODES
 #define V64SImode E_V64SImode
 #else
 #define V64SImode ((void) 0, E_V64SImode)
 #endif
-  E_V2HFmode,              /* config/i386/i386-modes.def:93 */
+  E_V2HFmode,              /* config/i386/i386-modes.def:95 */
 #define HAVE_V2HFmode
 #ifdef USE_ENUM_MODES
 #define V2HFmode E_V2HFmode
 #else
 #define V2HFmode ((void) 0, E_V2HFmode)
 #endif
-  E_V4HFmode,              /* config/i386/i386-modes.def:87 */
+  E_V4BFmode,              /* config/i386/i386-modes.def:89 */
+#define HAVE_V4BFmode
+#ifdef USE_ENUM_MODES
+#define V4BFmode E_V4BFmode
+#else
+#define V4BFmode ((void) 0, E_V4BFmode)
+#endif
+  E_V4HFmode,              /* config/i386/i386-modes.def:89 */
 #define HAVE_V4HFmode
 #ifdef USE_ENUM_MODES
 #define V4HFmode E_V4HFmode
 #else
 #define V4HFmode ((void) 0, E_V4HFmode)
 #endif
-  E_V2SFmode,              /* config/i386/i386-modes.def:87 */
+  E_V2SFmode,              /* config/i386/i386-modes.def:89 */
 #define HAVE_V2SFmode
 #ifdef USE_ENUM_MODES
 #define V2SFmode E_V2SFmode
 #else
 #define V2SFmode ((void) 0, E_V2SFmode)
 #endif
-  E_V6HFmode,              /* config/i386/i386-modes.def:94 */
+  E_V6HFmode,              /* config/i386/i386-modes.def:96 */
 #define HAVE_V6HFmode
 #ifdef USE_ENUM_MODES
 #define V6HFmode E_V6HFmode
 #else
 #define V6HFmode ((void) 0, E_V6HFmode)
 #endif
-  E_V8HFmode,              /* config/i386/i386-modes.def:88 */
+  E_V8BFmode,              /* config/i386/i386-modes.def:90 */
+#define HAVE_V8BFmode
+#ifdef USE_ENUM_MODES
+#define V8BFmode E_V8BFmode
+#else
+#define V8BFmode ((void) 0, E_V8BFmode)
+#endif
+  E_V8HFmode,              /* config/i386/i386-modes.def:90 */
 #define HAVE_V8HFmode
 #ifdef USE_ENUM_MODES
 #define V8HFmode E_V8HFmode
 #else
 #define V8HFmode ((void) 0, E_V8HFmode)
 #endif
-  E_V4SFmode,              /* config/i386/i386-modes.def:88 */
+  E_V4SFmode,              /* config/i386/i386-modes.def:90 */
 #define HAVE_V4SFmode
 #ifdef USE_ENUM_MODES
 #define V4SFmode E_V4SFmode
 #else
 #define V4SFmode ((void) 0, E_V4SFmode)
 #endif
-  E_V2DFmode,              /* config/i386/i386-modes.def:88 */
+  E_V2DFmode,              /* config/i386/i386-modes.def:90 */
 #define HAVE_V2DFmode
 #ifdef USE_ENUM_MODES
 #define V2DFmode E_V2DFmode
 #else
 #define V2DFmode ((void) 0, E_V2DFmode)
 #endif
-  E_V16HFmode,             /* config/i386/i386-modes.def:89 */
+  E_V16BFmode,             /* config/i386/i386-modes.def:91 */
+#define HAVE_V16BFmode
+#ifdef USE_ENUM_MODES
+#define V16BFmode E_V16BFmode
+#else
+#define V16BFmode ((void) 0, E_V16BFmode)
+#endif
+  E_V16HFmode,             /* config/i386/i386-modes.def:91 */
 #define HAVE_V16HFmode
 #ifdef USE_ENUM_MODES
 #define V16HFmode E_V16HFmode
 #else
 #define V16HFmode ((void) 0, E_V16HFmode)
 #endif
-  E_V8SFmode,              /* config/i386/i386-modes.def:89 */
+  E_V8SFmode,              /* config/i386/i386-modes.def:91 */
 #define HAVE_V8SFmode
 #ifdef USE_ENUM_MODES
 #define V8SFmode E_V8SFmode
 #else
 #define V8SFmode ((void) 0, E_V8SFmode)
 #endif
-  E_V4DFmode,              /* config/i386/i386-modes.def:89 */
+  E_V4DFmode,              /* config/i386/i386-modes.def:91 */
 #define HAVE_V4DFmode
 #ifdef USE_ENUM_MODES
 #define V4DFmode E_V4DFmode
 #else
 #define V4DFmode ((void) 0, E_V4DFmode)
 #endif
-  E_V2TFmode,              /* config/i386/i386-modes.def:89 */
+  E_V2TFmode,              /* config/i386/i386-modes.def:91 */
 #define HAVE_V2TFmode
 #ifdef USE_ENUM_MODES
 #define V2TFmode E_V2TFmode
 #else
 #define V2TFmode ((void) 0, E_V2TFmode)
 #endif
-  E_V32HFmode,             /* config/i386/i386-modes.def:90 */
+  E_V32BFmode,             /* config/i386/i386-modes.def:92 */
+#define HAVE_V32BFmode
+#ifdef USE_ENUM_MODES
+#define V32BFmode E_V32BFmode
+#else
+#define V32BFmode ((void) 0, E_V32BFmode)
+#endif
+  E_V32HFmode,             /* config/i386/i386-modes.def:92 */
 #define HAVE_V32HFmode
 #ifdef USE_ENUM_MODES
 #define V32HFmode E_V32HFmode
 #else
 #define V32HFmode ((void) 0, E_V32HFmode)
 #endif
-  E_V16SFmode,             /* config/i386/i386-modes.def:90 */
+  E_V16SFmode,             /* config/i386/i386-modes.def:92 */
 #define HAVE_V16SFmode
 #ifdef USE_ENUM_MODES
 #define V16SFmode E_V16SFmode
 #else
 #define V16SFmode ((void) 0, E_V16SFmode)
 #endif
-  E_V8DFmode,              /* config/i386/i386-modes.def:90 */
+  E_V8DFmode,              /* config/i386/i386-modes.def:92 */
 #define HAVE_V8DFmode
 #ifdef USE_ENUM_MODES
 #define V8DFmode E_V8DFmode
 #else
 #define V8DFmode ((void) 0, E_V8DFmode)
 #endif
-  E_V4TFmode,              /* config/i386/i386-modes.def:90 */
+  E_V4TFmode,              /* config/i386/i386-modes.def:92 */
 #define HAVE_V4TFmode
 #ifdef USE_ENUM_MODES
 #define V4TFmode E_V4TFmode
 #else
 #define V4TFmode ((void) 0, E_V4TFmode)
 #endif
-  E_V64HFmode,             /* config/i386/i386-modes.def:91 */
+  E_V64BFmode,             /* config/i386/i386-modes.def:93 */
+#define HAVE_V64BFmode
+#ifdef USE_ENUM_MODES
+#define V64BFmode E_V64BFmode
+#else
+#define V64BFmode ((void) 0, E_V64BFmode)
+#endif
+  E_V64HFmode,             /* config/i386/i386-modes.def:93 */
 #define HAVE_V64HFmode
 #ifdef USE_ENUM_MODES
 #define V64HFmode E_V64HFmode
 #else
 #define V64HFmode ((void) 0, E_V64HFmode)
 #endif
-  E_V32SFmode,             /* config/i386/i386-modes.def:91 */
+  E_V32SFmode,             /* config/i386/i386-modes.def:93 */
 #define HAVE_V32SFmode
 #ifdef USE_ENUM_MODES
 #define V32SFmode E_V32SFmode
 #else
 #define V32SFmode ((void) 0, E_V32SFmode)
 #endif
-  E_V16DFmode,             /* config/i386/i386-modes.def:91 */
+  E_V16DFmode,             /* config/i386/i386-modes.def:93 */
 #define HAVE_V16DFmode
 #ifdef USE_ENUM_MODES
 #define V16DFmode E_V16DFmode
 #else
 #define V16DFmode ((void) 0, E_V16DFmode)
 #endif
-  E_V8TFmode,              /* config/i386/i386-modes.def:91 */
+  E_V8TFmode,              /* config/i386/i386-modes.def:93 */
 #define HAVE_V8TFmode
 #ifdef USE_ENUM_MODES
 #define V8TFmode E_V8TFmode
 #else
 #define V8TFmode ((void) 0, E_V8TFmode)
 #endif
-  E_V128HFmode,            /* config/i386/i386-modes.def:92 */
+  E_V128BFmode,            /* config/i386/i386-modes.def:94 */
+#define HAVE_V128BFmode
+#ifdef USE_ENUM_MODES
+#define V128BFmode E_V128BFmode
+#else
+#define V128BFmode ((void) 0, E_V128BFmode)
+#endif
+  E_V128HFmode,            /* config/i386/i386-modes.def:94 */
 #define HAVE_V128HFmode
 #ifdef USE_ENUM_MODES
 #define V128HFmode E_V128HFmode
 #else
 #define V128HFmode ((void) 0, E_V128HFmode)
 #endif
-  E_V64SFmode,             /* config/i386/i386-modes.def:92 */
+  E_V64SFmode,             /* config/i386/i386-modes.def:94 */
 #define HAVE_V64SFmode
 #ifdef USE_ENUM_MODES
 #define V64SFmode E_V64SFmode
 #else
 #define V64SFmode ((void) 0, E_V64SFmode)
 #endif
-  E_V32DFmode,             /* config/i386/i386-modes.def:92 */
+  E_V32DFmode,             /* config/i386/i386-modes.def:94 */
 #define HAVE_V32DFmode
 #ifdef USE_ENUM_MODES
 #define V32DFmode E_V32DFmode
 #else
 #define V32DFmode ((void) 0, E_V32DFmode)
 #endif
-  E_V16TFmode,             /* config/i386/i386-modes.def:92 */
+  E_V16TFmode,             /* config/i386/i386-modes.def:94 */
 #define HAVE_V16TFmode
 #ifdef USE_ENUM_MODES
 #define V16TFmode E_V16TFmode
@@ -891,7 +947,7 @@ enum machine_mode
   MIN_MODE_COMPLEX_INT = E_CQImode,
   MAX_MODE_COMPLEX_INT = E_CXImode,
 
-  MIN_MODE_COMPLEX_FLOAT = E_HCmode,
+  MIN_MODE_COMPLEX_FLOAT = E_BCmode,
   MAX_MODE_COMPLEX_FLOAT = E_TCmode,
 
   MIN_MODE_VECTOR_BOOL = E_VOIDmode,

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-08-05" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-08-20" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -476,10 +476,13 @@ in the following sections.
 \&\-Wno\-analyzer\-fd\-use\-without\-check 
 \&\-Wno\-analyzer\-file\-leak 
 \&\-Wno\-analyzer\-free\-of\-non\-heap 
+\&\-Wno\-analyzer\-imprecise\-fp\-arithmetic 
+\&\-Wno\-analyzer\-jump\-through\-null 
 \&\-Wno\-analyzer\-malloc\-leak 
 \&\-Wno\-analyzer\-mismatching\-deallocation 
 \&\-Wno\-analyzer\-null\-argument 
 \&\-Wno\-analyzer\-null\-dereference 
+\&\-Wno\-analyzer\-out\-of\-bounds 
 \&\-Wno\-analyzer\-possible\-null\-argument 
 \&\-Wno\-analyzer\-possible\-null\-dereference 
 \&\-Wno\-analyzer\-putenv\-of\-auto\-var 
@@ -1026,7 +1029,8 @@ in the following sections.
 \&\-mcond\-move\-float  \-mno\-cond\-move\-float 
 \&\-memcpy  \-mno\-memcpy \-mstrict\-align \-mno\-strict\-align 
 \&\-mmax\-inline\-memcpy\-size=\fR\fIn\fR 
-\&\fB\-mcmodel=\fR\fIcode-model\fR
+\&\fB\-mexplicit\-relocs \-mno\-explicit\-relocs 
+\&\-mcmodel=\fR\fIcode-model\fR
 .Sp
 \&\fIM32R/D Options\fR
 \&\fB\-m32r2  \-m32rx  \-m32r 
@@ -9102,10 +9106,13 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-fd\-use\-without\-check 
 \&\-Wanalyzer\-file\-leak 
 \&\-Wanalyzer\-free\-of\-non\-heap 
+\&\-Wanalyzer\-imprecise\-fp\-arithmetic 
+\&\-Wanalyzer\-jump\-through\-null 
 \&\-Wanalyzer\-malloc\-leak 
 \&\-Wanalyzer\-mismatching\-deallocation 
 \&\-Wanalyzer\-null\-argument 
 \&\-Wanalyzer\-null\-dereference 
+\&\-Wanalyzer\-out\-of\-bounds 
 \&\-Wanalyzer\-possible\-null\-argument 
 \&\-Wanalyzer\-possible\-null\-dereference 
 \&\-Wanalyzer\-putenv\-of\-auto\-var 
@@ -9255,6 +9262,24 @@ This diagnostic warns for paths through the code in which \f(CW\*(C`free\*(C'\fR
 is called on a non-heap pointer (e.g. an on-stack buffer, or a global).
 .Sp
 See  \s-1CWE\-590:\s0 Free of Memory not on the Heap (\f(CW\*(C`https://cwe.mitre.org/data/definitions/590.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-imprecise\-fp\-arithmetic\fR" 4
+.IX Item "-Wno-analyzer-imprecise-fp-arithmetic"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-imprecise\-fp\-arithmetic\fR
+to disable it.
+.Sp
+This diagnostic warns for paths through the code in which floating-point
+arithmetic is used in locations where precise computation is needed.  This
+diagnostic only warns on use of floating-point operands inside the
+calculation of an allocation size at the moment.
+.IP "\fB\-Wno\-analyzer\-jump\-through\-null\fR" 4
+.IX Item "-Wno-analyzer-jump-through-null"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-jump\-through\-null\fR
+to disable it.
+.Sp
+This diagnostic warns for paths through the code in which a \f(CW\*(C`NULL\*(C'\fR
+function pointer is called.
 .IP "\fB\-Wno\-analyzer\-malloc\-leak\fR" 4
 .IX Item "-Wno-analyzer-malloc-leak"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9280,6 +9305,17 @@ and vector \f(CW\*(C`delete[]\*(C'\fR, and those marked as allocator/deallocator
 pairs using attribute \f(CW\*(C`malloc\*(C'\fR.
 .Sp
 See  \s-1CWE\-762:\s0 Mismatched Memory Management Routines (\f(CW\*(C`https://cwe.mitre.org/data/definitions/762.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-out\-of\-bounds\fR" 4
+.IX Item "-Wno-analyzer-out-of-bounds"
+This warning requires \fB\-fanalyzer\fR to enable it; use
+\&\fB\-Wno\-analyzer\-out\-of\-bounds\fR to disable it.
+.Sp
+This diagnostic warns for path through the code in which a buffer is
+definitely read or written out-of-bounds.  The diagnostic only applies
+for cases where the analyzer is able to determine a constant offset and
+for accesses past the end of a buffer, also a constant capacity.
+.Sp
+See  \s-1CWE\-119:\s0 Improper Restriction of Operations within the Bounds of a Memory Buffer (\f(CW\*(C`https://cwe.mitre.org/data/definitions/119.html\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-possible\-null\-argument\fR" 4
 .IX Item "-Wno-analyzer-possible-null-argument"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9530,6 +9566,166 @@ This diagnostic warns for paths through the code in which an uninitialized
 value is used.
 .Sp
 See  \s-1CWE\-457:\s0 Use of Uninitialized Variable (\f(CW\*(C`https://cwe.mitre.org/data/definitions/457.html\*(C'\fR).
+.PP
+The analyzer has hardcoded knowledge about the behavior of the following
+memory-management functions:
+.ie n .IP "*<""alloca"">" 4
+.el .IP "*<\f(CWalloca\fR>" 4
+.IX Item "*<alloca>"
+.PD 0
+.ie n .IP "*<The built-in functions ""_\|_builtin_alloc"",>" 4
+.el .IP "*<The built-in functions \f(CW_\|_builtin_alloc\fR,>" 4
+.IX Item "*<The built-in functions __builtin_alloc,>"
+.PD
+\&\f(CW\*(C`_\|_builtin_alloc_with_align\*(C'\fR, \f(CW@item\fR \f(CW\*(C`_\|_builtin_calloc\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_free\*(C'\fR, \f(CW\*(C`_\|_builtin_malloc\*(C'\fR, \f(CW\*(C`_\|_builtin_memcpy\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_memcpy_chk\*(C'\fR, \f(CW\*(C`_\|_builtin_memset\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_memset_chk\*(C'\fR, \f(CW\*(C`_\|_builtin_realloc\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_stack_restore\*(C'\fR, and \f(CW\*(C`_\|_builtin_stack_save\*(C'\fR
+.ie n .IP "*<""calloc"">" 4
+.el .IP "*<\f(CWcalloc\fR>" 4
+.IX Item "*<calloc>"
+.PD 0
+.ie n .IP "*<""free"">" 4
+.el .IP "*<\f(CWfree\fR>" 4
+.IX Item "*<free>"
+.ie n .IP "*<""malloc"">" 4
+.el .IP "*<\f(CWmalloc\fR>" 4
+.IX Item "*<malloc>"
+.ie n .IP "*<""memset"">" 4
+.el .IP "*<\f(CWmemset\fR>" 4
+.IX Item "*<memset>"
+.ie n .IP "*<""operator delete"">" 4
+.el .IP "*<\f(CWoperator delete\fR>" 4
+.IX Item "*<operator delete>"
+.ie n .IP "*<""operator delete []"">" 4
+.el .IP "*<\f(CWoperator delete []\fR>" 4
+.IX Item "*<operator delete []>"
+.ie n .IP "*<""operator new"">" 4
+.el .IP "*<\f(CWoperator new\fR>" 4
+.IX Item "*<operator new>"
+.ie n .IP "*<""operator new []"">" 4
+.el .IP "*<\f(CWoperator new []\fR>" 4
+.IX Item "*<operator new []>"
+.ie n .IP "*<""realloc"">" 4
+.el .IP "*<\f(CWrealloc\fR>" 4
+.IX Item "*<realloc>"
+.ie n .IP "*<""strdup"">" 4
+.el .IP "*<\f(CWstrdup\fR>" 4
+.IX Item "*<strdup>"
+.ie n .IP "*<""strndup"">" 4
+.el .IP "*<\f(CWstrndup\fR>" 4
+.IX Item "*<strndup>"
+.PD
+.PP
+of the following functions for working with file descriptors:
+.ie n .IP "*<""open"">" 4
+.el .IP "*<\f(CWopen\fR>" 4
+.IX Item "*<open>"
+.PD 0
+.ie n .IP "*<""close"">" 4
+.el .IP "*<\f(CWclose\fR>" 4
+.IX Item "*<close>"
+.ie n .IP "*<""creat"">" 4
+.el .IP "*<\f(CWcreat\fR>" 4
+.IX Item "*<creat>"
+.ie n .IP "*<""dup"", ""dup2"" and ""dup3"">" 4
+.el .IP "*<\f(CWdup\fR, \f(CWdup2\fR and \f(CWdup3\fR>" 4
+.IX Item "*<dup, dup2 and dup3>"
+.ie n .IP "*<""read"">" 4
+.el .IP "*<\f(CWread\fR>" 4
+.IX Item "*<read>"
+.ie n .IP "*<""write"">" 4
+.el .IP "*<\f(CWwrite\fR>" 4
+.IX Item "*<write>"
+.PD
+.PP
+of the following functions for working with \f(CW\*(C`<stdio.h>\*(C'\fR streams:
+.ie n .IP "*<The built-in functions ""_\|_builtin_fprintf"",>" 4
+.el .IP "*<The built-in functions \f(CW_\|_builtin_fprintf\fR,>" 4
+.IX Item "*<The built-in functions __builtin_fprintf,>"
+\&\f(CW\*(C`_\|_builtin_fprintf_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_fputc\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_fputc_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_fputs\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_fputs_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_fwrite\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_fwrite_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_printf\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_printf_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_putc\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_putchar\*(C'\fR, \f(CW\*(C`_\|_builtin_putchar_unlocked\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_putc_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_puts\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_puts_unlocked\*(C'\fR, \f(CW\*(C`_\|_builtin_vfprintf\*(C'\fR, and
+\&\f(CW\*(C`_\|_builtin_vprintf\*(C'\fR
+.ie n .IP "*<""fopen"">" 4
+.el .IP "*<\f(CWfopen\fR>" 4
+.IX Item "*<fopen>"
+.PD 0
+.ie n .IP "*<""fclose"">" 4
+.el .IP "*<\f(CWfclose\fR>" 4
+.IX Item "*<fclose>"
+.ie n .IP "*<""fgets"">" 4
+.el .IP "*<\f(CWfgets\fR>" 4
+.IX Item "*<fgets>"
+.ie n .IP "*<""fgets_unlocked"">" 4
+.el .IP "*<\f(CWfgets_unlocked\fR>" 4
+.IX Item "*<fgets_unlocked>"
+.ie n .IP "*<""fread"">" 4
+.el .IP "*<\f(CWfread\fR>" 4
+.IX Item "*<fread>"
+.ie n .IP "*<""getchar"">" 4
+.el .IP "*<\f(CWgetchar\fR>" 4
+.IX Item "*<getchar>"
+.ie n .IP "*<""fprintf"">" 4
+.el .IP "*<\f(CWfprintf\fR>" 4
+.IX Item "*<fprintf>"
+.ie n .IP "*<""printf"">" 4
+.el .IP "*<\f(CWprintf\fR>" 4
+.IX Item "*<printf>"
+.ie n .IP "*<""fwrite"">" 4
+.el .IP "*<\f(CWfwrite\fR>" 4
+.IX Item "*<fwrite>"
+.PD
+.PP
+and of the following functions:
+.ie n .IP "*<The built-in functions ""_\|_builtin_expect"",>" 4
+.el .IP "*<The built-in functions \f(CW_\|_builtin_expect\fR,>" 4
+.IX Item "*<The built-in functions __builtin_expect,>"
+\&\f(CW\*(C`_\|_builtin_expect_with_probability\*(C'\fR, \f(CW\*(C`_\|_builtin_strchr\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_strcpy\*(C'\fR, \f(CW\*(C`_\|_builtin_strcpy_chk\*(C'\fR,
+\&\f(CW\*(C`_\|_builtin_strlen\*(C'\fR, \f(CW\*(C`_\|_builtin_va_copy\*(C'\fR, and
+\&\f(CW\*(C`_\|_builtin_va_start\*(C'\fR
+.ie n .IP "*<The \s-1GNU\s0 extensions ""error"" and ""error_at_line"">" 4
+.el .IP "*<The \s-1GNU\s0 extensions \f(CWerror\fR and \f(CWerror_at_line\fR>" 4
+.IX Item "*<The GNU extensions error and error_at_line>"
+.PD 0
+.ie n .IP "*<""getpass"">" 4
+.el .IP "*<\f(CWgetpass\fR>" 4
+.IX Item "*<getpass>"
+.ie n .IP "*<""longjmp"">" 4
+.el .IP "*<\f(CWlongjmp\fR>" 4
+.IX Item "*<longjmp>"
+.ie n .IP "*<""putenv"">" 4
+.el .IP "*<\f(CWputenv\fR>" 4
+.IX Item "*<putenv>"
+.ie n .IP "*<""setjmp"">" 4
+.el .IP "*<\f(CWsetjmp\fR>" 4
+.IX Item "*<setjmp>"
+.ie n .IP "*<""siglongjmp"">" 4
+.el .IP "*<\f(CWsiglongjmp\fR>" 4
+.IX Item "*<siglongjmp>"
+.ie n .IP "*<""signal"">" 4
+.el .IP "*<\f(CWsignal\fR>" 4
+.IX Item "*<signal>"
+.ie n .IP "*<""sigsetjmp"">" 4
+.el .IP "*<\f(CWsigsetjmp\fR>" 4
+.IX Item "*<sigsetjmp>"
+.ie n .IP "*<""strchr"">" 4
+.el .IP "*<\f(CWstrchr\fR>" 4
+.IX Item "*<strchr>"
+.ie n .IP "*<""strlen"">" 4
+.el .IP "*<\f(CWstrlen\fR>" 4
+.IX Item "*<strlen>"
+.PD
+.PP
+In addition, various functions with an \f(CW\*(C`_\|_analyzer_\*(C'\fR prefix have
+special meaning to the analyzer, described in the \s-1GCC\s0 Internals manual.
 .PP
 Pertinent parameters for controlling the exploration are:
 \&\fB\-\-param analyzer\-bb\-explosion\-factor=\fR\fIvalue\fR,
@@ -13726,6 +13922,13 @@ optimizing.
 .IX Item "max-jump-thread-duplication-stmts"
 Maximum number of statements allowed in a block that needs to be
 duplicated when threading jumps.
+.IP "\fBmax-jump-thread-paths\fR" 4
+.IX Item "max-jump-thread-paths"
+The maximum number of paths to consider when searching for jump threading
+opportunities.  When arriving at a block, incoming edges are only considered
+if the number of paths to be searched so far multiplied by the number of
+incoming edges does not exhaust the specified maximum number of paths to
+consider.
 .IP "\fBmax-fields-for-field-sensitive\fR" 4
 .IX Item "max-fields-for-field-sensitive"
 Maximum number of fields in a structure treated in
@@ -14233,9 +14436,6 @@ Emit instrumentation calls to _\|\fB_tsan_func_entry()\fR and _\|\fB_tsan_func_e
 .IX Item "max-fsm-thread-path-insns"
 Maximum number of instructions to copy when duplicating blocks on a
 finite state automaton jump thread path.
-.IP "\fBmax-fsm-thread-length\fR" 4
-.IX Item "max-fsm-thread-length"
-Maximum number of basic blocks on a jump thread path.
 .IP "\fBthreader-debug\fR" 4
 .IX Item "threader-debug"
 threader\-debug=[none|all] Enables verbose dumping of the threader solver.
@@ -20726,14 +20926,25 @@ The following extension options are common to the listed CPUs:
 .RS 4
 .IP "\fB+nodsp\fR" 4
 .IX Item "+nodsp"
-Disable the \s-1DSP\s0 instructions on \fBcortex\-m33\fR, \fBcortex\-m35p\fR.
+Disable the \s-1DSP\s0 instructions on \fBcortex\-m33\fR, \fBcortex\-m35p\fR
+and \fBcortex\-m55\fR. Also disable the M\-Profile Vector Extension (\s-1MVE\s0)
+integer and single precision floating-point instructions on \fBcortex\-m55\fR.
+.IP "\fB+nomve\fR" 4
+.IX Item "+nomve"
+Disable the M\-Profile Vector Extension (\s-1MVE\s0) integer and single precision
+floating-point instructions on \fBcortex\-m55\fR.
+.IP "\fB+nomve.fp\fR" 4
+.IX Item "+nomve.fp"
+Disable the M\-Profile Vector Extension (\s-1MVE\s0) single precision floating-point
+instructions on \fBcortex\-m55\fR.
 .IP "\fB+nofp\fR" 4
 .IX Item "+nofp"
 Disables the floating-point instructions on \fBarm9e\fR,
 \&\fBarm946e\-s\fR, \fBarm966e\-s\fR, \fBarm968e\-s\fR, \fBarm10e\fR,
 \&\fBarm1020e\fR, \fBarm1022e\fR, \fBarm926ej\-s\fR,
 \&\fBarm1026ej\-s\fR, \fBcortex\-r5\fR, \fBcortex\-r7\fR, \fBcortex\-r8\fR,
-\&\fBcortex\-m4\fR, \fBcortex\-m7\fR, \fBcortex\-m33\fR and \fBcortex\-m35p\fR.
+\&\fBcortex\-m4\fR, \fBcortex\-m7\fR, \fBcortex\-m33\fR, \fBcortex\-m35p\fR
+and \fBcortex\-m55\fR.
 Disables the floating-point and \s-1SIMD\s0 instructions on
 \&\fBgeneric\-armv7\-a\fR, \fBcortex\-a5\fR, \fBcortex\-a7\fR,
 \&\fBcortex\-a8\fR, \fBcortex\-a9\fR, \fBcortex\-a12\fR,
@@ -24048,71 +24259,25 @@ less than or equal to \fIn\fR bytes.  The default value of \fIn\fR is 1024.
 .IX Item "-mcmodel=code-model"
 Set the code model to one of:
 .RS 4
-.IP "\fBtiny-static\fR" 4
-.IX Item "tiny-static"
-.RS 4
+.IP "\fBtiny-static (Not implemented yet)\fR" 4
+.IX Item "tiny-static (Not implemented yet)"
 .PD 0
-.IP "*" 4
-.PD
-local symbol and global strong symbol: The data section must be within +/\-2MiB addressing space.
-The text section must be within +/\-128MiB addressing space.
-.IP "*" 4
-global weak symbol: The got table must be within +/\-2GiB addressing space.
-.RE
-.RS 4
-.RE
-.IP "\fBtiny\fR" 4
-.IX Item "tiny"
-.RS 4
-.PD 0
-.IP "*" 4
-.PD
-local symbol: The data section must be within +/\-2MiB addressing space.
-The text section must be within +/\-128MiB
-addressing space.
-.IP "*" 4
-global symbol: The got table must be within +/\-2GiB addressing space.
-.RE
-.RS 4
-.RE
+.IP "\fBtiny (Not implemented yet)\fR" 4
+.IX Item "tiny (Not implemented yet)"
 .IP "\fBnormal\fR" 4
 .IX Item "normal"
-.RS 4
-.PD 0
-.IP "*" 4
 .PD
-local symbol: The data section must be within +/\-2GiB addressing space.
-The text section must be within +/\-128MiB addressing space.
-.IP "*" 4
-global symbol: The got table must be within +/\-2GiB addressing space.
-.RE
-.RS 4
-.RE
-.IP "\fBlarge\fR" 4
-.IX Item "large"
-.RS 4
+The text segment must be within 128MB addressing space.  The data segment must
+be within 2GB addressing space.
+.IP "\fBlarge (Not implemented yet)\fR" 4
+.IX Item "large (Not implemented yet)"
 .PD 0
-.IP "*" 4
+.IP "\fBextreme\fR" 4
+.IX Item "extreme"
 .PD
-local symbol: The data section must be within +/\-2GiB addressing space.
-The text section must be within +/\-128GiB addressing space.
-.IP "*" 4
-global symbol: The got table must be within +/\-2GiB addressing space.
-.RE
-.RS 4
-.RE
-.IP "\fBextreme(Not implemented yet)\fR" 4
-.IX Item "extreme(Not implemented yet)"
-.RS 4
-.PD 0
-.IP "*" 4
-.PD
-local symbol: The data and text section must be within +/\-8EiB addressing space.
-.IP "*" 4
-global symbol: The data got table must be within +/\-8EiB addressing space.
-.RE
-.RS 4
-.RE
+This mode does not limit the size of the code segment and data segment.
+The \fB\-mcmodel=extreme\fR option is incompatible with \fB\-fplt\fR and
+\&\fB\-mno\-explicit\-relocs\fR.
 .RE
 .RS 4
 .Sp

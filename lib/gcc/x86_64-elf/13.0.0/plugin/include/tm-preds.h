@@ -100,6 +100,7 @@ extern bool const_0_to_63_operand (rtx, machine_mode);
 extern bool const_0_to_127_operand (rtx, machine_mode);
 extern bool const_0_to_255_operand (rtx, machine_mode);
 extern bool const_0_to_255_mul_8_operand (rtx, machine_mode);
+extern bool const_0_to_255_not_mul_8_operand (rtx, machine_mode);
 extern bool const_1_to_31_operand (rtx, machine_mode);
 extern bool const_1_to_63_operand (rtx, machine_mode);
 extern bool const_2_to_3_operand (rtx, machine_mode);

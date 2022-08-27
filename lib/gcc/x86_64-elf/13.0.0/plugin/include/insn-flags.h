@@ -5994,6 +5994,7 @@
 #define HAVE_spaceshipdf3 ((TARGET_80387 || (SSE_FLOAT_MODE_P (DFmode) && TARGET_SSE_MATH)) \
    && (TARGET_CMOVE || (TARGET_SAHF && TARGET_USE_SAHF)))
 #define HAVE_spaceshipxf3 (TARGET_80387 && (TARGET_CMOVE || (TARGET_SAHF && TARGET_USE_SAHF)))
+#define HAVE_issignalingxf2 1
 #define HAVE_movv8qi (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_movv4hi (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_movv2si (TARGET_MMX || TARGET_MMX_WITH_SSE)
@@ -15305,6 +15306,7 @@ extern rtx        gen_wrpkru                                      (rtx);
 extern rtx        gen_spaceshipsf3                                (rtx, rtx, rtx);
 extern rtx        gen_spaceshipdf3                                (rtx, rtx, rtx);
 extern rtx        gen_spaceshipxf3                                (rtx, rtx, rtx);
+extern rtx        gen_issignalingxf2                              (rtx, rtx);
 extern rtx        gen_movv8qi                                     (rtx, rtx);
 extern rtx        gen_movv4hi                                     (rtx, rtx);
 extern rtx        gen_movv2si                                     (rtx, rtx);

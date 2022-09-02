@@ -4236,6 +4236,7 @@
 #define HAVE_avx_vbroadcastf128_v8sf (TARGET_AVX)
 #define HAVE_avx_vbroadcastf128_v4df (TARGET_AVX)
 #define HAVE_avx_vbroadcastf128_v16hf (TARGET_AVX)
+#define HAVE_avx_vbroadcastf128_v16bf (TARGET_AVX)
 #define HAVE_avx512dq_broadcastv16si_mask ((TARGET_AVX512F) && (TARGET_AVX512DQ))
 #define HAVE_avx512dq_broadcastv8si_mask ((TARGET_AVX512F) && ((TARGET_AVX512DQ) && (TARGET_AVX512VL)))
 #define HAVE_avx512dq_broadcastv4si_mask ((TARGET_AVX512F) && ((TARGET_AVX512DQ) && (TARGET_AVX512VL)))
@@ -7696,6 +7697,7 @@
 #define HAVE_avx_vextractf128v8sf (TARGET_AVX)
 #define HAVE_avx_vextractf128v4df (TARGET_AVX)
 #define HAVE_avx_vextractf128v16hf (TARGET_AVX)
+#define HAVE_avx_vextractf128v16bf (TARGET_AVX)
 #define HAVE_vec_extractv64qiqi ((TARGET_SSE) && (TARGET_AVX512BW))
 #define HAVE_vec_extractv32qiqi ((TARGET_SSE) && (TARGET_AVX))
 #define HAVE_vec_extractv16qiqi (TARGET_SSE)
@@ -14010,6 +14012,7 @@ extern rtx        gen_avx_vbroadcastf128_v4di                     (rtx, rtx);
 extern rtx        gen_avx_vbroadcastf128_v8sf                     (rtx, rtx);
 extern rtx        gen_avx_vbroadcastf128_v4df                     (rtx, rtx);
 extern rtx        gen_avx_vbroadcastf128_v16hf                    (rtx, rtx);
+extern rtx        gen_avx_vbroadcastf128_v16bf                    (rtx, rtx);
 extern rtx        gen_avx512dq_broadcastv16si_mask                (rtx, rtx, rtx, rtx);
 extern rtx        gen_avx512dq_broadcastv8si_mask                 (rtx, rtx, rtx, rtx);
 extern rtx        gen_avx512dq_broadcastv4si_mask                 (rtx, rtx, rtx, rtx);
@@ -17091,6 +17094,7 @@ extern rtx        gen_avx_vextractf128v4di                        (rtx, rtx, rtx
 extern rtx        gen_avx_vextractf128v8sf                        (rtx, rtx, rtx);
 extern rtx        gen_avx_vextractf128v4df                        (rtx, rtx, rtx);
 extern rtx        gen_avx_vextractf128v16hf                       (rtx, rtx, rtx);
+extern rtx        gen_avx_vextractf128v16bf                       (rtx, rtx, rtx);
 extern rtx        gen_vec_extractv64qiqi                          (rtx, rtx, rtx);
 extern rtx        gen_vec_extractv32qiqi                          (rtx, rtx, rtx);
 extern rtx        gen_vec_extractv16qiqi                          (rtx, rtx, rtx);

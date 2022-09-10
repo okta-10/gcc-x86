@@ -23,7 +23,6 @@
 # include "config/i386/i386.h"
 # include "config/i386/unix.h"
 # include "config/i386/att.h"
-# include "config/dbxelf.h"
 # include "config/elfos.h"
 # include "config/newlib-stdint.h"
 # include "config/i386/i386elf.h"

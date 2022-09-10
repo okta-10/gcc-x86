@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-09-02" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-09-10" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -389,7 +389,7 @@ in the following sections.
 \&\-Winfinite\-recursion 
 \&\-Winit\-self  \-Winline  \-Wno\-int\-conversion  \-Wint\-in\-bool\-context 
 \&\-Wno\-int\-to\-pointer\-cast  \-Wno\-invalid\-memory\-model 
-\&\-Winvalid\-pch  \-Winvalid\-utf8 \-Wjump\-misses\-init  
+\&\-Winvalid\-pch  \-Winvalid\-utf8  \-Wno\-unicode  \-Wjump\-misses\-init  
 \&\-Wlarger\-than=\fR\fIbyte-size\fR  \fB\-Wlogical\-not\-parentheses  \-Wlogical\-op  
 \&\-Wlong\-long  \-Wno\-lto\-type\-mismatch \-Wmain  \-Wmaybe\-uninitialized 
 \&\-Wmemset\-elt\-size  \-Wmemset\-transposed\-args 
@@ -438,6 +438,7 @@ in the following sections.
 \&\-Wvector\-operation\-performance 
 \&\-Wvla  \-Wvla\-larger\-than=\fR\fIbyte-size\fR  \fB\-Wno\-vla\-larger\-than 
 \&\-Wvolatile\-register\-var  \-Wwrite\-strings 
+\&\-Wxor\-used\-as\-pow 
 \&\-Wzero\-length\-bounds\fR
 .IP "\fIStatic Analyzer Options\fR" 4
 .IX Item "Static Analyzer Options"
@@ -469,6 +470,7 @@ in the following sections.
 \&\-Wno\-analyzer\-double\-fclose 
 \&\-Wno\-analyzer\-double\-free 
 \&\-Wno\-analyzer\-exposure\-through\-output\-file 
+\&\-Wno\-analyzer\-exposure\-through\-uninit\-copy 
 \&\-Wno\-analyzer\-fd\-access\-mode\-mismatch 
 \&\-Wno\-analyzer\-fd\-double\-close 
 \&\-Wno\-analyzer\-fd\-leak 
@@ -517,7 +519,7 @@ in the following sections.
 \&\fB\-g  \-g\fR\fIlevel\fR  \fB\-gdwarf  \-gdwarf\-\fR\fIversion\fR 
 \&\fB\-gbtf \-gctf  \-gctf\fR\fIlevel\fR 
 \&\fB\-ggdb  \-grecord\-gcc\-switches  \-gno\-record\-gcc\-switches 
-\&\-gstabs  \-gstabs+  \-gstrict\-dwarf  \-gno\-strict\-dwarf 
+\&\-gstrict\-dwarf  \-gno\-strict\-dwarf 
 \&\-gas\-loc\-support  \-gno\-as\-loc\-support 
 \&\-gas\-locview\-support  \-gno\-as\-locview\-support 
 \&\-gcolumn\-info  \-gno\-column\-info  \-gdwarf32  \-gdwarf64 
@@ -525,7 +527,7 @@ in the following sections.
 \&\-gvariable\-location\-views  \-gno\-variable\-location\-views 
 \&\-ginternal\-reset\-location\-views  \-gno\-internal\-reset\-location\-views 
 \&\-ginline\-points  \-gno\-inline\-points 
-\&\-gvms  \-gxcoff  \-gxcoff+  \-gz\fR[\fB=\fR\fItype\fR] 
+\&\-gvms \-gz\fR[\fB=\fR\fItype\fR] 
 \&\fB\-gsplit\-dwarf  \-gdescribe\-dies  \-gno\-describe\-dies 
 \&\-fdebug\-prefix\-map=\fR\fIold\fR\fB=\fR\fInew\fR  \fB\-fdebug\-types\-section 
 \&\-fno\-eliminate\-unused\-debug\-types 
@@ -1024,6 +1026,7 @@ in the following sections.
 \&\-memcpy  \-mno\-memcpy \-mstrict\-align \-mno\-strict\-align 
 \&\-mmax\-inline\-memcpy\-size=\fR\fIn\fR 
 \&\fB\-mexplicit\-relocs \-mno\-explicit\-relocs 
+\&\-mdirect\-extern\-access \-mno\-direct\-extern\-access 
 \&\-mcmodel=\fR\fIcode-model\fR
 .Sp
 \&\fIM32R/D Options\fR
@@ -8958,6 +8961,10 @@ the search path but cannot be used.
 Warn if an invalid \s-1UTF\-8\s0 character is found.
 This warning is on by default for \*(C+23 if \fB\-finput\-charset=UTF\-8\fR
 is used and turned into error with \fB\-pedantic\-errors\fR.
+.IP "\fB\-Wno\-unicode\fR" 4
+.IX Item "-Wno-unicode"
+Don't diagnose invalid forms of delimited or named escape sequences which are
+treated as separate tokens.  \fBWunicode\fR is enabled by default.
 .IP "\fB\-Wlong\-long\fR" 4
 .IX Item "-Wlong-long"
 Warn if \f(CW\*(C`long long\*(C'\fR type is used.  This is enabled by either
@@ -9051,6 +9058,18 @@ Warn if a register variable is declared volatile.  The volatile
 modifier does not inhibit all optimizations that may eliminate reads
 and/or writes to register variables.  This warning is enabled by
 \&\fB\-Wall\fR.
+.IP "\fB\-Wxor\-used\-as\-pow\fR (C, \*(C+, Objective-C and Objective\-\*(C+ only)" 4
+.IX Item "-Wxor-used-as-pow (C, , Objective-C and Objective- only)"
+Warn about uses of \f(CW\*(C`^\*(C'\fR, the exclusive or operator, where it appears
+the user meant exponentiation.  Specifically, the warning occurs when the
+left-hand side is the decimal constant 2 or 10 and the right-hand side
+is also a decimal constant.
+.Sp
+In C and \*(C+, \f(CW\*(C`^\*(C'\fR means exclusive or, whereas in some other languages
+(e.g. TeX and some versions of \s-1BASIC\s0) it means exponentiation.
+.Sp
+This warning is enabled by default.  It can be silenced by converting one
+of the operands to hexadecimal.
 .IP "\fB\-Wdisabled\-optimization\fR" 4
 .IX Item "-Wdisabled-optimization"
 Warn if a requested optimization pass is disabled.  This warning does
@@ -9117,6 +9136,7 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-double\-fclose 
 \&\-Wanalyzer\-double\-free 
 \&\-Wanalyzer\-exposure\-through\-output\-file 
+\&\-Wanalyzer\-exposure\-through\-uninit\-copy 
 \&\-Wanalyzer\-fd\-access\-mode\-mismatch 
 \&\-Wanalyzer\-fd\-double\-close 
 \&\-Wanalyzer\-fd\-leak 
@@ -9200,6 +9220,18 @@ security-sensitive value is written to an output file
 (such as writing a password to a log file).
 .Sp
 See  \s-1CWE\-532:\s0 Information Exposure Through Log Files (\f(CW\*(C`https://cwe.mitre.org/data/definitions/532.html\*(C'\fR).
+.IP "\fBWanalyzer-exposure-through-uninit-copy\fR" 4
+.IX Item "Wanalyzer-exposure-through-uninit-copy"
+This warning requires both \fB\-fanalyzer\fR and the use of a plugin
+to specify a function that copies across a \*(L"trust boundary\*(R".  Use
+\&\fB\-Wno\-analyzer\-exposure\-through\-uninit\-copy\fR to disable it.
+.Sp
+This diagnostic warns for \*(L"infoleaks\*(R" \- paths through the code in which
+uninitialized values are copied across a security boundary
+(such as code within an \s-1OS\s0 kernel that copies a partially-initialized
+struct on the stack to user space).
+.Sp
+See  \s-1CWE\-200:\s0 Exposure of Sensitive Information to an Unauthorized Actor (\f(CW\*(C`https://cwe.mitre.org/data/definitions/200.html\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-fd\-access\-mode\-mismatch\fR" 4
 .IX Item "-Wno-analyzer-fd-access-mode-mismatch"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9329,9 +9361,11 @@ This warning requires \fB\-fanalyzer\fR to enable it; use
 \&\fB\-Wno\-analyzer\-out\-of\-bounds\fR to disable it.
 .Sp
 This diagnostic warns for path through the code in which a buffer is
-definitely read or written out-of-bounds.  The diagnostic only applies
-for cases where the analyzer is able to determine a constant offset and
-for accesses past the end of a buffer, also a constant capacity.
+definitely read or written out-of-bounds.  The diagnostic applies for
+cases where the analyzer is able to determine a constant offset and for
+accesses past the end of a buffer, also a constant capacity.  Further,
+the diagnostic does limited checking for accesses past the end when the
+offset as well as the capacity is symbolic.
 .Sp
 See  \s-1CWE\-119:\s0 Improper Restriction of Operations within the Bounds of a Memory Buffer (\f(CW\*(C`https://cwe.mitre.org/data/definitions/119.html\*(C'\fR).
 .IP "\fB\-Wno\-analyzer\-possible\-null\-argument\fR" 4
@@ -9997,10 +10031,8 @@ information.
 On most systems that use stabs format, \fB\-g\fR enables use of extra
 debugging information that only \s-1GDB\s0 can use; this extra information
 makes debugging work better in \s-1GDB\s0 but probably makes other debuggers
-crash or
-refuse to read the program.  If you want to control for certain whether
-to generate the extra information, use \fB\-gstabs+\fR, \fB\-gstabs\fR,
-\&\fB\-gxcoff+\fR, \fB\-gxcoff\fR, or \fB\-gvms\fR (see below).
+crash or refuse to read the program.  If you want to control for certain whether
+to generate the extra information, use \fB\-gvms\fR (see below).
 .IP "\fB\-ggdb\fR" 4
 .IX Item "-ggdb"
 Produce debugging information for use by \s-1GDB.\s0  This means to use the
@@ -10058,30 +10090,6 @@ information, but does not include type information.
 .Sp
 Level 2 produces type information for entities (functions, data objects etc.)
 at file-scope or global-scope only.
-.IP "\fB\-gstabs\fR" 4
-.IX Item "-gstabs"
-Produce debugging information in stabs format (if that is supported),
-without \s-1GDB\s0 extensions.  This is the format used by \s-1DBX\s0 on most \s-1BSD\s0
-systems.  On \s-1MIPS,\s0 Alpha and System V Release 4 systems this option
-produces stabs debugging output that is not understood by \s-1DBX.\s0
-On System V Release 4 systems this option requires the \s-1GNU\s0 assembler.
-.IP "\fB\-gstabs+\fR" 4
-.IX Item "-gstabs+"
-Produce debugging information in stabs format (if that is supported),
-using \s-1GNU\s0 extensions understood only by the \s-1GNU\s0 debugger (\s-1GDB\s0).  The
-use of these extensions is likely to make other debuggers crash or
-refuse to read the program.
-.IP "\fB\-gxcoff\fR" 4
-.IX Item "-gxcoff"
-Produce debugging information in \s-1XCOFF\s0 format (if that is supported).
-This is the format used by the \s-1DBX\s0 debugger on \s-1IBM RS/6000\s0 systems.
-.IP "\fB\-gxcoff+\fR" 4
-.IX Item "-gxcoff+"
-Produce debugging information in \s-1XCOFF\s0 format (if that is supported),
-using \s-1GNU\s0 extensions understood only by the \s-1GNU\s0 debugger (\s-1GDB\s0).  The
-use of these extensions is likely to make other debuggers crash or
-refuse to read the program, and may cause assemblers other than the \s-1GNU\s0
-assembler (\s-1GAS\s0) to fail with an error.
 .IP "\fB\-gvms\fR" 4
 .IX Item "-gvms"
 Produce debugging information in Alpha/VMS debug format (if that is
@@ -10091,10 +10099,6 @@ supported).  This is the format used by \s-1DEBUG\s0 on Alpha/VMS systems.
 .PD 0
 .IP "\fB\-ggdb\fR\fIlevel\fR" 4
 .IX Item "-ggdblevel"
-.IP "\fB\-gstabs\fR\fIlevel\fR" 4
-.IX Item "-gstabslevel"
-.IP "\fB\-gxcoff\fR\fIlevel\fR" 4
-.IX Item "-gxcofflevel"
 .IP "\fB\-gvms\fR\fIlevel\fR" 4
 .IX Item "-gvmslevel"
 .PD
@@ -24290,6 +24294,22 @@ limit optimization.  The default value for the option is determined during
 \&\f(CW\*(C`\-mno\-explicit\-relocs\*(C'\fR otherwise.  This option is mostly useful for
 debugging, or interoperation with assemblers different from the build-time
 one.
+.IP "\fB\-mdirect\-extern\-access\fR" 4
+.IX Item "-mdirect-extern-access"
+.PD 0
+.IP "\fB\-mno\-direct\-extern\-access\fR" 4
+.IX Item "-mno-direct-extern-access"
+.PD
+Do not use or use \s-1GOT\s0 to access external symbols.  The default is
+\&\fB\-mno\-direct\-extern\-access\fR: \s-1GOT\s0 is used for external symbols with
+default visibility, but not used for other external symbols.
+.Sp
+With \fB\-mdirect\-extern\-access\fR, \s-1GOT\s0 is not used and all external
+symbols are PC-relatively addressed.  It is \fBonly\fR suitable for
+environments where no dynamic link is performed, like firmwares, \s-1OS\s0
+kernels, executables linked with \fB\-static\fR or \fB\-static\-pie\fR.
+\&\fB\-mdirect\-extern\-access\fR is not compatible with \fB\-fPIC\fR or
+\&\fB\-fpic\fR.
 .PP
 \fIM32C Options\fR
 .IX Subsection "M32C Options"
@@ -32939,7 +32959,7 @@ is innocuous.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBgpl\fR\|(7), \fBgfdl\fR\|(7), \fBfsf\-funding\fR\|(7),
-\&\fBcpp\fR\|(1), \fBgcov\fR\|(1), \fBas\fR\|(1), \fBld\fR\|(1), \fBgdb\fR\|(1), \fBdbx\fR\|(1)
+\&\fBcpp\fR\|(1), \fBgcov\fR\|(1), \fBas\fR\|(1), \fBld\fR\|(1), \fBgdb\fR\|(1)
 and the Info entries for \fIgcc\fR, \fIcpp\fR, \fIas\fR,
 \&\fIld\fR, \fIbinutils\fR and \fIgdb\fR.
 .SH "AUTHOR"

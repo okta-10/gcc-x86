@@ -130,6 +130,8 @@ extern bool ashldi_input_operand (rtx, machine_mode);
 extern bool zero_extended_scalar_load_operand (rtx, machine_mode);
 extern bool float_vector_all_ones_operand (rtx, machine_mode);
 extern bool vector_all_ones_operand (rtx, machine_mode);
+extern bool vector_all_ones_zero_extend_half_operand (rtx, machine_mode);
+extern bool vector_all_ones_zero_extend_quarter_operand (rtx, machine_mode);
 extern bool vector_memory_operand (rtx, machine_mode);
 extern bool vector_operand (rtx, machine_mode);
 extern bool bcst_mem_operand (rtx, machine_mode);
@@ -251,6 +253,7 @@ enum constraint_num
   CONSTRAINT_Tv,
   CONSTRAINT_Ts,
   CONSTRAINT_Bz,
+  CONSTRAINT_BH,
   CONSTRAINT_Wb,
   CONSTRAINT_Ww,
   CONSTRAINT_G,

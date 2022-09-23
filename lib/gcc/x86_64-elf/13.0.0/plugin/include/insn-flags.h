@@ -477,6 +477,7 @@
 #define HAVE_mmx_pf2iw (TARGET_3DNOW_A)
 #define HAVE_mmx_pi2fw (TARGET_3DNOW_A)
 #define HAVE_mmx_pswapdv2sf2 (TARGET_3DNOW_A || TARGET_MMX_WITH_SSE)
+#define HAVE_lrintv2sfv2si2 (TARGET_MMX_WITH_SSE)
 #define HAVE_addv4hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
 #define HAVE_subv4hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
 #define HAVE_mulv4hf3 (TARGET_AVX512FP16 && TARGET_AVX512VL)
@@ -6059,6 +6060,21 @@
 #define HAVE_vec_setv2sf (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_vec_extractv2sfsf (TARGET_MMX || TARGET_MMX_WITH_SSE)
 #define HAVE_vec_initv2sfsf ((TARGET_MMX || TARGET_MMX_WITH_SSE) && TARGET_SSE)
+#define HAVE_nearbyintv2sf2 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
+#define HAVE_rintv2sf2 (TARGET_SSE4_1 && TARGET_MMX_WITH_SSE)
+#define HAVE_ceilv2sf2 (TARGET_SSE4_1 && !flag_trapping_math \
+   && TARGET_MMX_WITH_SSE)
+#define HAVE_lceilv2sfv2si2 (TARGET_SSE4_1 && !flag_trapping_math \
+  && TARGET_MMX_WITH_SSE)
+#define HAVE_floorv2sf2 (TARGET_SSE4_1 && !flag_trapping_math \
+  && TARGET_MMX_WITH_SSE)
+#define HAVE_lfloorv2sfv2si2 (TARGET_SSE4_1 && !flag_trapping_math \
+  && TARGET_MMX_WITH_SSE)
+#define HAVE_btruncv2sf2 (TARGET_SSE4_1 && !flag_trapping_math)
+#define HAVE_roundv2sf2 (TARGET_SSE4_1 && !flag_trapping_math \
+   && TARGET_MMX_WITH_SSE)
+#define HAVE_lroundv2sfv2si2 (TARGET_SSE4_1 && !flag_trapping_math \
+  && TARGET_MMX_WITH_SSE)
 #define HAVE_negv8qi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_negv4hi2 (TARGET_MMX_WITH_SSE)
 #define HAVE_negv2si2 (TARGET_MMX_WITH_SSE)
@@ -10001,6 +10017,7 @@ extern rtx        gen_floatunsv2siv2sf2                           (rtx, rtx);
 extern rtx        gen_mmx_pf2iw                                   (rtx, rtx);
 extern rtx        gen_mmx_pi2fw                                   (rtx, rtx);
 extern rtx        gen_mmx_pswapdv2sf2                             (rtx, rtx);
+extern rtx        gen_lrintv2sfv2si2                              (rtx, rtx);
 extern rtx        gen_addv4hf3                                    (rtx, rtx, rtx);
 extern rtx        gen_subv4hf3                                    (rtx, rtx, rtx);
 extern rtx        gen_mulv4hf3                                    (rtx, rtx, rtx);
@@ -15440,6 +15457,15 @@ extern rtx        gen_floatv2siv2sf2                              (rtx, rtx);
 extern rtx        gen_vec_setv2sf                                 (rtx, rtx, rtx);
 extern rtx        gen_vec_extractv2sfsf                           (rtx, rtx, rtx);
 extern rtx        gen_vec_initv2sfsf                              (rtx, rtx);
+extern rtx        gen_nearbyintv2sf2                              (rtx, rtx);
+extern rtx        gen_rintv2sf2                                   (rtx, rtx);
+extern rtx        gen_ceilv2sf2                                   (rtx, rtx);
+extern rtx        gen_lceilv2sfv2si2                              (rtx, rtx);
+extern rtx        gen_floorv2sf2                                  (rtx, rtx);
+extern rtx        gen_lfloorv2sfv2si2                             (rtx, rtx);
+extern rtx        gen_btruncv2sf2                                 (rtx, rtx);
+extern rtx        gen_roundv2sf2                                  (rtx, rtx);
+extern rtx        gen_lroundv2sfv2si2                             (rtx, rtx);
 extern rtx        gen_negv8qi2                                    (rtx, rtx);
 extern rtx        gen_negv4hi2                                    (rtx, rtx);
 extern rtx        gen_negv2si2                                    (rtx, rtx);

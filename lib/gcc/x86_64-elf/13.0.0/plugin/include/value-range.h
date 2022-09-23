@@ -312,6 +312,7 @@ public:
   const REAL_VALUE_TYPE &lower_bound () const;
   const REAL_VALUE_TYPE &upper_bound () const;
   void update_nan ();
+  void update_nan (bool sign);
   void clear_nan ();
 
   // fpclassify like API
@@ -327,6 +328,7 @@ private:
   bool union_nans (const frange &);
   bool intersect_nans (const frange &);
   bool combine_zeros (const frange &, bool union_p);
+  void flush_denormals_to_zero ();
 
   tree m_type;
   REAL_VALUE_TYPE m_min;
@@ -1081,6 +1083,10 @@ inline void
 frange::set_undefined ()
 {
   m_kind = VR_UNDEFINED;
+  m_type = NULL;
+  m_pos_nan = false;
+  m_neg_nan = false;
+  // m_min and m_min are unitialized as they are REAL_VALUE_TYPE ??.
   if (flag_checking)
     verify_range ();
 }
@@ -1093,6 +1099,19 @@ frange::update_nan ()
   gcc_checking_assert (!undefined_p ());
   m_pos_nan = true;
   m_neg_nan = true;
+  normalize_kind ();
+  if (flag_checking)
+    verify_range ();
+}
+
+// Like above, but set the sign of the NAN.
+
+inline void
+frange::update_nan (bool sign)
+{
+  gcc_checking_assert (!undefined_p ());
+  m_pos_nan = !sign;
+  m_neg_nan = sign;
   normalize_kind ();
   if (flag_checking)
     verify_range ();
@@ -1195,6 +1214,8 @@ frange::known_isinf () const
 inline bool
 frange::maybe_isnan () const
 {
+  if (undefined_p ())
+    return false;
   return m_pos_nan || m_neg_nan;
 }
 

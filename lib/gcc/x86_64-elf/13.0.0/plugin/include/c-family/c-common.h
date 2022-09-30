@@ -184,8 +184,10 @@ enum rid
   RID_IS_UNION,                RID_UNDERLYING_TYPE,
   RID_IS_ASSIGNABLE,           RID_IS_CONSTRUCTIBLE,
   RID_IS_NOTHROW_ASSIGNABLE,   RID_IS_NOTHROW_CONSTRUCTIBLE,
+  RID_IS_CONVERTIBLE,		RID_IS_NOTHROW_CONVERTIBLE,
   RID_REF_CONSTRUCTS_FROM_TEMPORARY,
   RID_REF_CONVERTS_FROM_TEMPORARY,
+  RID_REMOVE_CV, RID_REMOVE_REFERENCE, RID_REMOVE_CVREF,
 
   /* C++11 */
   RID_CONSTEXPR, RID_DECLTYPE, RID_NOEXCEPT, RID_NULLPTR, RID_STATIC_ASSERT,
@@ -1285,6 +1287,7 @@ struct c_omp_directive {
   bool simd;
 };
 
+extern const struct c_omp_directive c_omp_directives[];
 extern const struct c_omp_directive *c_omp_categorize_directive (const char *,
 								 const char *,
 								 const char *);

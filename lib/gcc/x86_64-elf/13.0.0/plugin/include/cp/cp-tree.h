@@ -1374,48 +1374,10 @@ struct GTY (()) tree_argument_pack_select {
 
 enum cp_trait_kind
 {
-  CPTK_BASES,
-  CPTK_DIRECT_BASES,
-  CPTK_HAS_NOTHROW_ASSIGN,
-  CPTK_HAS_NOTHROW_CONSTRUCTOR,
-  CPTK_HAS_NOTHROW_COPY,
-  CPTK_HAS_TRIVIAL_ASSIGN,
-  CPTK_HAS_TRIVIAL_CONSTRUCTOR,
-  CPTK_HAS_TRIVIAL_COPY,
-  CPTK_HAS_TRIVIAL_DESTRUCTOR,
-  CPTK_HAS_UNIQUE_OBJ_REPRESENTATIONS,
-  CPTK_HAS_VIRTUAL_DESTRUCTOR,
-  CPTK_IS_ABSTRACT,
-  CPTK_IS_AGGREGATE,
-  CPTK_IS_BASE_OF,
-  CPTK_IS_CLASS,
-  CPTK_IS_EMPTY,
-  CPTK_IS_ENUM,
-  CPTK_IS_FINAL,
-  CPTK_IS_LAYOUT_COMPATIBLE,
-  CPTK_IS_LITERAL_TYPE,
-  CPTK_IS_POINTER_INTERCONVERTIBLE_BASE_OF,
-  CPTK_IS_POD,
-  CPTK_IS_POLYMORPHIC,
-  CPTK_IS_SAME_AS,
-  CPTK_IS_STD_LAYOUT,
-  CPTK_IS_TRIVIAL,
-  CPTK_IS_TRIVIALLY_ASSIGNABLE,
-  CPTK_IS_TRIVIALLY_CONSTRUCTIBLE,
-  CPTK_IS_TRIVIALLY_COPYABLE,
-  CPTK_IS_UNION,
-  CPTK_UNDERLYING_TYPE,
-  CPTK_IS_ASSIGNABLE,
-  CPTK_IS_CONSTRUCTIBLE,
-  CPTK_IS_NOTHROW_ASSIGNABLE,
-  CPTK_IS_NOTHROW_CONSTRUCTIBLE,
-  CPTK_IS_CONVERTIBLE,
-  CPTK_IS_NOTHROW_CONVERTIBLE,
-  CPTK_REF_CONSTRUCTS_FROM_TEMPORARY,
-  CPTK_REF_CONVERTS_FROM_TEMPORARY,
-  CPTK_REMOVE_CV,
-  CPTK_REMOVE_REFERENCE,
-  CPTK_REMOVE_CVREF,
+#define DEFTRAIT(TCC, CODE, NAME, ARITY) \
+  CPTK_##CODE,
+#include "cp-trait.def"
+#undef DEFTRAIT
 };
 
 /* The types that we are processing.  */
@@ -1855,11 +1817,12 @@ union GTY((desc ("cp_tree_node_structure (&%h)"),
 };
 
 
-struct GTY(()) omp_declare_target_attr {
+struct GTY(()) cp_omp_declare_target_attr {
   bool attr_syntax;
+  int device_type;
 };
 
-struct GTY(()) omp_begin_assumes_data {
+struct GTY(()) cp_omp_begin_assumes_data {
   bool attr_syntax;
 };
 
@@ -1909,8 +1872,8 @@ struct GTY(()) saved_scope {
   cp_binding_level *bindings;
 
   hash_map<tree, tree> *GTY((skip)) x_local_specializations;
-  vec<omp_declare_target_attr, va_gc> *omp_declare_target_attribute;
-  vec<omp_begin_assumes_data, va_gc> *omp_begin_assumes;
+  vec<cp_omp_declare_target_attr, va_gc> *omp_declare_target_attribute;
+  vec<cp_omp_begin_assumes_data, va_gc> *omp_begin_assumes;
 
   struct saved_scope *prev;
 };
@@ -7637,7 +7600,8 @@ enum {
   BCS_NO_SCOPE = 1,
   BCS_TRY_BLOCK = 2,
   BCS_FN_BODY = 4,
-  BCS_TRANSACTION = 8
+  BCS_TRANSACTION = 8,
+  BCS_STMT_EXPR = 16
 };
 extern tree begin_compound_stmt			(unsigned int);
 
@@ -7751,6 +7715,7 @@ extern tree build_transaction_expr		(location_t, tree, int, tree);
 extern bool cxx_omp_create_clause_info		(tree, tree, bool, bool,
 						 bool, bool);
 extern tree baselink_for_fns                    (tree);
+extern void diagnose_failing_condition		(tree, location_t, bool);
 extern void finish_static_assert                (tree, tree, location_t,
 						 bool, bool);
 extern tree finish_decltype_type                (tree, bool, tsubst_flags_t);
@@ -8278,6 +8243,7 @@ extern tree predeclare_vla			(tree);
 extern void clear_fold_cache			(void);
 extern tree lookup_hotness_attribute		(tree);
 extern tree process_stmt_hotness_attribute	(tree, location_t);
+extern tree process_stmt_assume_attribute	(tree, tree, location_t);
 extern bool simple_empty_class_p		(tree, tree, tree_code);
 extern tree fold_builtin_source_location	(location_t);
 
@@ -8483,6 +8449,8 @@ extern tree fold_sizeof_expr			(tree);
 extern void clear_cv_and_fold_caches		(void);
 extern tree unshare_constructor			(tree CXX_MEM_STAT_INFO);
 extern bool decl_implicit_constexpr_p		(tree);
+struct constexpr_ctx;
+extern tree find_failing_clause			(constexpr_ctx *ctx, tree);
 extern bool replace_decl			(tree *, tree, tree);
 
 /* An RAII sentinel used to restrict constexpr evaluation so that it

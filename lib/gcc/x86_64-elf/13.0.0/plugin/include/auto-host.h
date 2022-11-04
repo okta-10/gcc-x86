@@ -1452,6 +1452,12 @@
 #endif
 
 
+/* Define to 1 if you have the `getauxval' function. */
+#ifndef USED_FOR_TARGET
+#define HAVE_GETAUXVAL 1
+#endif
+
+
 /* Define to 1 if you have the `getchar_unlocked' function. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GETCHAR_UNLOCKED 1
@@ -1940,6 +1946,12 @@
 #endif
 
 
+/* Define to 1 if you have the <sys/auxv.h> header file. */
+#ifndef USED_FOR_TARGET
+#define HAVE_SYS_AUXV_H 1
+#endif
+
+
 /* Define to 1 if you have the <sys/file.h> header file. */
 #ifndef USED_FOR_TARGET
 #define HAVE_SYS_FILE_H 1
@@ -2310,6 +2322,12 @@
 /* Define to PREFIX/include if cpp should also search that directory. */
 #ifndef USED_FOR_TARGET
 /* #undef PREFIX_INCLUDE_DIR */
+#endif
+
+
+/* Specify if mutliarch is enabled. */
+#ifndef USED_FOR_TARGET
+/* #undef ENABLE_MULTIARCH */
 #endif
 
 

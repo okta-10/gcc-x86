@@ -329,6 +329,7 @@
 #define HAVE_probe_stack_range_di (Pmode == DImode)
 #define HAVE_trap 1
 #define HAVE_ud2 1
+#define HAVE_prefetchi (TARGET_PREFETCHI && TARGET_64BIT)
 #define HAVE_stack_protect_set_1_si (ptr_mode == SImode)
 #define HAVE_stack_protect_set_1_di (ptr_mode == DImode)
 #define HAVE_stack_protect_test_1_si (ptr_mode == SImode)
@@ -5015,6 +5016,14 @@
 #define HAVE_atomic_exchangehi 1
 #define HAVE_atomic_exchangesi 1
 #define HAVE_atomic_exchangedi (TARGET_64BIT)
+#define HAVE_rao_aandsi (TARGET_RAOINT)
+#define HAVE_rao_aorsi (TARGET_RAOINT)
+#define HAVE_rao_axorsi (TARGET_RAOINT)
+#define HAVE_rao_aaddsi (TARGET_RAOINT)
+#define HAVE_rao_aanddi ((TARGET_RAOINT) && (TARGET_64BIT))
+#define HAVE_rao_aordi ((TARGET_RAOINT) && (TARGET_64BIT))
+#define HAVE_rao_axordi ((TARGET_RAOINT) && (TARGET_64BIT))
+#define HAVE_rao_aadddi ((TARGET_RAOINT) && (TARGET_64BIT))
 #define HAVE_atomic_addqi 1
 #define HAVE_atomic_addhi 1
 #define HAVE_atomic_addsi 1
@@ -9914,6 +9923,7 @@ extern rtx        gen_probe_stack_range_si                        (rtx, rtx, rtx
 extern rtx        gen_probe_stack_range_di                        (rtx, rtx, rtx);
 extern rtx        gen_trap                                        (void);
 extern rtx        gen_ud2                                         (void);
+extern rtx        gen_prefetchi                                   (rtx, rtx);
 extern rtx        gen_stack_protect_set_1_si                      (rtx, rtx);
 extern rtx        gen_stack_protect_set_1_di                      (rtx, rtx);
 extern rtx        gen_stack_protect_test_1_si                     (rtx, rtx, rtx);
@@ -14916,6 +14926,14 @@ extern rtx        gen_atomic_exchangeqi                           (rtx, rtx, rtx
 extern rtx        gen_atomic_exchangehi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_exchangesi                           (rtx, rtx, rtx, rtx);
 extern rtx        gen_atomic_exchangedi                           (rtx, rtx, rtx, rtx);
+extern rtx        gen_rao_aandsi                                  (rtx, rtx);
+extern rtx        gen_rao_aorsi                                   (rtx, rtx);
+extern rtx        gen_rao_axorsi                                  (rtx, rtx);
+extern rtx        gen_rao_aaddsi                                  (rtx, rtx);
+extern rtx        gen_rao_aanddi                                  (rtx, rtx);
+extern rtx        gen_rao_aordi                                   (rtx, rtx);
+extern rtx        gen_rao_axordi                                  (rtx, rtx);
+extern rtx        gen_rao_aadddi                                  (rtx, rtx);
 extern rtx        gen_atomic_addqi                                (rtx, rtx, rtx);
 extern rtx        gen_atomic_addhi                                (rtx, rtx, rtx);
 extern rtx        gen_atomic_addsi                                (rtx, rtx, rtx);

@@ -47164,6 +47164,18 @@ program point:
 
  it will also dump all of the states within the "processed" nodes.
 
+ The builtin '__analyzer_dump_named_constant' will emit a warning during
+analysis describing what is known about the value of a given named
+constant, for parts of the analyzer that interact with target headers.
+
+ For example:
+
+     __analyzer_dump_named_constant ("O_RDONLY");
+
+ might emit the warning:
+
+     warning: named constant 'O_RDONLY' has value '1'
+
         __analyzer_dump_region_model ();
  will dump the region_model's state to stderr.
 
@@ -58487,17 +58499,17 @@ Node: The Language2028390
 Node: Static Analyzer2041017
 Node: Analyzer Internals2041282
 Node: Debugging the Analyzer2057169
-Node: User Experience Guidelines2060808
-Node: Guidelines for Diagnostics2061744
-Ref: input_location_example2069919
-Node: Guidelines for Options2079604
-Node: Funding2079781
-Node: GNU Project2082288
-Node: Copying2082939
-Node: GNU Free Documentation License2120453
-Node: Contributors2145576
-Node: Option Index2186560
-Node: Concept Index2187437
+Node: User Experience Guidelines2061167
+Node: Guidelines for Diagnostics2062103
+Ref: input_location_example2070278
+Node: Guidelines for Options2079963
+Node: Funding2080140
+Node: GNU Project2082647
+Node: Copying2083298
+Node: GNU Free Documentation License2120812
+Node: Contributors2145935
+Node: Option Index2186919
+Node: Concept Index2187796
 
 End Tag Table
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-11-15" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-11-17" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -284,7 +284,7 @@ in the following sections.
 \&\-Wno\-deprecated\-enum\-enum\-conversion \-Wno\-deprecated\-enum\-float\-conversion 
 \&\-Weffc++  \-Wno\-exceptions \-Wextra\-semi  \-Wno\-inaccessible\-base 
 \&\-Wno\-inherited\-variadic\-ctor  \-Wno\-init\-list\-lifetime 
-\&\-Winvalid\-imported\-macros 
+\&\-Winvalid\-constexpr \-Winvalid\-imported\-macros 
 \&\-Wno\-invalid\-offsetof  \-Wno\-literal\-suffix 
 \&\-Wmismatched\-new\-delete \-Wmismatched\-tags 
 \&\-Wmultiple\-inheritance  \-Wnamespaces  \-Wnarrowing 
@@ -476,6 +476,8 @@ in the following sections.
 \&\-Wno\-analyzer\-fd\-access\-mode\-mismatch 
 \&\-Wno\-analyzer\-fd\-double\-close 
 \&\-Wno\-analyzer\-fd\-leak 
+\&\-Wno\-analyzer\-fd\-phase\-mismatch 
+\&\-Wno\-analyzer\-fd\-type\-mismatch 
 \&\-Wno\-analyzer\-fd\-use\-after\-close 
 \&\-Wno\-analyzer\-fd\-use\-without\-check 
 \&\-Wno\-analyzer\-file\-leak 
@@ -1203,7 +1205,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 .Sp
 \&\fI\s-1PRU\s0 Options\fR
 \&\fB\-mmcu=\fR\fImcu\fR  \fB\-minrt  \-mno\-relax  \-mloop 
-\&\-mabi=\fR\fIvariant\fR\fB \fR
+\&\-mabi=\fR\fIvariant\fR
 .Sp
 \&\fIRISC-V Options\fR
 \&\fB\-mbranch\-cost=\fR\fIN\-instruction\fR 
@@ -1226,8 +1228,8 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-malign\-data=\fR\fItype\fR 
 \&\fB\-mbig\-endian  \-mlittle\-endian 
 \&\-mstack\-protector\-guard=\fR\fIguard\fR  \fB\-mstack\-protector\-guard\-reg=\fR\fIreg\fR 
-\&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR
-\&\-mcsr\-check \-mno\-csr\-check
+\&\fB\-mstack\-protector\-guard\-offset=\fR\fIoffset\fR 
+\&\fB\-mcsr\-check \-mno\-csr\-check\fR
 .Sp
 \&\fI\s-1RL78\s0 Options\fR
 \&\fB\-msim  \-mmul=none  \-mmul=g13  \-mmul=g14  \-mallregs 
@@ -3698,6 +3700,29 @@ the variable declaration statement.
 .RE
 .RS 4
 .RE
+.IP "\fB\-Winvalid\-constexpr\fR" 4
+.IX Item "-Winvalid-constexpr"
+Warn when a function never produces a constant expression.  In \*(C+20
+and earlier, for every \f(CW\*(C`constexpr\*(C'\fR function and function template,
+there must be at least one set of function arguments in at least one
+instantiation such that an invocation of the function or constructor
+could be an evaluated subexpression of a core constant expression.
+\&\*(C+23 removed this restriction, so it's possible to have a function
+or a function template marked \f(CW\*(C`constexpr\*(C'\fR for which no invocation
+satisfies the requirements of a core constant expression.
+.Sp
+This warning is enabled as a pedantic warning by default in \*(C+20 and
+earlier.  In \*(C+23, \fB\-Winvalid\-constexpr\fR can be turned on, in
+which case it will be an ordinary warning.  For example:
+.Sp
+.Vb 6
+\&        void f (int& i);
+\&        constexpr void
+\&        g (int& i)
+\&        {
+\&          f(i); // warns by default in C++20, in C++23 only with \-Winvalid\-constexpr
+\&        }
+.Ve
 .IP "\fB\-Winvalid\-imported\-macros\fR" 4
 .IX Item "-Winvalid-imported-macros"
 Verify all imported macro definitions are valid at the end of
@@ -9232,6 +9257,8 @@ Enabling this option effectively enables the following warnings:
 \&\-Wanalyzer\-fd\-access\-mode\-mismatch 
 \&\-Wanalyzer\-fd\-double\-close 
 \&\-Wanalyzer\-fd\-leak 
+\&\-Wanalyzer\-fd\-phase\-mismatch 
+\&\-Wanalyzer\-fd\-type\-mismatch 
 \&\-Wanalyzer\-fd\-use\-after\-close 
 \&\-Wanalyzer\-fd\-use\-without\-check 
 \&\-Wanalyzer\-file\-leak 
@@ -9381,6 +9408,29 @@ This diagnostic warns for paths through code in which an
 open file descriptor is leaked.
 .Sp
 See  \s-1CWE\-775:\s0 Missing Release of File Descriptor or Handle after Effective Lifetime (\f(CW\*(C`https://cwe.mitre.org/data/definitions/775.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-fd\-phase\-mismatch\fR" 4
+.IX Item "-Wno-analyzer-fd-phase-mismatch"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-fd\-phase\-mismatch\fR
+to disable it.
+.Sp
+This diagnostic warns for paths through code in which an operation is
+attempted in the wrong phase of a file descriptor's lifetime.
+For example, it will warn on attempts to call \f(CW\*(C`accept\*(C'\fR on a stream
+socket that has not yet had \f(CW\*(C`listen\*(C'\fR successfully called on it.
+.Sp
+See  \s-1CWE\-666:\s0 Operation on Resource in Wrong Phase of Lifetime (\f(CW\*(C`https://cwe.mitre.org/data/definitions/666.html\*(C'\fR).
+.IP "\fB\-Wno\-analyzer\-fd\-type\-mismatch\fR" 4
+.IX Item "-Wno-analyzer-fd-type-mismatch"
+This warning requires \fB\-fanalyzer\fR, which enables it; use
+\&\fB\-Wno\-analyzer\-fd\-type\-mismatch\fR
+to disable it.
+.Sp
+This diagnostic warns for paths through code in which an
+operation is attempted on the wrong type of file descriptor.
+For example, it will warn on attempts to use socket operations
+on a file descriptor obtained via \f(CW\*(C`open\*(C'\fR, or when attempting
+to use a stream socket operation on a datagram socket.
 .IP "\fB\-Wno\-analyzer\-fd\-use\-after\-close\fR" 4
 .IX Item "-Wno-analyzer-fd-use-after-close"
 This warning requires \fB\-fanalyzer\fR, which enables it; use
@@ -9889,6 +9939,9 @@ of the following functions for working with file descriptors:
 .ie n .IP "*<""write"">" 4
 .el .IP "*<\f(CWwrite\fR>" 4
 .IX Item "*<write>"
+.ie n .IP "*<""socket"", ""bind"", ""listen"", ""accept"", and ""connect"">" 4
+.el .IP "*<\f(CWsocket\fR, \f(CWbind\fR, \f(CWlisten\fR, \f(CWaccept\fR, and \f(CWconnect\fR>" 4
+.IX Item "*<socket, bind, listen, accept, and connect>"
 .PD
 .PP
 of the following functions for working with \f(CW\*(C`<stdio.h>\*(C'\fR streams:
@@ -32458,10 +32511,11 @@ prevents the compiler from using floating-point, vector, mask and bound
 registers.
 .IP "\fB\-mrelax\-cmpxchg\-loop\fR" 4
 .IX Item "-mrelax-cmpxchg-loop"
-Relax cmpxchg loop by emitting an early load and compare before cmpxchg,
-execute pause if load value is not expected. This reduces excessive
-cachline bouncing when and works for all atomic logic fetch builtins
-that generates compare and swap loop.
+When emitting a compare-and-swap loop for \fB_\|_sync Builtins\fR
+and \fB_\|_atomic Builtins\fR lacking a native instruction, optimize
+for the highly contended case by issuing an atomic load before the
+\&\f(CW\*(C`CMPXCHG\*(C'\fR instruction, and using the \f(CW\*(C`PAUSE\*(C'\fR instruction
+to save \s-1CPU\s0 power when restarting the loop.
 .IP "\fB\-mindirect\-branch=\fR\fIchoice\fR" 4
 .IX Item "-mindirect-branch=choice"
 Convert indirect call and jump with \fIchoice\fR.  The default is

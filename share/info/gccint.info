@@ -38163,7 +38163,8 @@ This is about addressing modes.
      to not vectorize scatter stores.
 
  -- Target Hook: int TARGET_SIMD_CLONE_COMPUTE_VECSIZE_AND_SIMDLEN
-          (struct cgraph_node *, struct cgraph_simd_clone *, TREE, INT)
+          (struct cgraph_node *, struct cgraph_simd_clone *, TREE, INT,
+          BOOL)
      This hook should set VECSIZE_MANGLE, VECSIZE_INT, VECSIZE_FLOAT
      fields in SIMD_CLONE structure pointed by CLONE_INFO argument and
      also SIMDLEN field if it was previously 0.  VECSIZE_MANGLE is a
@@ -47094,11 +47095,6 @@ e.g.
      various lang-specific things in the analyzer that assume C rather
      than LTO. For example, SSA names are printed to the user in "raw"
      form, rather than printing the underlying variable name.
-
- Some ideas for other checkers
-   * File-descriptor-based APIs
-   * Linux kernel internal APIs
-   * Signal handling
 
 
 File: gccint.info,  Node: Debugging the Analyzer,  Prev: Analyzer Internals,  Up: Static Analyzer
@@ -57183,15 +57179,15 @@ Concept Index
                                                              (line   39)
 * TARGET_GIMPLE_FOLD_BUILTIN:            Misc.               (line  699)
 * TARGET_GIMPLIFY_VA_ARG_EXPR:           Register Arguments. (line  301)
-* TARGET_GOACC_ADJUST_PRIVATE_DECL:      Addressing Modes.   (line  591)
+* TARGET_GOACC_ADJUST_PRIVATE_DECL:      Addressing Modes.   (line  592)
 * TARGET_GOACC_CREATE_WORKER_BROADCAST_RECORD: Addressing Modes.
-                                                             (line  618)
-* TARGET_GOACC_DIM_LIMIT:                Addressing Modes.   (line  552)
-* TARGET_GOACC_EXPAND_VAR_DECL:          Addressing Modes.   (line  605)
-* TARGET_GOACC_FORK_JOIN:                Addressing Modes.   (line  556)
-* TARGET_GOACC_REDUCTION:                Addressing Modes.   (line  567)
-* TARGET_GOACC_SHARED_MEM_LAYOUT:        Addressing Modes.   (line  629)
-* TARGET_GOACC_VALIDATE_DIMS:            Addressing Modes.   (line  539)
+                                                             (line  619)
+* TARGET_GOACC_DIM_LIMIT:                Addressing Modes.   (line  553)
+* TARGET_GOACC_EXPAND_VAR_DECL:          Addressing Modes.   (line  606)
+* TARGET_GOACC_FORK_JOIN:                Addressing Modes.   (line  557)
+* TARGET_GOACC_REDUCTION:                Addressing Modes.   (line  568)
+* TARGET_GOACC_SHARED_MEM_LAYOUT:        Addressing Modes.   (line  630)
+* TARGET_GOACC_VALIDATE_DIMS:            Addressing Modes.   (line  540)
 * TARGET_HANDLE_C_OPTION:                Run-time Target.    (line   73)
 * TARGET_HANDLE_GENERIC_ATTRIBUTE:       Target Attributes.  (line   93)
 * TARGET_HANDLE_OPTION:                  Run-time Target.    (line   59)
@@ -57304,7 +57300,7 @@ Concept Index
 * TARGET_OBJFMT_CPP_BUILTINS:            Run-time Target.    (line   45)
 * TARGET_OFFLOAD_OPTIONS:                Misc.               (line 1187)
 * TARGET_OMIT_STRUCT_RETURN_REG:         Scalar Return.      (line  117)
-* TARGET_OMP_DEVICE_KIND_ARCH_ISA:       Addressing Modes.   (line  531)
+* TARGET_OMP_DEVICE_KIND_ARCH_ISA:       Addressing Modes.   (line  532)
 * TARGET_OPTAB_SUPPORTED_P:              Costs.              (line  306)
 * TARGET_OPTF:                           Misc.               (line  973)
 * TARGET_OPTION_FUNCTION_VERSIONS:       Target Attributes.  (line  165)
@@ -57329,7 +57325,7 @@ Concept Index
 * TARGET_PRECOMPUTE_TLS_P:               Addressing Modes.   (line  221)
 * TARGET_PREDICT_DOLOOP_P:               Misc.               (line  729)
 * TARGET_PREFERRED_DOLOOP_MODE:          Misc.               (line  793)
-* TARGET_PREFERRED_ELSE_VALUE:           Addressing Modes.   (line  575)
+* TARGET_PREFERRED_ELSE_VALUE:           Addressing Modes.   (line  576)
 * TARGET_PREFERRED_OUTPUT_RELOAD_CLASS:  Register Classes.   (line  284)
 * TARGET_PREFERRED_RELOAD_CLASS:         Register Classes.   (line  213)
 * TARGET_PREFERRED_RENAME_CLASS:         Register Classes.   (line  201)
@@ -57426,11 +57422,11 @@ Concept Index
                                                              (line   27)
 * TARGET_SHRINK_WRAP_SET_HANDLED_COMPONENTS: Shrink-wrapping separate components.
                                                              (line   58)
-* TARGET_SIMD_CLONE_ADJUST:              Addressing Modes.   (line  518)
+* TARGET_SIMD_CLONE_ADJUST:              Addressing Modes.   (line  519)
 * TARGET_SIMD_CLONE_COMPUTE_VECSIZE_AND_SIMDLEN: Addressing Modes.
                                                              (line  507)
-* TARGET_SIMD_CLONE_USABLE:              Addressing Modes.   (line  522)
-* TARGET_SIMT_VF:                        Addressing Modes.   (line  528)
+* TARGET_SIMD_CLONE_USABLE:              Addressing Modes.   (line  523)
+* TARGET_SIMT_VF:                        Addressing Modes.   (line  529)
 * TARGET_SLOW_UNALIGNED_ACCESS:          Costs.              (line  132)
 * TARGET_SMALL_REGISTER_CLASSES_FOR_MODE_P: Register Arguments.
                                                              (line  442)
@@ -58424,94 +58420,94 @@ Node: Varargs1584354
 Node: Trampolines1592448
 Node: Library Calls1602141
 Node: Addressing Modes1607228
-Node: Anchored Addresses1639104
-Node: Condition Code1641747
-Node: MODE_CC Condition Codes1643592
-Node: Costs1650355
-Node: Scheduling1672675
-Node: Sections1696597
-Node: PIC1712967
-Node: Assembler Format1715026
-Node: File Framework1716164
-Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1723763
-Node: Data Output1725438
-Node: Uninitialized Data1733726
-Node: Label Output1738741
-Node: Initialization1763354
-Node: Macros for Initialization1769315
-Node: Instruction Output1776466
-Node: Dispatch Tables1787096
-Node: Exception Region Output1792847
-Node: Alignment Output1799929
-Node: Debugging Info1803616
-Node: All Debuggers1804166
-Node: DWARF1807099
-Node: VMS Debug1812874
-Node: CTF Debug1813471
-Node: BTF Debug1813832
-Node: Floating Point1814175
-Node: Mode Switching1816930
-Node: Target Attributes1821367
-Node: Emulated TLS1832770
-Node: MIPS Coprocessors1836160
-Node: PCH Target1837319
-Node: C++ ABI1839161
-Node: D Language and ABI1843953
-Node: Named Address Spaces1847177
-Node: Misc1853104
-Ref: TARGET_SHIFT_TRUNCATION_MASK1860975
-Node: Host Config1922303
-Node: Host Common1923372
-Node: Filesystem1925746
-Node: Host Misc1929861
-Node: Fragments1932310
-Node: Target Fragment1933505
-Node: Host Fragment1944317
-Node: Collect21944557
-Node: Header Dirs1947193
-Node: Type Information1948616
-Node: GTY Options1952147
-Node: Inheritance and GTY1964578
-Ref: Inheritance and GTY-Footnote-11966143
-Node: User GC1966413
-Node: GGC Roots1970164
-Node: Files1970877
-Node: Invoking the garbage collector1973508
-Node: Troubleshooting1975150
-Node: Plugins1976225
-Node: Plugins loading1977354
-Node: Plugin API1978453
-Node: Plugins pass1986320
-Node: Plugins GC1988291
-Node: Plugins description1990008
-Node: Plugins attr1990544
-Node: Plugins recording1992824
-Node: Plugins gate1993674
-Node: Plugins tracking1994265
-Node: Plugins building1994853
-Node: LTO1998356
-Node: LTO Overview1999228
-Node: LTO object file layout2004984
-Node: IPA2009628
-Node: WHOPR2018680
-Node: Internal flags2023240
-Node: Match and Simplify2024651
-Node: GIMPLE API2025621
-Node: The Language2028423
-Node: Static Analyzer2041050
-Node: Analyzer Internals2041315
-Node: Debugging the Analyzer2057202
-Node: User Experience Guidelines2061200
-Node: Guidelines for Diagnostics2062136
-Ref: input_location_example2070311
-Node: Guidelines for Options2079996
-Node: Funding2080173
-Node: GNU Project2082680
-Node: Copying2083331
-Node: GNU Free Documentation License2120845
-Node: Contributors2145968
-Node: Option Index2186952
-Node: Concept Index2187829
+Node: Anchored Addresses1639120
+Node: Condition Code1641763
+Node: MODE_CC Condition Codes1643608
+Node: Costs1650371
+Node: Scheduling1672691
+Node: Sections1696613
+Node: PIC1712983
+Node: Assembler Format1715042
+Node: File Framework1716180
+Ref: TARGET_HAVE_SWITCHABLE_BSS_SECTIONS1723779
+Node: Data Output1725454
+Node: Uninitialized Data1733742
+Node: Label Output1738757
+Node: Initialization1763370
+Node: Macros for Initialization1769331
+Node: Instruction Output1776482
+Node: Dispatch Tables1787112
+Node: Exception Region Output1792863
+Node: Alignment Output1799945
+Node: Debugging Info1803632
+Node: All Debuggers1804182
+Node: DWARF1807115
+Node: VMS Debug1812890
+Node: CTF Debug1813487
+Node: BTF Debug1813848
+Node: Floating Point1814191
+Node: Mode Switching1816946
+Node: Target Attributes1821383
+Node: Emulated TLS1832786
+Node: MIPS Coprocessors1836176
+Node: PCH Target1837335
+Node: C++ ABI1839177
+Node: D Language and ABI1843969
+Node: Named Address Spaces1847193
+Node: Misc1853120
+Ref: TARGET_SHIFT_TRUNCATION_MASK1860991
+Node: Host Config1922319
+Node: Host Common1923388
+Node: Filesystem1925762
+Node: Host Misc1929877
+Node: Fragments1932326
+Node: Target Fragment1933521
+Node: Host Fragment1944333
+Node: Collect21944573
+Node: Header Dirs1947209
+Node: Type Information1948632
+Node: GTY Options1952163
+Node: Inheritance and GTY1964594
+Ref: Inheritance and GTY-Footnote-11966159
+Node: User GC1966429
+Node: GGC Roots1970180
+Node: Files1970893
+Node: Invoking the garbage collector1973524
+Node: Troubleshooting1975166
+Node: Plugins1976241
+Node: Plugins loading1977370
+Node: Plugin API1978469
+Node: Plugins pass1986336
+Node: Plugins GC1988307
+Node: Plugins description1990024
+Node: Plugins attr1990560
+Node: Plugins recording1992840
+Node: Plugins gate1993690
+Node: Plugins tracking1994281
+Node: Plugins building1994869
+Node: LTO1998372
+Node: LTO Overview1999244
+Node: LTO object file layout2005000
+Node: IPA2009644
+Node: WHOPR2018696
+Node: Internal flags2023256
+Node: Match and Simplify2024667
+Node: GIMPLE API2025637
+Node: The Language2028439
+Node: Static Analyzer2041066
+Node: Analyzer Internals2041331
+Node: Debugging the Analyzer2057101
+Node: User Experience Guidelines2061099
+Node: Guidelines for Diagnostics2062035
+Ref: input_location_example2070210
+Node: Guidelines for Options2079895
+Node: Funding2080072
+Node: GNU Project2082579
+Node: Copying2083230
+Node: GNU Free Documentation License2120744
+Node: Contributors2145867
+Node: Option Index2186851
+Node: Concept Index2187728
 
 End Tag Table
 

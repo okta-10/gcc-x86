@@ -22,9 +22,12 @@
 #define HAVE_extendhisi2 1
 #define HAVE_extendqisi2 1
 #define HAVE_extendqihi2 1
+#define HAVE_extendbfsf2_1 (TARGET_SSE2)
 #define HAVE_truncdfsf2 (TARGET_80387 || (TARGET_SSE2 && TARGET_SSE_MATH))
 #define HAVE_truncxfsf2 (TARGET_80387)
 #define HAVE_truncxfdf2 (TARGET_80387)
+#define HAVE_truncsfbf2 (((TARGET_AVX512BF16 && TARGET_AVX512VL) || TARGET_AVXNECONVERT) \
+   && !HONOR_NANS (BFmode) && flag_unsafe_math_optimizations)
 #define HAVE_fix_trunchfsi2 (TARGET_AVX512FP16)
 #define HAVE_fixuns_trunchfsi2 (TARGET_AVX512FP16)
 #define HAVE_fix_trunchfdi2 ((TARGET_AVX512FP16) && (TARGET_64BIT))
@@ -5094,9 +5097,9 @@
 #define HAVE_cbranchhf4 (TARGET_AVX512FP16)
 #define HAVE_cbranchsf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (SFmode) && TARGET_SSE_MATH))
 #define HAVE_cbranchdf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (DFmode) && TARGET_SSE_MATH))
-#define HAVE_cbranchbf4 1
+#define HAVE_cbranchbf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (SFmode) && TARGET_SSE_MATH))
 #define HAVE_cstorehf4 (TARGET_AVX512FP16)
-#define HAVE_cstorebf4 1
+#define HAVE_cstorebf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (SFmode) && TARGET_SSE_MATH))
 #define HAVE_cstoresf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (SFmode) && TARGET_SSE_MATH))
 #define HAVE_cstoredf4 (TARGET_80387 || (SSE_FLOAT_MODE_P (DFmode) && TARGET_SSE_MATH))
 #define HAVE_cbranchcc4 1
@@ -5135,6 +5138,7 @@
 #define HAVE_extendsfdf2 (TARGET_80387 || (TARGET_SSE2 && TARGET_SSE_MATH))
 #define HAVE_extendhfsf2 (TARGET_AVX512FP16 || TARGET_F16C || TARGET_AVX512VL)
 #define HAVE_extendhfdf2 (TARGET_AVX512FP16)
+#define HAVE_extendbfsf2 (TARGET_SSE2 && !HONOR_NANS (BFmode))
 #define HAVE_extendsfxf2 (TARGET_80387)
 #define HAVE_extenddfxf2 (TARGET_80387)
 #define HAVE_truncsfhf2 (TARGET_AVX512FP16 || TARGET_F16C || TARGET_AVX512VL)
@@ -6123,7 +6127,8 @@
   && TARGET_MMX_WITH_SSE)
 #define HAVE_lfloorv2sfv2si2 (TARGET_SSE4_1 && !flag_trapping_math \
   && TARGET_MMX_WITH_SSE)
-#define HAVE_btruncv2sf2 (TARGET_SSE4_1 && !flag_trapping_math)
+#define HAVE_btruncv2sf2 (TARGET_SSE4_1 && !flag_trapping_math \
+  && TARGET_MMX_WITH_SSE)
 #define HAVE_roundv2sf2 (TARGET_SSE4_1 && !flag_trapping_math \
    && TARGET_MMX_WITH_SSE)
 #define HAVE_lroundv2sfv2si2 (TARGET_SSE4_1 && !flag_trapping_math \
@@ -9701,9 +9706,11 @@ extern rtx        gen_extendhidi2                                 (rtx, rtx);
 extern rtx        gen_extendhisi2                                 (rtx, rtx);
 extern rtx        gen_extendqisi2                                 (rtx, rtx);
 extern rtx        gen_extendqihi2                                 (rtx, rtx);
+extern rtx        gen_extendbfsf2_1                               (rtx, rtx);
 extern rtx        gen_truncdfsf2                                  (rtx, rtx);
 extern rtx        gen_truncxfsf2                                  (rtx, rtx);
 extern rtx        gen_truncxfdf2                                  (rtx, rtx);
+extern rtx        gen_truncsfbf2                                  (rtx, rtx);
 extern rtx        gen_fix_trunchfsi2                              (rtx, rtx);
 extern rtx        gen_fixuns_trunchfsi2                           (rtx, rtx);
 extern rtx        gen_fix_trunchfdi2                              (rtx, rtx);
@@ -15045,6 +15052,7 @@ extern rtx        gen_extendsidi2                                 (rtx, rtx);
 extern rtx        gen_extendsfdf2                                 (rtx, rtx);
 extern rtx        gen_extendhfsf2                                 (rtx, rtx);
 extern rtx        gen_extendhfdf2                                 (rtx, rtx);
+extern rtx        gen_extendbfsf2                                 (rtx, rtx);
 extern rtx        gen_extendsfxf2                                 (rtx, rtx);
 extern rtx        gen_extenddfxf2                                 (rtx, rtx);
 extern rtx        gen_truncsfhf2                                  (rtx, rtx);

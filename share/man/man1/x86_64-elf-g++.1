@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "GCC 1"
-.TH GCC 1 "2022-11-24" "gcc-13.0.0" "GNU"
+.TH GCC 1 "2022-12-09" "gcc-13.0.0" "GNU"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -233,8 +233,8 @@ in the following sections.
 \&\-flax\-vector\-conversions  \-fms\-extensions 
 \&\-foffload=\fR\fIarg\fR  \fB\-foffload\-options=\fR\fIarg\fR 
 \&\fB\-fopenacc  \-fopenacc\-dim=\fR\fIgeom\fR 
-\&\fB\-fopenmp  \-fopenmp\-simd 
-\&\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR 
+\&\fB\-fopenmp  \-fopenmp\-simd  \-fopenmp\-target\-simd\-clone\fR[\fB=\fR\fIdevice-type\fR] 
+\&\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstandard\fR 
 \&\fB\-fplan9\-extensions  \-fsigned\-bitfields  \-funsigned\-bitfields 
 \&\-fsigned\-char  \-funsigned\-char \-fstrict\-flex\-arrays[=\fR\fIn\fR\fB] 
 \&\-fsso\-struct=\fR\fIendianness\fR
@@ -1456,7 +1456,7 @@ See \s-1RS/6000\s0 and PowerPC Options.
 \&\-mindirect\-branch=\fR\fIchoice\fR  \fB\-mfunction\-return=\fR\fIchoice\fR 
 \&\fB\-mindirect\-branch\-register \-mharden\-sls=\fR\fIchoice\fR 
 \&\fB\-mindirect\-branch\-cs\-prefix \-mneeded \-mno\-direct\-extern\-access 
-\&\-munroll\-only\-small\-loops\fR
+\&\-munroll\-only\-small\-loops \-mlam=\fR\fIchoice\fR
 .Sp
 \&\fIx86 Windows Options\fR
 \&\fB\-mconsole  \-mcygwin  \-mno\-cygwin  \-mdll 
@@ -2769,6 +2769,28 @@ Enable handling of OpenMP's \f(CW\*(C`simd\*(C'\fR, \f(CW\*(C`declare simd\*(C'\
 \&\f(CW\*(C`simd\*(C'\fR as constituent with \f(CW\*(C`#pragma omp\*(C'\fR in C/\*(C+,
 \&\f(CW\*(C`[[omp::directive(...)]]\*(C'\fR and \f(CW\*(C`[[omp::sequence(...)]]\*(C'\fR in \*(C+
 and \f(CW\*(C`!$omp\*(C'\fR in Fortran.  Other OpenMP directives are ignored.
+.IP "\fB\-fopenmp\-target\-simd\-clone\fR" 4
+.IX Item "-fopenmp-target-simd-clone"
+.PD 0
+.IP "\fB\-fopenmp\-target\-simd\-clone=\fR\fIdevice-type\fR" 4
+.IX Item "-fopenmp-target-simd-clone=device-type"
+.PD
+In addition to generating \s-1SIMD\s0 clones for functions marked with the
+\&\f(CW\*(C`declare simd\*(C'\fR directive, \s-1GCC\s0 also generates clones
+for functions marked with the OpenMP \f(CW\*(C`declare target\*(C'\fR directive
+that are suitable for vectorization when this option is in effect.  The
+\&\fIdevice-type\fR may be one of \f(CW\*(C`none\*(C'\fR, \f(CW\*(C`host\*(C'\fR, \f(CW\*(C`nohost\*(C'\fR,
+and \f(CW\*(C`any\*(C'\fR, which correspond to keywords for the \f(CW\*(C`device_type\*(C'\fR
+clause of the \f(CW\*(C`declare target\*(C'\fR directive; clones are generated for
+the intersection of devices specified.
+\&\fB\-fopenmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=any\fR and
+\&\fB\-fno\-openmp\-target\-simd\-clone\fR is equivalent to
+\&\fB\-fopenmp\-target\-simd\-clone=none\fR.
+.Sp
+At \fB\-O2\fR and higher (but not \fB\-Os\fR or \fB\-Og\fR) this
+optimization defaults to \fB\-fopenmp\-target\-simd\-clone=nohost\fR; otherwise
+it is disabled by default.
 .IP "\fB\-fpermitted\-flt\-eval\-methods=\fR\fIstyle\fR" 4
 .IX Item "-fpermitted-flt-eval-methods=style"
 \&\s-1ISO/IEC TS 18661\-3\s0 defines new permissible values for
@@ -7588,6 +7610,25 @@ Warn about out of bounds subscripts or offsets into arrays.  This warning
 is enabled by \fB\-Wall\fR.  It is more effective when \fB\-ftree\-vrp\fR
 is active (the default for \fB\-O2\fR and above) but a subset of instances
 are issued even without optimization.
+.Sp
+By default, the trailing array of a structure will be treated as a flexible
+array member by \fB\-Warray\-bounds\fR or \fB\-Warray\-bounds=\fR\fIn\fR
+if it is declared as either a flexible array member per C99 standard onwards
+(\fB[]\fR), a \s-1GCC\s0 zero-length array extension (\fB[0]\fR), or an one-element
+array (\fB[1]\fR). As a result, out of bounds subscripts or offsets into
+zero-length arrays or one-element arrays are not warned by default.
+.Sp
+You can add the option \fB\-fstrict\-flex\-arrays\fR or
+\&\fB\-fstrict\-flex\-arrays=\fR\fIlevel\fR to control how this
+option treat trailing array of a structure as a flexible array member:
+.Sp
+when \fIlevel\fR<=1, no change to the default behavior.
+.Sp
+when \fIlevel\fR=2, additional warnings will be issued for out of bounds
+subscripts or offsets into one-element arrays;
+.Sp
+when \fIlevel\fR=3, in addition to \fIlevel\fR=2, additional warnings will be
+issued for out of bounds subscripts or offsets into zero-length arrays.
 .RS 4
 .IP "\fB\-Warray\-bounds=1\fR" 4
 .IX Item "-Warray-bounds=1"
@@ -7595,11 +7636,9 @@ This is the default warning level of \fB\-Warray\-bounds\fR and is enabled
 by \fB\-Wall\fR; higher levels are not, and must be explicitly requested.
 .IP "\fB\-Warray\-bounds=2\fR" 4
 .IX Item "-Warray-bounds=2"
-This warning level also warns about out of bounds accesses to trailing
-struct members of one-element array types and about
-the intermediate results of pointer arithmetic that may yield out of bounds
-values.  This warning level may give a larger number of false positives and
-is deactivated by default.
+This warning level also warns about the intermediate results of pointer
+arithmetic that may yield out of bounds values. This warning level may
+give a larger number of false positives and is deactivated by default.
 .RE
 .RS 4
 .RE
@@ -10023,6 +10062,9 @@ of the following functions for working with file descriptors:
 .ie n .IP "*<""dup"", ""dup2"" and ""dup3"">" 4
 .el .IP "*<\f(CWdup\fR, \f(CWdup2\fR and \f(CWdup3\fR>" 4
 .IX Item "*<dup, dup2 and dup3>"
+.ie n .IP "*<""isatty"">" 4
+.el .IP "*<\f(CWisatty\fR>" 4
+.IX Item "*<isatty>"
 .ie n .IP "*<""pipe"", and ""pipe2"">" 4
 .el .IP "*<\f(CWpipe\fR, and \f(CWpipe2\fR>" 4
 .IX Item "*<pipe, and pipe2>"
@@ -10057,15 +10099,24 @@ of the following functions for working with \f(CW\*(C`<stdio.h>\*(C'\fR streams:
 .ie n .IP "*<""fclose"">" 4
 .el .IP "*<\f(CWfclose\fR>" 4
 .IX Item "*<fclose>"
+.ie n .IP "*<""ferror"">" 4
+.el .IP "*<\f(CWferror\fR>" 4
+.IX Item "*<ferror>"
 .ie n .IP "*<""fgets"">" 4
 .el .IP "*<\f(CWfgets\fR>" 4
 .IX Item "*<fgets>"
 .ie n .IP "*<""fgets_unlocked"">" 4
 .el .IP "*<\f(CWfgets_unlocked\fR>" 4
 .IX Item "*<fgets_unlocked>"
+.ie n .IP "*<""fileno"">" 4
+.el .IP "*<\f(CWfileno\fR>" 4
+.IX Item "*<fileno>"
 .ie n .IP "*<""fread"">" 4
 .el .IP "*<\f(CWfread\fR>" 4
 .IX Item "*<fread>"
+.ie n .IP "*<""getc"">" 4
+.el .IP "*<\f(CWgetc\fR>" 4
+.IX Item "*<getc>"
 .ie n .IP "*<""getchar"">" 4
 .el .IP "*<\f(CWgetchar\fR>" 4
 .IX Item "*<getchar>"
@@ -13983,6 +14034,9 @@ The maximum depth of a loop nest suitable for complete peeling.
 .IP "\fBmax-unswitch-insns\fR" 4
 .IX Item "max-unswitch-insns"
 The maximum number of insns of an unswitched loop.
+.IP "\fBmax-unswitch-depth\fR" 4
+.IX Item "max-unswitch-depth"
+The maximum depth of a loop nest to be unswitched.
 .IP "\fBlim-expensive\fR" 4
 .IX Item "lim-expensive"
 The minimum cost of an expensive expression in the loop invariant motion.
@@ -15477,6 +15531,16 @@ for a list of supported options.
 The option cannot be combined with \fB\-fsanitize=thread\fR or
 \&\fB\-fsanitize=hwaddress\fR.  Note that the only target
 \&\fB\-fsanitize=hwaddress\fR is currently supported on is AArch64.
+.Sp
+To get more accurate stack traces, it is possible to use options such as
+\&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR (which, for instance, prevent
+most function inlining), \fB\-fno\-optimize\-sibling\-calls\fR (which prevents
+optimizing sibling and tail recursive calls; this option is implicit for
+\&\fB\-O0\fR, \fB\-O1\fR, or \fB\-Og\fR), or \fB\-fno\-ipa\-icf\fR (which
+disables Identical Code Folding for functions).  Since multiple runs of the
+program may yield backtraces with different addresses due to \s-1ASLR\s0 (Address
+Space Layout Randomization), it may be desirable to turn \s-1ASLR\s0 off.  On Linux,
+this can be achieved with \fBsetarch `uname \-m` \-R ./prog\fR.
 .IP "\fB\-fsanitize=kernel\-address\fR" 4
 .IX Item "-fsanitize=kernel-address"
 Enable AddressSanitizer for Linux kernel.
@@ -32751,6 +32815,12 @@ Controls conservative small loop unrolling. It is default enabled by
 O2, and unrolls loop with less than 4 insns by 1 time. Explicit
 \&\-f[no\-]unroll\-[all\-]loops would disable this flag to avoid any
 unintended unrolling behavior that user does not want.
+.IP "\fB\-mlam=\fR\fIchoice\fR" 4
+.IX Item "-mlam=choice"
+\&\s-1LAM\s0(linear\-address masking) allows special bits in the pointer to be used
+for metadata. The default is \fBnone\fR. With \fBu48\fR, pointer bits in
+positions 62:48 can be used for metadata; With \fBu57\fR, pointer bits in
+positions 62:57 can be used for metadata.
 .PP
 \fIx86 Windows Options\fR
 .IX Subsection "x86 Windows Options"
